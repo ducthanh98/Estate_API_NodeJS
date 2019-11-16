@@ -13,8 +13,11 @@ export class DatabaseHelper<Entity, DTO> {
     findAll(): Observable<Entity[]> {
         return from(this.repository.find());
     }
-    findOne(id: string | number) {
-        return from(this.repository.findOne({ where: { id } }));
+
+    findOne(key: string, value: string | number) {
+        let condition = `{"${key}":"${value}"}`;
+        condition = JSON.parse(condition);
+        return from(this.repository.findOne({ where: condition }));
     }
 
     insert(data: DTO): Observable<Entity> {
