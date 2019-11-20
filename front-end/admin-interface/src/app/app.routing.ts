@@ -6,6 +6,7 @@ import { DefaultLayoutComponent } from './containers';
 
 import { P404Component } from './views/error/404.component';
 import { P500Component } from './views/error/500.component';
+import { AuthguardtokenGuard } from './views/auth/auth.guard';
 
 export const routes: Routes = [
   {
@@ -25,6 +26,7 @@ export const routes: Routes = [
   {
     path: '',
     component: DefaultLayoutComponent,
+    canActivate: [AuthguardtokenGuard],
     data: {
       title: 'Home'
     },

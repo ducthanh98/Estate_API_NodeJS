@@ -41,6 +41,9 @@ export class UserEntity {
     @Column('boolean', { default: false })
     active: boolean;
 
+    @Column('boolean')
+    gender: boolean;
+
     @Column('varchar', { length: 50, nullable: true })
     code: string;
 

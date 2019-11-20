@@ -6,4 +6,7 @@ export class NotificationContant {
     public static ACC_NOT_ACTIVE = 'The account has not been activated. Please check your email and activate your account.';
     public static PASS_INCORRECT = 'Incorrect password.';
     public static NOT_PERMISSION = `You don't have permission to access this page.`;
+    public static CODE_INVALID = 'Activation code is not valid.';
+    public static USER_ACTIVATED = 'The account has been activated';
+    public static SUCCESS = 'Thành công';
 }

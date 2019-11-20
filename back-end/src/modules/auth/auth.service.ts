@@ -1,8 +1,8 @@
-import { Injectable, OnModuleInit, HttpException, HttpStatus } from '@nestjs/common';
+import { Injectable, OnModuleInit, HttpException, HttpStatus, Logger } from '@nestjs/common';
 import { UserDTO } from './dto/user.dto';
 import { DatabaseHelper } from '../../helpers/database.helper';
 import { UserEntity } from './../../database/user.entity';
-import { map, mergeAll, mergeMap } from 'rxjs/operators';
+import { mergeAll, switchMap, catchError, mergeMap } from 'rxjs/operators';
 import { throwError } from 'rxjs/internal/observable/throwError';
 import { v4 as uuid } from 'uuid';
 import { LoginDTO } from './dto/login.dto';
@@ -11,17 +11,21 @@ import { NotificationContant } from './../../constants/notification.constant';
 import * as jwt from 'jsonwebtoken';
 import { LoginRO } from './ro/login.ro';
 import { of } from 'rxjs';
+import { MailTemplate } from './../../constants/mail.constant';
+import { NodeMailer } from './../../helpers/nodemailer.helper';
 
 @Injectable()
 export class AuthService implements OnModuleInit {
     private databaseHelper: DatabaseHelper<UserEntity, UserDTO>;
+    private nodeMailer: NodeMailer;
     onModuleInit() {
         this.databaseHelper = new DatabaseHelper<UserEntity, UserDTO>(UserEntity);
+        this.nodeMailer = new NodeMailer();
     }
     register(data: UserDTO) {
         const { email } = data;
         return this.databaseHelper.findOne('email', email).pipe(
-            map((value: UserEntity) => {
+            switchMap((value: UserEntity) => {
                 if (!value) {
                     data.code = uuid();
                     return this.databaseHelper.insert(data);
@@ -29,31 +33,46 @@ export class AuthService implements OnModuleInit {
                     return throwError(new Error('Email already exist'));
                 }
             }),
-            mergeAll()
         );
     }
 
     activeUser(id: string, code: string) {
         return this.databaseHelper.findOne('id', id).pipe(
-            map((value: UserEntity) => {
+            switchMap((value: UserEntity) => {
                 if (!value) {
                     return throwError(new Error('ID is not match with any user'));
                 } else if (value.code === code) {
                     value.code = '';
                     value.active = true;
-                    return this.databaseHelper.update(id, value)
+                    return this.databaseHelper.update(id, value);
                 } else {
-                    return throwError(new Error('Activation code is not valid'));
+                    return throwError(new Error(NotificationContant.CODE_INVALID));
                 }
             }),
-            mergeAll(),
+        );
+    }
+
+    sendActiveMail(id: number, protocol: string, host: string) {
+        return this.databaseHelper.findOne('id', id).pipe(
+            switchMap((value: UserEntity) => {
+                if (!value) {
+                    return throwError(new Error('ID is not match with any user'));
+                } else if (value.code === '') {
+                    return throwError(new Error(MailTemplate.EMAIL_SERVER_ERR));
+                } else if (value.active) {
+                    return throwError(new Error(NotificationContant.USER_ACTIVATED));
+                } else {
+                    const verifyUrl = `${protocol}://${host}/verify/${value.code}`;
+                    return this.nodeMailer.sendMail(value.email, MailTemplate.SUBJECT, verifyUrl);
+                }
+            }),
         );
     }
 
     login(data: LoginDTO) {
         const { email, password, type } = data;
         return this.databaseHelper.findOne('email', email).pipe(
-            mergeMap(async (value: UserEntity) => {
+            switchMap(async (value: UserEntity) => {
                 if (!value) {
                     return throwError(new Error(NotificationContant.EMAIL_NOT_EXIST));
                 } else if (!value.active) {

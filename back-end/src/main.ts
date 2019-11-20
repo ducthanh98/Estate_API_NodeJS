@@ -21,6 +21,7 @@ async function bootstrap() {
   const port = process.env.PORT || 3000;
   const app = await NestFactory.create(AppModule);
   app.setGlobalPrefix('api');
+  app.enableCors();
   initSwagger(app);
   await app.listen(port);
   Logger.log(`App is running at port ${port}`);

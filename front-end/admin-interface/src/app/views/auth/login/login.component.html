@@ -14,18 +14,29 @@
                                             <span class="input-group-text"><i class="icon-user"></i></span>
                                         </div>
                                         <input type="text" formControlName="email" class="form-control"
-                                            placeholder="Email" autocomplete="username" required>
+                                            placeholder="Email" autocomplete="username">
+                                    </div>
+                                    <div class="input-group mb-4" *ngIf="loginForm.get('email').invalid">
+                                        <div class="input-group-prepend text-danger">
+                                            Email không hợp lệ
+                                        </div>
                                     </div>
                                     <div class="input-group mb-4">
                                         <div class="input-group-prepend">
                                             <span class="input-group-text"><i class="icon-lock"></i></span>
                                         </div>
                                         <input type="password" formControlName="password" class="form-control"
-                                            placeholder="Password" autocomplete="current-password" required>
+                                            placeholder="Password" autocomplete="current-password" maxlength="16">
+                                    </div>
+                                    <div class="input-group mb-4" *ngIf="loginForm.get('password').invalid">
+                                        <div class="input-group-prepend text-danger">
+                                            Mật khẩu phải từ 8 - 16 kí tự
+                                        </div>
                                     </div>
                                     <div class="row">
                                         <div class="col-6">
-                                            <button type="submit" class="btn btn-primary px-4">Login</button>
+                                            <button type="submit" [disabled]="loginForm.invalid"
+                                                class="btn btn-primary px-4">Login</button>
                                         </div>
                                         <div class="col-6 text-right">
                                             <button type="button" class="btn btn-link px-0">Forgot password?</button>
