@@ -1,0 +1,22 @@
+import { Injectable } from '@angular/core';
+import { WebConstants } from './../../shared/constants/constants';
+
+@Injectable({
+  providedIn: 'root'
+})
+export class AuthService {
+
+  constructor() { }
+
+  loggedInToken() {
+    const token = localStorage.getItem(WebConstants.ACCESS_TOKEN);
+    if (token) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+  get token() {
+    return localStorage.getItem(WebConstants.ACCESS_TOKEN);
+  }
+}
