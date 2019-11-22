@@ -8,6 +8,7 @@ export class CommonService {
   private baseUrl = 'http://localhost:3000/api/';
   constructor(private http: HttpClient) { }
 
+
   doGet<T>(url: string, header?: HttpHeaders, params?: HttpParams): Observable<T> {
     const requestUrl = `${this.baseUrl}${url}`;
     return this.http.get<T>(requestUrl, { headers: header, params: params });

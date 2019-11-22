@@ -19,4 +19,8 @@ export class AuthService {
   get token() {
     return localStorage.getItem(WebConstants.ACCESS_TOKEN);
   }
+
+  get userInfo() {
+    return JSON.parse(localStorage.getItem(WebConstants.USER_INFO));
+  }
 }

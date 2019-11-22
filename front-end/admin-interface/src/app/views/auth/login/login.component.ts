@@ -4,6 +4,7 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { IResponse } from '../../../shared/interfaces/Iresponse.interface';
 import { WebConstants } from './../../../shared/constants/constants';
 import { Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-login',
@@ -11,7 +12,10 @@ import { Router } from '@angular/router';
 })
 export class LoginComponent implements OnInit {
   loginForm: FormGroup;
-  constructor(private commonService: CommonService, private fb: FormBuilder, private router: Router) { }
+  constructor(private commonService: CommonService,
+    private fb: FormBuilder,
+    private router: Router,
+    private toastrService: ToastrService) { }
 
   ngOnInit() {
     this.initForm();
@@ -34,9 +38,11 @@ export class LoginComponent implements OnInit {
             localStorage.setItem(WebConstants.ACCESS_TOKEN, res.data[WebConstants.ACCESS_TOKEN]);
             localStorage.setItem(WebConstants.USER_INFO, JSON.stringify(res.data[WebConstants.USER_INFO]));
             this.router.navigate(['/dashboard']);
+          } else {
+            this.toastrService.error(res.message);
           }
         }, (err) => {
-          console.log(err);
+          this.toastrService.error(err.errors.message);
         }
       );
   }

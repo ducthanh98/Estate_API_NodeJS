@@ -45,7 +45,7 @@ export class RegisterComponent implements OnInit {
       || !this.registerForm.get('re_pass').value
       || !this.registerForm.get('email').value
       || !this.registerForm.get('phone').value) {
-      this.toastrService.error('Vui lòng nhập đầy đủ thông tin !')
+      this.toastrService.error('Vui lòng nhập đầy đủ thông tin !');
       return false;
     }
     const body = this.registerForm.value;
@@ -55,16 +55,15 @@ export class RegisterComponent implements OnInit {
       .subscribe(
         (data: IResponse<any>) => {
           if (data.statusCode === 0) {
-
+            this.toastrService.success(data.message);
           } else {
-            this.toastrService.error(data.message)
+            this.toastrService.error(data.message);
           }
         },
         (err: any) => {
-          console.log(err)
-          this.toastrService.error(err.error.message)
+          this.toastrService.error(err.error.message);
         }
-      )
+      );
   }
 
 }
