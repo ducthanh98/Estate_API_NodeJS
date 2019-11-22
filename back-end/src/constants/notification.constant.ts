@@ -8,5 +8,6 @@ export class NotificationContant {
     public static NOT_PERMISSION = `You don't have permission to access this page.`;
     public static CODE_INVALID = 'Activation code is not valid.';
     public static USER_ACTIVATED = 'The account has been activated';
-    public static SUCCESS = 'Thành công';
+    public static SUCCESS = 'Success';
+    public static ACTIVE_EMAIL = 'Success. Please check your mail to active your account.';
 }

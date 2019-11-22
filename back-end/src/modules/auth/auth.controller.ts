@@ -45,7 +45,7 @@ export class AuthController {
                 () => {
                     const response: IReponse<UserEntity> = {
                         statusCode: Code.SUCCESS,
-                        message: NotificationContant.SUCCESS,
+                        message: NotificationContant.ACTIVE_EMAIL,
                     };
                     res.json(response);
                 }, (err) => {
