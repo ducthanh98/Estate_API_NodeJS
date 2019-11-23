@@ -10,6 +10,6 @@ import { MulterModule } from '@nestjs/platform-express';
     }),
   ],
   controllers: [AmentitiesController],
-  providers: [AmentitiesService]
+  providers: [AmentitiesService],
 })
 export class AmentitiesModule { }

@@ -60,7 +60,7 @@ export class AuthController {
     }
 
     @Get('/verify/:id/:code')
-    activeCode(@Res() res: Response, @Param('id') id: string, @Param('code') code: string) {
+    activeCode(@Res() res: Response, @Param('id') id: number, @Param('code') code: string) {
 
         this.authService.activeUser(id, code)
             .subscribe(

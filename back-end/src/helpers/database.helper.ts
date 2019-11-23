@@ -1,8 +1,9 @@
 import { getRepository, Repository, DeleteResult, UpdateResult } from 'typeorm';
-import { from, Observable } from 'rxjs';
+import { from, Observable, of } from 'rxjs';
 import { QueryDeepPartialEntity } from 'typeorm/query-builder/QueryPartialEntity';
-import { map } from 'rxjs/operators';
+import { map, switchMap } from 'rxjs/operators';
 import { NotificationContant } from './../constants/notification.constant';
+import { throwError } from 'rxjs/internal/observable/throwError';
 
 export class DatabaseHelper<Entity, DTO> {
     private repository: Repository<Entity>;
@@ -24,25 +25,25 @@ export class DatabaseHelper<Entity, DTO> {
         const entity: Entity = this.repository.create(data);
         return from(this.repository.save(entity));
     }
-    update(id: string, data: QueryDeepPartialEntity<Entity>) {
+    update(id: number, data: QueryDeepPartialEntity<Entity>): Observable<string> {
         return from(this.repository.update(id, data)).pipe(
-            map((value: UpdateResult) => {
+            switchMap((value: UpdateResult) => {
                 if (value.raw.affectedRows > 0) {
-                    return NotificationContant.UPDATE_SUCCESS;
+                    return of(NotificationContant.UPDATE_SUCCESS);
                 } else {
-                    return NotificationContant.DELETE_FAILED;
+                    return throwError(new Error(NotificationContant.ID_NOT_MATCH));
                 }
             }),
         );
     }
 
-    delete(id: string): Observable<string> {
+    delete(id: number): Observable<string> {
         return from(this.repository.delete(id)).pipe(
-            map((value: DeleteResult) => {
+            switchMap((value: DeleteResult) => {
                 if (value.affected > 0) {
-                    return NotificationContant.DELETE_SUCCESS;
+                    return of(NotificationContant.DELETE_SUCCESS);
                 } else {
-                    return NotificationContant.DELETE_FAILED;
+                    return throwError(new Error(NotificationContant.ID_NOT_MATCH));
                 }
             }),
         );

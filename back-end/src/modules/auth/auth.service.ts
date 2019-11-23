@@ -36,11 +36,11 @@ export class AuthService implements OnModuleInit {
         );
     }
 
-    activeUser(id: string, code: string) {
+    activeUser(id: number, code: string) {
         return this.databaseHelper.findOne('id', id).pipe(
             switchMap((value: UserEntity) => {
                 if (!value) {
-                    return throwError(new Error('ID is not match with any user'));
+                    return throwError(new Error(NotificationContant.ID_NOT_MATCH));
                 } else if (value.code === code) {
                     value.code = '';
                     value.active = true;
