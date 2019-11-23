@@ -55,7 +55,8 @@ import { CommonService } from './shared/common/common.service';
     BsDropdownModule.forRoot(),
     TabsModule.forRoot(),
     ChartsModule,
-    ToastrModule.forRoot()
+    ToastrModule.forRoot(),
+
   ],
   declarations: [
     AppComponent,
