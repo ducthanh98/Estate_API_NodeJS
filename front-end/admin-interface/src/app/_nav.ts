@@ -11,22 +11,16 @@ export const navItems: INavData[] = [
     }
   },
   {
-    title: true,
-    name: 'Theme'
-  },
-  {
-    name: 'Colors',
-    url: '/theme/colors',
-    icon: 'icon-drop'
-  },
-  {
-    name: 'Typography',
-    url: '/theme/typography',
-    icon: 'icon-pencil'
-  },
-  {
-    title: true,
-    name: 'Components'
+    name: 'Amentities',
+    url: '/amentities',
+    icon: 'icon-puzzle',
+    children: [
+      {
+        name: 'List Amentities',
+        url: '/amentities',
+        icon: 'icon-list'
+      }
+    ]
   },
   {
     name: 'Base',

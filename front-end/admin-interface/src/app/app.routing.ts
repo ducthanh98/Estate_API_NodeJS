@@ -27,6 +27,19 @@ export const routes: Routes = [
     path: '',
     component: DefaultLayoutComponent,
     canActivate: [AuthguardtokenGuard],
+    children: [
+      {
+        path: '',
+        data: {
+          title: 'Home'
+        },
+        loadChildren: () => import('./views/pages/pages.module').then(m => m.PagesModule)
+      },
+    ]
+  },
+  {
+    path: '',
+    component: DefaultLayoutComponent,
     data: {
       title: 'Home'
     },

@@ -10,6 +10,7 @@ export class AmentitiesEntity {
 
     @Column('nvarchar', { length: 20 })
     icon: string;
+
     @ManyToMany(type => PostEntity, post => post.amentities)
     posts: PostEntity[];
 }

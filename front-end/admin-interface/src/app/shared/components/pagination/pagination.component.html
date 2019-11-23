@@ -1,0 +1,11 @@
+<ul class="pagination float-right" *ngIf="totalPages > 1">
+    <li class="page-item {{1 === pageNumber ? 'disabled' : ''}}" (click)="nextOrPrevPage(false)"><a
+            class="page-link">Prev</a>
+    </li>
+    <li class="page-item {{i === pageNumber ? 'active' : ''}}" (click)="changePage(i)" *ngFor="let i of numbers">
+        <a class="page-link">{{i}}</a>
+    </li>
+
+    <li class=" page-item {{totalPages === pageNumber ? 'disabled' : ''}}" (click)="nextOrPrevPage(true)"><a
+            class="page-link">Next</a></li>
+</ul>
