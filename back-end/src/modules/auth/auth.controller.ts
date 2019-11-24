@@ -16,8 +16,8 @@ export class AuthController {
     constructor(private authService: AuthService) {
     }
     @Post('/login')
-    login(@Res() res: Response, @Body() data: LoginDTO) {
-        this.authService.login(data)
+    login(@Req() req: Request, @Res() res: Response, @Body() data: LoginDTO) {
+        this.authService.login(data, req.protocol, req.get('host'))
             .subscribe(
                 (value: LoginRO) => {
                     const response: IReponse<LoginRO> = {
@@ -38,9 +38,9 @@ export class AuthController {
 
     @Post('/register')
     @UsePipes(new ValidationPipe())
-    register(@Res() res: Response, @Body() data: UserDTO) {
+    register(@Req() req: Request, @Res() res: Response, @Body() data: UserDTO) {
 
-        this.authService.register(data)
+        this.authService.register(data, req.protocol, req.get('host'))
             .subscribe(
                 () => {
                     const response: IReponse<UserEntity> = {

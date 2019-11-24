@@ -12,13 +12,11 @@ export class AuthguardtokenGuard implements CanActivate, CanLoad {
   constructor(private _authService: AuthService, private _router: Router) { }
 
   canActivate(): boolean {
-    if (!this._authService.loggedInToken()) {
-      this._router.navigate(['/auth/login']);
-      return false;
-    } else if (this._authService.checkPermission()) {
+    if (this._authService.loggedInToken()) {
       return true;
     } else {
-      this._router.navigate(['/not-found']);
+      this._router.navigate(['/auth/login']);
+      return false;
     }
   }
   canLoad(route: Route): boolean {

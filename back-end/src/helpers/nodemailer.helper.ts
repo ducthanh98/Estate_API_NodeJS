@@ -7,7 +7,6 @@ import { Logger } from '@nestjs/common';
 import { MailTemplate } from '../constants/mail.constant';
 import { from } from 'rxjs/internal/observable/from';
 import { Observable } from 'rxjs';
-import { bindCallback } from 'rxjs';
 
 export class NodeMailer {
     private transporter: Mail;
@@ -44,7 +43,7 @@ export class NodeMailer {
         return from(this.transporter.sendMail(options));
     }
 
-    private createTemplate(content): string {
+    createTemplate(content): string {
         return `${MailTemplate.EMAIL_CONFIRM_MSG_HEADER}<br/>
             <h3><a href=${content} target="blank">${content}<a/></h3>
             ${MailTemplate.EMAIL_CONFIRM_MSG_FOOTER}
