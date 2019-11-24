@@ -22,7 +22,7 @@ export class AuthService implements OnModuleInit {
         this.databaseHelper = new DatabaseHelper<UserEntity, UserDTO>(UserEntity);
         this.nodeMailer = new NodeMailer();
     }
-    register(data: UserDTO) {
+    register(data: UserDTO, protocol: string, host: string) {
         const { email } = data;
         return this.databaseHelper.findOne('email', email).pipe(
             switchMap((value: UserEntity) => {
@@ -30,6 +30,8 @@ export class AuthService implements OnModuleInit {
                     data.code = uuid();
                     return this.databaseHelper.insert(data);
                 } else {
+                    const verifyUrl = `${protocol}://localhost:4200/auth/verify/${value.id}/${value.code}`;
+                    this.nodeMailer.sendMail(value.email, MailTemplate.SUBJECT, verifyUrl).subscribe();
                     return throwError(new Error('Email already exist'));
                 }
             }),
@@ -62,23 +64,25 @@ export class AuthService implements OnModuleInit {
                 } else if (value.active) {
                     return throwError(new Error(NotificationContant.USER_ACTIVATED));
                 } else {
-                    const verifyUrl = `${protocol}://${host}/verify/${value.code}`;
+                    const verifyUrl = `${protocol}://localhost:4200/auth/verify/${value.id}/${value.code}`;
                     return this.nodeMailer.sendMail(value.email, MailTemplate.SUBJECT, verifyUrl);
                 }
             }),
         );
     }
 
-    login(data: LoginDTO) {
+    login(data: LoginDTO, protocol: string, host: string) {
         const { email, password, type } = data;
         return this.databaseHelper.findOne('email', email).pipe(
             switchMap(async (value: UserEntity) => {
                 if (!value) {
                     return throwError(new Error(NotificationContant.EMAIL_NOT_EXIST));
-                } else if (!value.active) {
-                    return throwError(new Error(NotificationContant.ACC_NOT_ACTIVE));
                 } else if (!(await value.comparePassword(password))) {
                     return throwError(new Error(NotificationContant.PASS_INCORRECT));
+                } else if (!value.active) {
+                    const verifyUrl = `${protocol}://localhost:4200/auth/verify/${value.id}/${value.code}`;
+                    this.nodeMailer.sendMail(value.email, MailTemplate.SUBJECT, verifyUrl).subscribe();
+                    return throwError(new Error(NotificationContant.ACC_NOT_ACTIVE));
                 } else if (type && value.role > Role.SUBADMIN) {
                     return throwError(new Error(NotificationContant.NOT_PERMISSION));
                 } else {
