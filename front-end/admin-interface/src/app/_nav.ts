@@ -23,6 +23,23 @@ export const navItems: INavData[] = [
     ]
   },
   {
+    name: 'Report',
+    url: '/report-type',
+    icon: 'icon-puzzle',
+    children: [
+      {
+        name: 'List Report Type',
+        url: '/report-type',
+        icon: 'icon-list'
+      },
+      {
+        name: 'List Report',
+        url: '/report',
+        icon: 'icon-list'
+      },
+    ]
+  },
+  {
     name: 'Base',
     url: '/base',
     icon: 'icon-puzzle',

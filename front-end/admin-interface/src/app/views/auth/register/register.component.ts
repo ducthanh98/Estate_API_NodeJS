@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { CommonService } from './../../../shared/common/common.service';
 import { ToastrService } from 'ngx-toastr';
 import { IResponse } from './../../../shared/interfaces/Iresponse.interface';
+import { WebConstants } from '../../../shared/constants/constants';
 
 @Component({
   selector: 'app-register',
@@ -19,6 +20,8 @@ export class RegisterComponent implements OnInit {
 
   ngOnInit() {
     this.initForm();
+    localStorage.removeItem(WebConstants.ACCESS_TOKEN);
+    localStorage.removeItem(WebConstants.USER_INFO);
   }
 
   initForm() {
@@ -45,7 +48,7 @@ export class RegisterComponent implements OnInit {
       || !this.registerForm.get('re_pass').value
       || !this.registerForm.get('email').value
       || !this.registerForm.get('phone').value) {
-      this.toastrService.error('Vui lòng nhập đầy đủ thông tin !');
+      this.toastrService.error('Please fill the form .');
       return false;
     }
     const body = this.registerForm.value;
@@ -56,6 +59,9 @@ export class RegisterComponent implements OnInit {
         (data: IResponse<any>) => {
           if (data.statusCode === 0) {
             this.toastrService.success(data.message);
+            setTimeout(() => {
+              this.router.navigate(['/auth/login']);
+            }, 5000);
           } else {
             this.toastrService.error(data.message);
           }

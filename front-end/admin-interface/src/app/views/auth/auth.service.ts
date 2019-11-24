@@ -23,4 +23,11 @@ export class AuthService {
   get userInfo() {
     return JSON.parse(localStorage.getItem(WebConstants.USER_INFO));
   }
+  checkPermission(): boolean {
+    const user = this.userInfo;
+    if (!user || +user.role > 1) {
+      return false;
+    }
+    return true;
+  }
 }

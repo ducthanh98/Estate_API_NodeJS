@@ -6,13 +6,16 @@ import { AmentitiesComponent } from './amentities/amentities.component';
 import { SharedModule } from './../../shared/shared.module';
 import { CommonService } from './../../shared/common/common.service';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { ModalModule } from 'ngx-bootstrap/modal';
+import { ReportComponent } from './report/report.component';
+import { ReportTypeComponent } from './report-type/report-type.component';
+import { TokenInterceptorService } from '../auth/token-interceptor.service';
 
 
 
 @NgModule({
-  declarations: [AmentitiesComponent],
+  declarations: [AmentitiesComponent, ReportComponent, ReportTypeComponent],
   imports: [
     CommonModule,
     PagesRoutingModule,
@@ -23,7 +26,10 @@ import { ModalModule } from 'ngx-bootstrap/modal';
     ModalModule.forRoot()
   ],
   providers: [
-    CommonService
+    CommonService,
+    {
+      provide: HTTP_INTERCEPTORS, useClass: TokenInterceptorService, multi: true
+    }
   ], exports: [
     ModalModule
   ]
