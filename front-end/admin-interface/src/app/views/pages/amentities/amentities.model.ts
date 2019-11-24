@@ -5,6 +5,6 @@ export class AmentitiesEntity {
 }
 
 export class Amentities {
-    amentities: AmentitiesEntity[];
+    list: AmentitiesEntity[];
     total: number;
 }

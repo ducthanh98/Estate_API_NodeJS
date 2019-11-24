@@ -18,6 +18,8 @@ export class LoginComponent implements OnInit {
     private toastrService: ToastrService) { }
 
   ngOnInit() {
+    localStorage.removeItem(WebConstants.ACCESS_TOKEN);
+    localStorage.removeItem(WebConstants.USER_INFO);
     this.initForm();
   }
   initForm() {

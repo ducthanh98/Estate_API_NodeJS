@@ -1,31 +1,32 @@
 import { Controller, Post, Get, Body, UsePipes, Param, Res, UseGuards } from '@nestjs/common';
-import { AmentitiesService } from './amentities.service';
-import { AmentitiesDTO } from './amentities.dto';
 import { IReponse } from '../../../shared/interface/ireponse.interface';
 import { Code } from '../../../constants/code.enum';
 import { Response } from 'express';
 import { AmentitiesEntity } from './../../../database/amentities.entity';
 import { NotificationContant } from './../../../constants/notification.constant';
-import { AmentitiesRO } from './amentities.ro';
 import { BodyDTO } from './../../../shared/class/body.dto';
 import { ValidationPipe } from '../../../shared/pipes/validation.pipe';
 import { AuthGuard } from './../../../shared/guards/auth.guard';
+import { ReportTypeService } from './reportType.service';
+import { ReportTypeDTO } from './reportType.dto';
+import { ReportTypeEntity } from './../../../database/reportType.entity';
 import { Ilist } from './../../../shared/interface/IList.interface';
 
-@Controller('admin/amentities')
+@Controller('admin/report-type')
 @UseGuards(new AuthGuard())
-export class AmentitiesController {
-    constructor(private amentitiesService: AmentitiesService) { }
+export class ReportTypeController {
+    constructor(private reportTypeService: ReportTypeService) { }
+
     @Post('getAllBy')
     @UsePipes(new ValidationPipe())
     getAllBy(@Res() res: Response, @Body() data: BodyDTO) {
-        return this.amentitiesService.getAllBy(data.pageNumber, data.pageSize, data.keyText)
+        return this.reportTypeService.getAllBy(data.pageNumber, data.pageSize, data.keyText)
             .subscribe(
-                (amentities: Ilist<AmentitiesEntity>) => {
-                    const response: IReponse<Ilist<AmentitiesEntity>> = {
+                (reportType: Ilist<ReportTypeEntity>) => {
+                    const response: IReponse<Ilist<ReportTypeEntity>> = {
                         statusCode: Code.SUCCESS,
                         message: NotificationContant.SUCCESS,
-                        data: amentities,
+                        data: reportType,
                     };
                     res.json(response);
                 }, (err) => {
@@ -40,14 +41,14 @@ export class AmentitiesController {
 
     @Post('create')
     @UsePipes(new ValidationPipe())
-    create(@Res() res: Response, @Body() data: AmentitiesDTO) {
-        return this.amentitiesService.create(data)
+    create(@Res() res: Response, @Body() data: ReportTypeDTO) {
+        return this.reportTypeService.create(data)
             .subscribe(
-                (amentities: AmentitiesEntity) => {
+                (reportType: ReportTypeEntity) => {
                     const response: IReponse<any> = {
                         statusCode: Code.SUCCESS,
                         message: NotificationContant.SUCCESS,
-                        data: amentities,
+                        data: reportType,
                     };
                     res.json(response);
                 }, (err) => {
@@ -62,8 +63,8 @@ export class AmentitiesController {
 
     @Post('update/:id')
     @UsePipes(new ValidationPipe())
-    update(@Res() res: Response, @Body() data: AmentitiesDTO, @Param('id') id: number) {
-        return this.amentitiesService.update(id, data)
+    update(@Res() res: Response, @Body() data: ReportTypeDTO, @Param('id') id: number) {
+        return this.reportTypeService.update(id, data)
             .subscribe(
                 (message: string) => {
                     const response: IReponse<any> = {
@@ -83,7 +84,7 @@ export class AmentitiesController {
 
     @Get('delete/:id')
     delete(@Res() res: Response, @Param('id') id: number) {
-        return this.amentitiesService.delete(id)
+        return this.reportTypeService.delete(id)
             .subscribe(
                 (message: string) => {
                     const response: IReponse<any> = {

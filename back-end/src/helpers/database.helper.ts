@@ -5,6 +5,7 @@ import { map, switchMap, skip, take } from 'rxjs/operators';
 import { NotificationContant } from './../constants/notification.constant';
 import { throwError } from 'rxjs/internal/observable/throwError';
 import { AmentitiesRO } from './../modules/admin/amentities/amentities.ro';
+import { Ilist } from '../shared/interface/IList.interface';
 
 export class DatabaseHelper<Entity, DTO> {
     private repository: Repository<Entity>;
@@ -26,12 +27,12 @@ export class DatabaseHelper<Entity, DTO> {
         )).pipe(
             map(
                 (data: any) => {
-                    const response: AmentitiesRO = {
-                        amentities: data[0],
+                    const response: Ilist<Entity> = {
+                        list: data[0],
                         total: data[1],
                     };
                     return response;
-                }
+                },
             ),
         );
     }
@@ -47,7 +48,6 @@ export class DatabaseHelper<Entity, DTO> {
         return from(this.repository.save(entity));
     }
     update(id: number, data: QueryDeepPartialEntity<Entity>): Observable<string> {
-        console.log(id)
         return from(this.repository.update(id, data)).pipe(
             switchMap((value: UpdateResult) => {
                 if (value.raw.affectedRows > 0) {

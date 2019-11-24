@@ -5,32 +5,34 @@ import { IResponse } from './../../../shared/interfaces/Iresponse.interface';
 import { ModalDirective } from 'ngx-bootstrap/modal';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { HttpErrorResponse } from '@angular/common/http';
-import { AmentitiesEntity, Amentities } from './amentities.model';
 import { IBody } from './../../../shared/interfaces/body.interface';
 import { ConfirmDialogComponent } from './../../../shared/components/confirm-dialog/confirm-dialog.component';
 import { WebConstants } from '../../../shared/constants/constants';
+import { ReportTypeEntity, ReportType } from './report-type.model';
+
 
 @Component({
-  selector: 'app-amentities',
-  templateUrl: './amentities.component.html',
+  selector: 'app-report-type',
+  templateUrl: './report-type.component.html',
   styles: [
     `
-      .icon-action:hover{
-        color: #4e9c09;
-        cursor:pointer;
-      }
+    .icon-action:hover{
+      color: #4e9c09;
+      cursor:pointer;
+    }
     `
   ]
 })
-export class AmentitiesComponent implements OnInit, AfterViewInit {
-  amentitiesData: AmentitiesEntity[] = [];
+export class ReportTypeComponent implements OnInit, AfterViewInit {
+
+  reportData: ReportTypeEntity[] = [];
   pageNumber = 1;
   totalPages = 1;
   pageSize = WebConstants.PAGE_SIZE;
-  amentitiesForm: FormGroup;
-  private amentitiesUrl = 'admin/amentities';
+  form: FormGroup;
+  private baseUrl = 'admin/report-type';
   private id: number = null;
-  @ViewChild('amentitiesModal') public amentitiesModal: ModalDirective;
+  @ViewChild('modal') public modal: ModalDirective;
   @ViewChild(ConfirmDialogComponent) confirmModal: ConfirmDialogComponent;
 
   constructor(private commonService: CommonService,
@@ -39,35 +41,34 @@ export class AmentitiesComponent implements OnInit, AfterViewInit {
 
   ngOnInit() {
     this.initForm();
-    this.getAmentitiesData();
+    this.getData();
   }
   ngAfterViewInit() {
-    this.amentitiesModal.onHidden.subscribe(
-      () => { this.amentitiesForm.reset(); }
+    this.modal.onHidden.subscribe(
+      () => { this.form.reset(); }
     );
   }
   initForm() {
-    this.amentitiesForm = this.fb.group({
-      name: ['', Validators.required],
-      icon: ['', Validators.required]
+    this.form = this.fb.group({
+      reportContent: ['', Validators.required],
     });
 
   }
-  getAmentitiesData(pageNumber = this.pageNumber) {
+  getData(pageNumber = this.pageNumber) {
     this.pageNumber = pageNumber;
     const body: IBody = {
       pageSize: 10,
       pageNumber: pageNumber,
       keyText: ''
-    };
-    this.commonService.doPost<IResponse<Amentities>>('admin/amentities/getAllBy', body)
+    }
+    this.commonService.doPost<IResponse<ReportType>>(`${this.baseUrl}/getAllBy`, body)
       .subscribe(
-        (res: IResponse<Amentities>) => {
+        (res: IResponse<ReportType>) => {
           if (res.statusCode === 0) {
-            this.amentitiesData = res.data.list;
+            this.reportData = res.data.list;
             this.totalPages = Math.ceil(res.data.total / 10);
           } else {
-            this.amentitiesData = [];
+            this.reportData = [];
             this.toastrService.error(res.message);
           }
         }, (err) => {
@@ -77,23 +78,23 @@ export class AmentitiesComponent implements OnInit, AfterViewInit {
       );
   }
   onSubmit() {
-    if (this.amentitiesForm.invalid) {
+    if (this.form.invalid) {
       return false;
     }
-    const body: Amentities = { ...this.amentitiesForm.value };
+    const body: ReportTypeEntity = { ...this.form.value };
     let url = '';
     if (this.id) {
-      url = `${this.amentitiesUrl}/update/${this.id}`;
+      url = `${this.baseUrl}/update/${this.id}`;
     } else {
-      url = `${this.amentitiesUrl}/create`;
+      url = `${this.baseUrl}/create`;
     }
     this.commonService.doPost<IResponse<any>>(url, body)
       .subscribe(
         (res: IResponse<any>) => {
           if (res.statusCode === 0) {
             this.toastrService.success(res.message);
-            this.amentitiesModal.hide();
-            this.getAmentitiesData();
+            this.modal.hide();
+            this.getData();
           } else {
             this.toastrService.error(res.message);
           }
@@ -103,13 +104,12 @@ export class AmentitiesComponent implements OnInit, AfterViewInit {
       );
   }
   openModal(id: number) {
-    this.amentitiesModal.show();
+    this.modal.show();
     this.id = id;
     if (id) {
-      const data = this.amentitiesData.filter(x => x.id === id)[0];
-      this.amentitiesForm.patchValue({
-        name: data.name,
-        icon: data.icon
+      const data = this.reportData.filter(x => x.id === id)[0];
+      this.form.patchValue({
+        reportContent: data.reportContent,
       });
     }
   }
@@ -117,18 +117,18 @@ export class AmentitiesComponent implements OnInit, AfterViewInit {
     this.confirmModal.openModal();
     this.id = id;
   }
-  deleteAmentities(isDelete: boolean) {
+  delete(isDelete: boolean) {
     if (!isDelete) {
       return this.confirmModal.closeModal();
     }
-    const url = `${this.amentitiesUrl}/delete/${this.id}`;
+    const url = `${this.baseUrl}/delete/${this.id}`;
     this.commonService.doGet<IResponse<any>>(url)
       .subscribe(
         (res: IResponse<any>) => {
           if (res.statusCode === 0) {
             this.toastrService.success(res.message);
             this.confirmModal.closeModal();
-            this.getAmentitiesData();
+            this.getData();
           } else {
             this.toastrService.error(res.message);
           }
@@ -137,4 +137,5 @@ export class AmentitiesComponent implements OnInit, AfterViewInit {
         }
       );
   }
+
 }

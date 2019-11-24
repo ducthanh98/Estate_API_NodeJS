@@ -19,6 +19,7 @@ import { DefaultLayoutComponent } from './containers';
 
 import { P404Component } from './views/error/404.component';
 import { P500Component } from './views/error/500.component';
+import { P403Component } from './views/error/403.component';
 
 const APP_CONTAINERS = [
   DefaultLayoutComponent
@@ -40,6 +41,8 @@ import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
 import { TabsModule } from 'ngx-bootstrap/tabs';
 import { ChartsModule } from 'ng2-charts';
 import { CommonService } from './shared/common/common.service';
+import { HTTP_INTERCEPTORS } from '@angular/common/http';
+import { TokenInterceptorService } from './views/auth/token-interceptor.service';
 
 @NgModule({
   imports: [
@@ -63,6 +66,7 @@ import { CommonService } from './shared/common/common.service';
     ...APP_CONTAINERS,
     P404Component,
     P500Component,
+    P403Component
   ],
   providers: [
     CommonService,
