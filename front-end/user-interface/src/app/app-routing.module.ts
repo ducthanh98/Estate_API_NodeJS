@@ -1,8 +1,20 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
+import { AuthguardtokenGuard } from './auth/auth.guard';
 
-const routes: Routes = [];
+const routes: Routes = [
+  { path: '', redirectTo: 'pages/home', pathMatch: 'full' },
+  {
+    path: 'auth',
+    loadChildren: () => import('./auth/auth.module').then(m => m.AuthModule)
+  },
+  {
+    path: 'pages',
+    canActivate: [AuthguardtokenGuard],
+    loadChildren: () => import('./pages/pages.module').then(m => m.PagesModule)
+  }
+];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],

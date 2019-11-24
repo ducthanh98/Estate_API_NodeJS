@@ -1,10 +1,13 @@
-import { Component } from '@angular/core';
+import { Component, AfterViewInit } from '@angular/core';
+import { DOCUMENT } from '@angular/common';
+import { CommonService } from './shared/services/common.service';
 
 @Component({
   selector: 'app-root',
-  templateUrl: './app.component.html',
-  styleUrls: ['./app.component.css']
+  template: `
+  <router-outlet></router-outlet>
+  `
 })
 export class AppComponent {
-  title = 'user-interface';
+
 }
