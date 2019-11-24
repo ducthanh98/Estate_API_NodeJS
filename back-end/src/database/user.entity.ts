@@ -22,6 +22,9 @@ export class UserEntity {
     @Column('varchar', { unique: true })
     email: string;
 
+    @Column('varchar', { default: 'avatar.jpg' })
+    avatar: string;
+
     @Column({
         type: 'varchar',
         length: 16,
