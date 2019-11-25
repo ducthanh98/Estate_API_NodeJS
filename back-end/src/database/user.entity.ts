@@ -1,4 +1,4 @@
-import { Entity, PrimaryGeneratedColumn, Column, BeforeInsert, OneToMany } from 'typeorm';
+import { Entity, PrimaryGeneratedColumn, Column, BeforeInsert, OneToMany, BeforeUpdate } from 'typeorm';
 import * as bcrypt from 'bcryptjs';
 import { SALT_ROUNDS } from '../constants/variable.constant';
 import { PostEntity } from './post.entity';
@@ -63,9 +63,9 @@ export class UserEntity {
         return bcrypt.compare(attempt, this.password);
     }
     toResponseObject(): UserRO {
-        const { id, name, email, phone, facebook, skype, role } = this;
+        const { id, name, email, phone, facebook, skype, role, avatar } = this;
         const response: UserRO = {
-            id, name, email, phone, facebook, skype, role,
+            id, name, email, phone, facebook, skype, role, avatar,
         };
         return response;
     }

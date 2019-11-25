@@ -1,4 +1,4 @@
-import { Injectable, OnModuleInit, HttpException, HttpStatus, Logger } from '@nestjs/common';
+import { Injectable, OnModuleInit, HttpException, HttpStatus, Logger, UseGuards, Post } from '@nestjs/common';
 import { UserDTO } from './dto/user.dto';
 import { DatabaseHelper } from '../../helpers/database.helper';
 import { UserEntity } from './../../database/user.entity';
@@ -13,7 +13,10 @@ import { LoginRO } from './ro/login.ro';
 import { of } from 'rxjs';
 import { MailTemplate } from './../../constants/mail.constant';
 import { NodeMailer } from './../../helpers/nodemailer.helper';
-
+import { AuthGuard } from './../../shared/guards/auth.guard';
+import { PasswordDTO } from './dto/password.dto';
+import * as bcrypt from 'bcryptjs';
+import { SALT_ROUNDS } from '../../constants/variable.constant';
 @Injectable()
 export class AuthService implements OnModuleInit {
     private databaseHelper: DatabaseHelper<UserEntity, UserDTO>;
@@ -99,5 +102,30 @@ export class AuthService implements OnModuleInit {
 
     private generateToken(id: number, email: string, role: number) {
         return jwt.sign({ id, email, role }, process.env.SECRET, { expiresIn: '1d' });
+    }
+    updateUserInfo(data: Partial<UserDTO>, id: number) {
+        this.databaseHelper.repository.create()
+        return this.databaseHelper.update(id, data);
+    }
+
+    updatePassword(id: number, passwordDTO: PasswordDTO) {
+        return this.databaseHelper.findOne('id', id).pipe(
+            switchMap(async (value: UserEntity) => {
+                if (!value) {
+                    return throwError(new Error(NotificationContant.ID_NOT_MATCH));
+                } else if (!(await value.comparePassword(passwordDTO.oldPass))) {
+                    return throwError(new Error(NotificationContant.PASS_INCORRECT));
+                } else {
+                    const password = await this.hashPassword(passwordDTO.password);
+                    return this.databaseHelper.update(id, { password });
+                }
+            }),
+            mergeAll(),
+        );
+    }
+
+    async hashPassword(password) {
+        const salt = await bcrypt.genSalt(SALT_ROUNDS);
+        return await bcrypt.hash(password, salt);
     }
 }

@@ -75,6 +75,8 @@
                                 <ul class="dropdown-menu dropdown-menu-1">
                                     <li><a href="#" data-toggle="modal" data-target="#user-info-modal"
                                             class="link-page">Profile</a></li>
+                                    <li><a href="#" data-toggle="modal" data-target="#change-pass-modal"
+                                            class="link-page">Change Password</a></li>
                                     <li><a routerLink="/auth/login" href="/auth/login" class="link-page">Logout</a></li>
                                 </ul>
                             </li>
@@ -92,30 +94,66 @@
             <div class="new-letter-left"><img src="assets/images/libs/agent-single-1.jpg" alt=""
                     class="img-responsive" />
 
-                <div class="agent-single-info-wrapper">
-                    <div class="agent-single-info"><i class="icon fa fa-mobile-phone"></i><span class="text">+1 234 567
-                            89</span></div>
-                    <div class="agent-single-info skype"><i class="icon fa fa-skype"></i><a href="#"
-                            class="text">adam.smith.skype</a></div>
-                    <div class="agent-single-info socials"><a href="#" class="link facebook"><i
-                                class="fa fa-facebook-square"></i></a><a href="#" class="link twitter"><i
-                                class="fa fa-twitter"></i></a><a href="#" class="link google"><i
-                                class="fa fa-google-plus"></i></a><a href="#" class="link instagram"><i
-                                class="fa fa-instagram"></i></a></div>
-                </div>
             </div>
             <div class="new-letter-right">
                 <button type="button" data-dismiss="modal" aria-label="Close" class="close"><span
                         aria-hidden="true">&times;</span></button>
-                <h4 class="underline">contact us</h4>
+                <h4 class="underline">{{email}}</h4>
 
-                <p class="text">Consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna
-                    aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea
-                    commodo consequat.</p>
 
-                <form><input type="text" placeholder="Your Name" class="contact-form black" /><input type="email"
-                        placeholder="Your Email" class="contact-form black" /><textarea placeholder="Your Message"
-                        class="contact-form black"></textarea><a href="#" class="btn btn-blue">send message</a></form>
+                <form [formGroup]="userInfoForm" (ngSubmit)="updateUserInfo()">
+                    <input formControlName="name" type="text" placeholder="Your Name" class="contact-form black" />
+                    <div class="hight-light"
+                        *ngIf="userInfoForm.get('name')?.invalid && userInfoForm.get('name').touched">
+                        Username must be not blank</div>
+                    <input formControlName="phone" type="text" placeholder="Your Phone" class="contact-form black" />
+                    <input formControlName="facebook" type="text" placeholder="Your Facebook"
+                        class="contact-form black" />
+                    <input formControlName="skype" type="text" placeholder="Your skype" class="contact-form black" />
+                    <button type="submit" (click)="updateUserInfo()" data-dismiss="modal" class="btn btn-blue"
+                        [disabled]="userInfoForm.invalid">Save</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="change-pass-modal" tabindex="-1" role="dialog" class="contact-fast modal fade">
+    <div class="modal-dialog">
+        <div class="new-letter-content modal-content">
+            <div class="new-letter-left"><img src="assets/images/libs/agent-single-1.jpg" alt=""
+                    class="img-responsive" />
+
+            </div>
+            <div class="new-letter-right">
+                <button type="button" data-dismiss="modal" aria-label="Close" class="close"><span
+                        aria-hidden="true">&times;</span></button>
+                <h4 class="underline">{{email}}</h4>
+
+
+                <form [formGroup]="changePassForm" (ngSubmit)="updatePass()">
+                    <input formControlName="oldPass" type="password" placeholder="Old Password"
+                        class="contact-form black" />
+                    <div class="hight-light"
+                        *ngIf="changePassForm.get('oldPass')?.invalid && changePassForm.get('oldPass').touched">
+                        Password must be between 8 and 16
+                        characters</div>
+                    <input formControlName="password" type="password" placeholder="New Password"
+                        class="contact-form black" />
+                    <div class="hight-light"
+                        *ngIf="changePassForm.get('password')?.invalid && changePassForm.get('password').touched">
+                        Password must be between 8 and 16
+                        characters</div>
+                    <input formControlName="re_pass" type="password" placeholder="Re-enter your new password"
+                        class="contact-form black" />
+                    <div class="hight-light"
+                        *ngIf="changePassForm.errors?.passwordnotmatch && changePassForm.get('re_pass').touched">
+                        Confirm
+                        password does not
+                        match</div>
+                    <button type="submit" (click)="updatePass()" data-dismiss="modal" class="btn btn-blue"
+                        [disabled]="changePassForm.invalid">Save</button>
+                </form>
             </div>
         </div>
     </div>
