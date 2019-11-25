@@ -8,7 +8,7 @@ import { AmentitiesRO } from './../modules/admin/amentities/amentities.ro';
 import { Ilist } from '../shared/interface/IList.interface';
 
 export class DatabaseHelper<Entity, DTO> {
-    private repository: Repository<Entity>;
+    public repository: Repository<Entity>;
     constructor(TCtor: new (...args: any[]) => Entity) {
         this.repository = getRepository(TCtor);
     }

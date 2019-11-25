@@ -6,4 +6,5 @@ export interface UserRO {
     facebook: string;
     skype: string;
     role: number;
+    avatar: string;
 }

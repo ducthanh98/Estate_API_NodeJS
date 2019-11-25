@@ -10,6 +10,7 @@ import { LoginDTO } from './dto/login.dto';
 import { LoginRO } from './ro/login.ro';
 import { ActiveDTO } from './dto/active.dto';
 import { NotificationContant } from './../../constants/notification.constant';
+import { PasswordDTO } from './dto/password.dto';
 
 @Controller('auth')
 export class AuthController {
@@ -85,6 +86,46 @@ export class AuthController {
     @UsePipes(new ValidationPipe())
     sendMail(@Req() req: Request, @Res() res: Response, @Body() data: ActiveDTO) {
         return this.authService.sendActiveMail(data.id, req.protocol, req.get('host'))
+            .subscribe(
+                () => {
+                    const response: IReponse<any> = {
+                        statusCode: Code.SUCCESS,
+                        message: NotificationContant.SUCCESS,
+                    };
+                    res.json(response);
+                }, (err) => {
+                    const response: IReponse<any> = {
+                        statusCode: Code.ERROR,
+                        message: err.message,
+                    };
+                    res.json(response);
+                },
+            );
+    }
+
+    @Post('updateInfo/:id')
+    updateUserInfo(@Res() res: Response, @Body() data: UserDTO, @Param('id') id: number) {
+        return this.authService.updateUserInfo(data, id)
+            .subscribe(
+                () => {
+                    const response: IReponse<any> = {
+                        statusCode: Code.SUCCESS,
+                        message: NotificationContant.SUCCESS,
+                    };
+                    res.json(response);
+                }, (err) => {
+                    const response: IReponse<any> = {
+                        statusCode: Code.ERROR,
+                        message: err.message,
+                    };
+                    res.json(response);
+                },
+            );
+    }
+
+    @Post('updatePassword/:id')
+    updatePassword(@Res() res: Response, @Body() data: PasswordDTO, @Param('id') id: number) {
+        return this.authService.updatePassword(id, data)
             .subscribe(
                 () => {
                     const response: IReponse<any> = {

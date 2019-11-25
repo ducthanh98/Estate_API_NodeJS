@@ -2194,7 +2194,7 @@ textarea.contact-form {
 }
 
 .contact-fast .new-letter-content .new-letter-right form {
-    text-align: right
+    text-align: left
 }
 
 .contact-fast .new-letter-content .new-letter-right form .btn {
@@ -5153,6 +5153,9 @@ body.ie .contact-us .contact-us-scroll, body.browser-ie .contact-us .contact-us-
 .signup-register .signup-register-table form label .hight-light {
     margin-left: 5px;
     color: #ff0000
+}
+.hight-light{
+    color:  #ff0000;
 }
 
 .signup-register .signup-register-table form .form-control {
