@@ -1,12 +1,12 @@
 <header>
-    <div class="bg-transparent">
+    <div class="bg-transparent" *ngIf="isHome">
         <div class="header-main header-default header-no-border">
             <div class="container">
                 <div class="header-main-wrapper">
                     <div class="navbar-header">
-                        <div class="logo logo-black pull-left"><a href="index.html" class="header-logo"><img
+                        <div class="logo logo-black pull-left"><a routerLink="/pages/home" class="header-logo"><img
                                     src="assets/images/logo-1.png" alt="" /></a></div>
-                        <div class="logo logo-white pull-left"><a href="index.html" class="header-logo"><img
+                        <div class="logo logo-white pull-left"><a routerLink="/pages/home" class="header-logo"><img
                                     src="assets/images/logo-2.png" alt="" /></a></div>
                         <button type="button" data-toggle="collapse" data-target=".navigation"
                             class="navbar-toggle btn-navbar"><span class="icon-bar"></span><span
@@ -14,62 +14,53 @@
                     </div>
                     <nav class="navigation collapse navbar-collapse pull-right">
                         <ul class="nav-links nav navbar-nav">
-                            <li class="dropdown active"><a href="javascript:void(0)" class="main-menu">Home<span
-                                        class="fa fa-angle-down icons-dropdown"></span></a>
+                            <li class="dropdown active"><a routerLink="/pages/home" class="main-menu">Home </a>
+                            </li>
+                            <li class="dropdown"><a routerLink="/pages/rent-hostel" class="main-menu">Rent Hostel</a>
+                            </li>
+                            <li class="dropdown"><a routerLink="/pages/agents" class="main-menu">Agents</a>
+                            </li>
+                            <li class="dropdown"><a routerLink="/pages/contact-us" class="main-menu">Contact us</a></li>
+
+                            <li class="dropdown" style="font-size: 20px;"><a class="main-menu"><i
+                                        class="fa fa-cog"></i></a>
                                 <ul class="dropdown-menu dropdown-menu-1">
-                                    <li><a href="index.html" class="link-page">Home page default</a></li>
-                                    <li><a href="homepage-02.html" class="link-page">Homepage Header Centered Full
-                                            Color</a></li>
-                                    <li><a href="homepage-03.html" class="link-page">Homepage Header Centered
-                                            Transparent</a></li>
-                                    <li><a href="homepage-04.html" class="link-page">Homepage Topbar Transparent</a>
-                                    </li>
-                                    <li><a href="homepage-05.html" class="link-page">Homepage Full Color</a></li>
-                                    <li><a href="homepage-06.html" class="link-page">Homepage slider</a></li>
+                                    <li><a href="#" data-toggle="modal" data-target="#user-info-modal"
+                                            class="link-page">Profile</a></li>
+                                    <li><a href="#" data-toggle="modal" data-target="#change-pass-modal"
+                                            class="link-page">Change Password</a></li>
+                                    <li><a routerLink="/auth/login" href="/auth/login" class="link-page">Logout</a></li>
                                 </ul>
                             </li>
-                            <li class="dropdown"><a href="javascript:void(0)" class="main-menu">agents<span
-                                        class="fa fa-angle-down icons-dropdown"></span></a>
-                                <ul class="dropdown-menu dropdown-menu-1">
-                                    <li><a href="agent-list.html" class="link-page">agent list</a></li>
-                                    <li><a href="agent-single.html" class="link-page">agent single</a></li>
-                                    <li><a href="agencies-list.html" class="link-page">agencies list</a></li>
-                                    <li><a href="agency-detail.html" class="link-page">agency detail</a></li>
-                                    <li><a href="user-profile.html" class="link-page">user profile</a></li>
-                                </ul>
+                        </ul>
+                    </nav>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="bg-white" *ngIf="!isHome">
+        <div class="header-main header-default">
+            <div class="container">
+                <div class="header-main-wrapper">
+                    <div class="navbar-header">
+                        <div class="logo logo-black pull-left"><a routerLink="/pages/home" class="header-logo"><img
+                                    src="assets/images/logo-1.png" alt="" /></a></div>
+                        <div class="logo logo-white pull-left"><a routerLink="/pages/home" class="header-logo"><img
+                                    src="assets/images/logo-2.png" alt="" /></a></div>
+                        <button type="button" data-toggle="collapse" data-target=".navigation"
+                            class="navbar-toggle btn-navbar"><span class="icon-bar"></span><span
+                                class="icon-bar"></span><span class="icon-bar"></span></button>
+                    </div>
+                    <nav class="navigation collapse navbar-collapse pull-right">
+                        <ul class="nav-links nav navbar-nav">
+                            <li class="dropdown"><a routerLink="/pages/home" class="main-menu">Home</a>
                             </li>
-                            <li class="dropdown"><a href="javascript:void(0)" class="main-menu">property<span
-                                        class="fa fa-angle-down icons-dropdown"></span></a>
-                                <ul class="dropdown-menu dropdown-menu-1">
-                                    <li><a href="properties.html" class="link-page">property list/grid</a></li>
-                                    <li><a href="properties-non-sidebar.html" class="link-page">property nonsidebar</a>
-                                    </li>
-                                    <li><a href="properties-masonry.html" class="link-page">property masonry</a></li>
-                                    <li><a href="property-detail.html" class="link-page">property detail</a></li>
-                                    <li><a href="search-properties.html" class="link-page">map filter</a></li>
-                                </ul>
+                            <li class="dropdown"><a routerLink="/pages/rent-hostel" class="main-menu">Rent Hostel</a>
                             </li>
-                            <li class="dropdown"><a href="javascript:void(0)" class="main-menu">blog<span
-                                        class="fa fa-angle-down icons-dropdown"></span></a>
-                                <ul class="dropdown-menu dropdown-menu-1">
-                                    <li><a href="blog.html" class="link-page">blog list</a></li>
-                                    <li><a href="blog-detail.html" class="link-page">blog detail</a></li>
-                                </ul>
+                            <li class="dropdown"><a routerLink="/pages/agents" class="main-menu">Agents</a>
                             </li>
-                            <li class="dropdown"><a href="javascript:void(0)" class="main-menu">page<span
-                                        class="fa fa-angle-down icons-dropdown"></span></a>
-                                <ul class="dropdown-menu dropdown-menu-1">
-                                    <li><a href="service.html" class="link-page">services</a></li>
-                                    <li><a href="gallery.html" class="link-page">gallery</a></li>
-                                    <li><a href="about-us.html" class="link-page">about us</a></li>
-                                    <li><a href="pricing.html" class="link-page">Pricing</a></li>
-                                    <li><a href="sign-up.html" class="link-page">sign in</a></li>
-                                    <li><a href="register.html" class="link-page">Register</a></li>
-                                    <li><a href="coming-soon.html" class="link-page">coming soon</a></li>
-                                    <li><a href="faq.html" class="link-page">FAQ</a></li>
-                                    <li><a href="404.html" class="link-page">page 404</a></li>
-                                </ul>
-                            </li>
+                            <li class="dropdown"><a routerLink="/pages/contact-us" class="main-menu">Contact us</a></li>
                             <li class="dropdown" style="font-size: 20px;"><a class="main-menu"><i
                                         class="fa fa-cog"></i></a>
                                 <ul class="dropdown-menu dropdown-menu-1">

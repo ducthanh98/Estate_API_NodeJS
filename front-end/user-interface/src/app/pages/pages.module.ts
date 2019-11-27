@@ -10,7 +10,7 @@ import { TokenInterceptorService } from '../auth/token-interceptor.service';
 @NgModule({
   declarations: [
     PagesComponent,
-    ...pageRoutingComponent
+    ...pageRoutingComponent,
   ],
   imports: [
     CommonModule,

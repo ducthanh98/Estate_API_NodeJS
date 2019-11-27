@@ -1,0 +1,314 @@
+<div id="wrapper-content">
+    <!-- PAGE WRAPPER-->
+    <div id="page-wrapper">
+        <!-- MAIN CONTENT-->
+        <div class="main-content">
+            <!-- CONTENT-->
+            <div class="content">
+                <div class="section page-title property-view bg-overlay">
+                    <div class="container">
+                        <div class="page-title-wrapper">
+                            <h2 class="captions">list house</h2>
+                            <ol class="breadcrumb">
+                                <li><a routerLink="/pages/home">Home</a></li>
+                                <li class="active"><a routerLink="/pages/rent-hostel/form-hostel">Rent Hostel</a></li>
+                            </ol>
+                        </div>
+                    </div>
+                </div>
+                <div class="search-properties bg-gray padding-top padding-bottom">
+                    <div class="container">
+                        <div class="search-properties-wrapper">
+                            <div class="title-search-property">Search For Properties</div>
+                            <div class="search-properties-content">
+                                <form class="search-form row">
+                                    <div class="col-md-3 col-sm-4 col-xs-6">
+                                        <div class="search-form-group"><label
+                                                class="title-search-form">keyword</label><input type="text"
+                                                placeholder="enter your keyword" class="input-form" /></div>
+                                    </div>
+                                    <div class="col-md-3 col-sm-4 col-xs-6">
+                                        <div class="search-form-group"><label class="title-search-form">property
+                                                type</label><select class="input-form selectbox">
+                                                <option value="all type">all type</option>
+                                                <option value="type one">type one</option>
+                                                <option value="type two">type one</option>
+                                            </select></div>
+                                    </div>
+                                    <div class="col-md-3 col-sm-4 col-xs-6">
+                                        <div class="search-form-group"><label
+                                                class="title-search-form">status</label><select
+                                                class="input-form selectbox">
+                                                <option value="all status">all status</option>
+                                                <option value="status one">status one</option>
+                                                <option value="status two">status two</option>
+                                            </select></div>
+                                    </div>
+                                    <div class="col-md-3 col-sm-4 col-xs-6">
+                                        <div class="search-form-group"><label
+                                                class="title-search-form">location</label><input type="text"
+                                                placeholder="enter location" class="input-form" /></div>
+                                    </div>
+                                    <div class="col-md-3 col-sm-4 col-xs-6">
+                                        <div class="search-form-group"><label
+                                                class="title-search-form">bedroom</label><select
+                                                class="input-form selectbox">
+                                                <option value="1">1</option>
+                                                <option value="2">2</option>
+                                                <option value="3">3</option>
+                                            </select></div>
+                                    </div>
+                                    <div class="col-md-3 col-sm-4 col-xs-6">
+                                        <div class="search-form-group"><label
+                                                class="title-search-form">bathroom</label><select
+                                                class="input-form selectbox">
+                                                <option value="1">1</option>
+                                                <option value="2">2</option>
+                                                <option value="3">3</option>
+                                            </select></div>
+                                    </div>
+                                    <div class="col-md-3 col-sm-4 col-xs-6">
+                                        <div class="search-form-group"><label class="title-search-form">area
+                                                (sq)</label>
+
+                                            <div data-range_min="10" data-range_max="900" data-cur_min="10"
+                                                data-cur_max="900" class="nstSlider">
+                                                <div class="bar"></div>
+                                                <div class="leftGrip"></div>
+                                                <div class="rightGrip"></div>
+                                            </div>
+                                            <div class="leftLabel"></div>
+                                            <div class="rightLabel"></div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3 col-sm-4 col-xs-6">
+                                        <div class="search-form-group"><label class="title-search-form">price (.000
+                                                $)</label>
+
+                                            <div data-range_min="10" data-range_max="990" data-cur_min="120"
+                                                data-cur_max="800" class="nstSlider">
+                                                <div class="bar"></div>
+                                                <div class="leftGrip"></div>
+                                                <div class="rightGrip"></div>
+                                            </div>
+                                            <div class="leftLabel"></div>
+                                            <div class="rightLabel"></div>
+                                        </div>
+                                    </div>
+                                    <div class="group-button-search">
+                                        <div class="btn-search mt-3"><a href="search-properties.html"
+                                                class="btn btn-transparent blue">search properties</a></div>
+                                    </div>
+                                </form>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="search-propertie-filters bg-gray collapse">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-md-2 col-sm-3 col-xs-4">
+                                <div class="search-form-group"><input id="air-conditioning" type="checkbox" /><label
+                                        for="air-conditioning" class="type-checkbox">Air Conditioning</label></div>
+                            </div>
+                            <div class="col-md-2 col-sm-3 col-xs-4">
+                                <div class="search-form-group"><input id="pool" type="checkbox"
+                                        checked="checked" /><label for="pool" class="type-checkbox">pool</label></div>
+                            </div>
+                            <div class="col-md-2 col-sm-3 col-xs-4">
+                                <div class="search-form-group"><input id="lift" type="checkbox" /><label for="lift"
+                                        class="type-checkbox">lift</label></div>
+                            </div>
+                            <div class="col-md-2 col-sm-3 col-xs-4">
+                                <div class="search-form-group"><input id="near-school" type="checkbox"
+                                        checked="checked" /><label for="near-school" class="type-checkbox">near
+                                        school</label></div>
+                            </div>
+                            <div class="col-md-2 col-sm-3 col-xs-4">
+                                <div class="search-form-group"><input id="cable-tv" type="checkbox" /><label
+                                        for="cable-tv" class="type-checkbox">cable TV</label></div>
+                            </div>
+                            <div class="col-md-2 col-sm-3 col-xs-4">
+                                <div class="search-form-group"><input id="dishwasher" type="checkbox" /><label
+                                        for="dishwasher" class="type-checkbox">Dishwasher</label></div>
+                            </div>
+                            <div class="col-md-2 col-sm-3 col-xs-4">
+                                <div class="search-form-group"><input id="near-hospital" type="checkbox" /><label
+                                        for="near-hospital" class="type-checkbox">near hospital</label></div>
+                            </div>
+                            <div class="col-md-2 col-sm-3 col-xs-4">
+                                <div class="search-form-group"><input id="balcony" type="checkbox" /><label
+                                        for="balcony" class="type-checkbox">Balcony</label></div>
+                            </div>
+                            <div class="col-md-2 col-sm-3 col-xs-4">
+                                <div class="search-form-group"><input id="near-church" type="checkbox"
+                                        checked="checked" /><label for="near-church" class="type-checkbox">near
+                                        church</label></div>
+                            </div>
+                            <div class="col-md-2 col-sm-3 col-xs-4">
+                                <div class="search-form-group"><input id="garages" type="checkbox"
+                                        checked="checked" /><label for="garages" class="type-checkbox">Garages</label>
+                                </div>
+                            </div>
+                            <div class="col-md-2 col-sm-3 col-xs-4">
+                                <div class="search-form-group"><input id="wi-fi" type="checkbox"
+                                        checked="checked" /><label for="wi-fi" class="type-checkbox">wi-fi</label></div>
+                            </div>
+                            <div class="col-md-2 col-sm-3 col-xs-4">
+                                <div class="search-form-group"><input id="bedding" type="checkbox"
+                                        checked="checked" /><label for="bedding" class="type-checkbox">Bedding</label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="section property-view">
+
+                    <div class="container">
+                        <a routerLink="/pages/rent-hostel/form-hostel" class="btn btn-primary float-right"> <i
+                                class="fa fa-plus"></i> &nbsp;&nbsp;&nbsp; Add
+                            Post </a>
+
+                        <div class="property-wrapper padding-top padding-bottom">
+                            <div class="row">
+                                <div class="col-md-12 property-content">
+                                    <div class="row">
+                                        <div class="property-item col-md-4 col-xs-6">
+                                            <div class="sunhouse-item"><a href="#" class="wrapper-image"><img
+                                                        src="assets/images/houses/house-1.jpg" alt=""
+                                                        class="img-responsive layout-1" /><img
+                                                        src="assets/images/houses/house-7.jpg" alt=""
+                                                        class="img-responsive layout-2" /></a>
+                                                <div class="wrapper-content">
+                                                    <div class="info-house grd-item">
+                                                        <div class="info"><i class="icon-house_1"></i>
+
+                                                            <p>12,000 Sq Ft</p>
+                                                        </div>
+                                                        <div class="info"><i class="icon-bed"></i>
+
+                                                            <p>3 bedroom</p>
+                                                        </div>
+                                                        <div class="info"><i class="icon-bath"></i>
+
+                                                            <p>2 bathroom</p>
+                                                        </div>
+                                                    </div>
+                                                    <div class="about-house"><a href="#" class="title">Trentino-Alto
+                                                            Adige</a>
+
+                                                        <div class="lst-item nodisplay">
+                                                            <div class="info-house">
+                                                                <div class="info"><i class="icon-house_1"></i>
+
+                                                                    <p>12,000 Sq Ft</p>
+                                                                </div>
+                                                                <div class="info"><i class="icon-bed"></i>
+
+                                                                    <p>3 bedroom</p>
+                                                                </div>
+                                                                <div class="info"><i class="icon-bath"></i>
+
+                                                                    <p>2 bathroom</p>
+                                                                </div>
+                                                            </div>
+                                                            <div class="more-info-house">
+                                                                <div class="place-house"><i
+                                                                        class="fa fa-map-marker"></i><a href="#">568 E
+                                                                        1st Ave, New Jersey</a></div>
+                                                                <div class="price">$ 765,300</div>
+                                                            </div>
+                                                        </div>
+                                                        <p class="text">Duis aute irure dolor in repre in voluptate
+                                                            velit es sint cillumor dolore eu fugiat</p>
+                                                    </div>
+                                                    <div class="more-info-house grd-item">
+                                                        <div class="place-house"><i class="fa fa-map-marker"></i><a
+                                                                href="#">568 E 1st Ave, New Jersey</a></div>
+                                                        <div class="price">$ 765,300</div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="property-item col-md-4 col-xs-6">
+                                            <div class="sunhouse-item"><a href="#" class="wrapper-image"><img
+                                                        src="assets/images/houses/house-2.jpg" alt=""
+                                                        class="img-responsive layout-1" /><img
+                                                        src="assets/images/houses/house-8.jpg" alt=""
+                                                        class="img-responsive layout-2" /></a>
+                                                <div class="wrapper-content">
+                                                    <div class="info-house grd-item">
+                                                        <div class="info"><i class="icon-house_1"></i>
+
+                                                            <p>12,000 Sq Ft</p>
+                                                        </div>
+                                                        <div class="info"><i class="icon-bed"></i>
+
+                                                            <p>3 bedroom</p>
+                                                        </div>
+                                                        <div class="info"><i class="icon-bath"></i>
+
+                                                            <p>2 bathroom</p>
+                                                        </div>
+                                                    </div>
+                                                    <div class="about-house"><a href="#" class="title">Trentino-Alto
+                                                            Adige</a>
+
+                                                        <div class="lst-item nodisplay">
+                                                            <div class="info-house">
+                                                                <div class="info"><i class="icon-house_1"></i>
+
+                                                                    <p>12,000 Sq Ft</p>
+                                                                </div>
+                                                                <div class="info"><i class="icon-bed"></i>
+
+                                                                    <p>3 bedroom</p>
+                                                                </div>
+                                                                <div class="info"><i class="icon-bath"></i>
+
+                                                                    <p>2 bathroom</p>
+                                                                </div>
+                                                            </div>
+                                                            <div class="more-info-house">
+                                                                <div class="place-house"><i
+                                                                        class="fa fa-map-marker"></i><a href="#">568 E
+                                                                        1st Ave, New Jersey</a></div>
+                                                                <div class="price">$ 765,300</div>
+                                                            </div>
+                                                        </div>
+                                                        <p class="text">Duis aute irure dolor in repre in voluptate
+                                                            velit es sint cillumor dolore eu fugiat</p>
+                                                    </div>
+                                                    <div class="more-info-house grd-item">
+                                                        <div class="place-house"><i class="fa fa-map-marker"></i><a
+                                                                href="search-properties.html">568 E 1st Ave, New
+                                                                Jersey</a></div>
+                                                        <div class="price">$ 980/<span>month</span></div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="clearfix"></div>
+                                        <ul class="pagination col-md-12">
+                                            <li class="pagi-item disable"><a href="#"
+                                                    class="link-pagination">Previous</a></li>
+                                            <li class="pagi-item active"><a href="#" class="link-pagination">1</a></li>
+                                            <li class="pagi-item"><a href="#" class="link-pagination">2</a></li>
+                                            <li class="pagi-item"><a href="#" class="link-pagination">...</a></li>
+                                            <li class="pagi-item"><a href="#" class="link-pagination">9</a></li>
+                                            <li class="pagi-item"><a href="#" class="link-pagination">10</a></li>
+                                            <li class="pagi-item"><a href="#" class="link-pagination">Next</a></li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- BUTTON BACK TO TOP-->
+    <div id="back-top"><a href="#top"><i class="fa fa-angle-double-up"></i></a></div>
+</div>

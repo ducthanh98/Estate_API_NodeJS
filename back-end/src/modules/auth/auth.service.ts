@@ -104,7 +104,6 @@ export class AuthService implements OnModuleInit {
         return jwt.sign({ id, email, role }, process.env.SECRET, { expiresIn: '1d' });
     }
     updateUserInfo(data: Partial<UserDTO>, id: number) {
-        this.databaseHelper.repository.create()
         return this.databaseHelper.update(id, data);
     }
 
