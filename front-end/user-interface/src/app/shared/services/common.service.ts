@@ -13,7 +13,8 @@ export class CommonService {
   private baseUrl = 'http://localhost:3000/api/';
   private renderer: Renderer2;
   private listJsUrl = [
-    './assets/js/main.js'
+    './assets/js/main.js',
+    './assets/js/pages/property-detail.js'
   ];
   constructor(
     private http: HttpClient,

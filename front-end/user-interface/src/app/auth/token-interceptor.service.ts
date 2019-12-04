@@ -24,11 +24,11 @@ export class TokenInterceptorService implements HttpInterceptor {
     return next.handle(tokenizedReq)
       .pipe(
         tap((event: HttpEvent<any>) => { }, (err: any) => {
+
           if (err instanceof HttpErrorResponse) {
             // do error handling here
             if (err.status === 403 || err.status === 401) {
               const router = this._injector.get(Router);
-              //console.log('expired token');
               router.navigate(['/auth/login'], { skipLocationChange: true });
             }
             throw err;

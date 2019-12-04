@@ -9,7 +9,8 @@ const routes: Routes = [
         path: '',
         component: PagesComponent,
         children: [
-            { path: 'home', component: HomeComponent }
+            { path: 'home', component: HomeComponent },
+            { path: 'rent-hostel', loadChildren: () => import('./rent-hostel/rent-hostel.module').then(m => m.RentHostelModule) }
         ]
     }
 ];

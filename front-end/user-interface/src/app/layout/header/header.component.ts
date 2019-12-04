@@ -4,7 +4,7 @@ import { CommonService } from './../../shared/services/common.service';
 import { IResponse } from 'src/app/shared/interfaces/Iresponse.interface';
 import { WebConstants } from 'src/app/shared/constants/constants';
 import { ToastrService } from 'ngx-toastr';
-import { Router } from '@angular/router';
+import { Router, NavigationEnd } from '@angular/router';
 
 @Component({
   selector: 'app-header',
@@ -16,6 +16,7 @@ export class HeaderComponent implements OnInit {
   userInfoForm: FormGroup;
   changePassForm: FormGroup;
   email: string;
+  isHome = true;
   constructor(
     private fb: FormBuilder,
     private commonService: CommonService,
@@ -24,6 +25,14 @@ export class HeaderComponent implements OnInit {
 
   ngOnInit() {
     this.initForm();
+    this.isHome = this.router.url.includes('home');
+    this.router.events.subscribe(
+      (event) => {
+        if (event instanceof NavigationEnd) {
+          this.isHome = this.router.url.includes('home');
+        }
+      }
+    );
   }
   initForm() {
     const data = this.commonService.userInfo;

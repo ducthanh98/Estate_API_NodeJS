@@ -4,25 +4,29 @@ import { QueryDeepPartialEntity } from 'typeorm/query-builder/QueryPartialEntity
 import { map, switchMap, skip, take } from 'rxjs/operators';
 import { NotificationContant } from './../constants/notification.constant';
 import { throwError } from 'rxjs/internal/observable/throwError';
-import { AmentitiesRO } from './../modules/admin/amentities/amentities.ro';
 import { Ilist } from '../shared/interface/IList.interface';
 
 export class DatabaseHelper<Entity, DTO> {
-    public repository: Repository<Entity>;
+    private repository: Repository<Entity>;
     constructor(TCtor: new (...args: any[]) => Entity) {
         this.repository = getRepository(TCtor);
     }
 
-    findAll(): Observable<Entity[]> {
-        return from(this.repository.find());
+    get getRepository() {
+        return this.repository;
     }
 
-    findAllBy(pageNumber = 1, pageSize = 10, condition = {}) {
+    findAll(relations = []): Observable<Entity[]> {
+        return from(this.repository.find({ relations }));
+    }
+
+    findAllBy(pageNumber = 1, pageSize = 10, condition = {}, relations = []) {
         return from(this.repository.findAndCount(
             {
                 where: condition,
                 skip: (pageNumber - 1) * 10,
                 take: pageSize,
+                relations,
             },
         )).pipe(
             map(
@@ -37,16 +41,17 @@ export class DatabaseHelper<Entity, DTO> {
         );
     }
 
-    findOne(key: string, value: string | number) {
+    findOne(key: string, value: string | number, relations = []) {
         let condition = `{"${key}":"${value}"}`;
         condition = JSON.parse(condition);
-        return from(this.repository.findOne({ where: condition }));
+        return from(this.repository.findOne({ where: condition, relations }));
     }
 
-    insert(data: DTO): Observable<Entity> {
-        const entity: Entity = this.repository.create(data);
+    insert(data: any): Observable<Entity | Entity[]> {
+        const entity: Entity | Entity[] = this.repository.create(data);
         return from(this.repository.save(entity));
     }
+
     update(id: number, data: QueryDeepPartialEntity<Entity>): Observable<string> {
         return from(this.repository.update(id, data)).pipe(
             switchMap((value: UpdateResult) => {

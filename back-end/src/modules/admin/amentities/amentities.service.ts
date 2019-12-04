@@ -10,6 +10,9 @@ export class AmentitiesService {
     onModuleInit() {
         this.databaseHelper = new DatabaseHelper<AmentitiesEntity, AmentitiesDTO>(AmentitiesEntity);
     }
+    findAll() {
+        return this.databaseHelper.findAll();
+    }
     getAllBy(pageNumber = 1, pageSize = 10, keyText = '') {
         const condition = [
             { name: Like(`%${keyText}%`) },

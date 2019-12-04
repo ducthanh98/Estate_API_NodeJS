@@ -16,6 +16,26 @@ import { Ilist } from './../../../shared/interface/IList.interface';
 @UseGuards(new AuthGuard())
 export class AmentitiesController {
     constructor(private amentitiesService: AmentitiesService) { }
+    @Get('/getAll')
+    findAll(@Res() res: Response) {
+        return this.amentitiesService.findAll()
+            .subscribe(
+                (amentities: AmentitiesEntity[]) => {
+                    const response: IReponse<AmentitiesEntity[]> = {
+                        statusCode: Code.SUCCESS,
+                        message: NotificationContant.SUCCESS,
+                        data: amentities,
+                    };
+                    res.json(response);
+                }, (err) => {
+                    const response: IReponse<any> = {
+                        statusCode: Code.ERROR,
+                        message: err.message,
+                    };
+                    res.json(response);
+                },
+            );
+    }
     @Post('getAllBy')
     @UsePipes(new ValidationPipe())
     getAllBy(@Res() res: Response, @Body() data: BodyDTO) {

@@ -5,10 +5,6 @@ import { CommonService } from './../shared/services/common.service';
   selector: 'app-pages',
   templateUrl: './pages.component.html'
 })
-export class PagesComponent implements AfterViewInit {
+export class PagesComponent {
   constructor(private commonService: CommonService) { }
-
-  ngAfterViewInit(): void {
-    this.commonService.generateScript();
-  }
 }
