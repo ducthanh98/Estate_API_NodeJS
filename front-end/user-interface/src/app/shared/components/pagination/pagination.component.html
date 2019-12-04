@@ -1,0 +1,9 @@
+<ul class="pagination col-md-12" *ngIf="totalPages > 1">
+    <li class="pagi-item {{1 === pageNumber ? 'disable' : ''}}" (click)="nextOrPrevPage(false)"><a
+            class="link-pagination">Previous</a>
+    </li>
+    <li class="pagi-item {{i === pageNumber ? 'active' : ''}}" (click)="changePage(i)" *ngFor="let i of numbers"><a
+            href="#" class="link-pagination">{{i}}</a></li>
+    <li class=" pagi-item {{totalPages === pageNumber ? 'disable' : ''}}" (click)="nextOrPrevPage(true)"><a href="#"
+            class="link-pagination">Next</a></li>
+</ul>

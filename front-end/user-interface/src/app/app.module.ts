@@ -6,7 +6,8 @@ import { ToastrModule } from 'ngx-toastr';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { NotFoundComponent } from './error/not-found/not-found.component';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
+import { TokenInterceptorService } from './auth/token-interceptor.service';
 
 
 @NgModule({
@@ -21,7 +22,11 @@ import { HttpClientModule } from '@angular/common/http';
     ToastrModule.forRoot(),
     BrowserAnimationsModule
   ],
-  providers: [],
+  providers: [
+    {
+      provide: HTTP_INTERCEPTORS, useClass: TokenInterceptorService, multi: true
+    }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

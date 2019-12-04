@@ -174,29 +174,33 @@
                             <div class="row">
                                 <div class="col-md-12 property-content">
                                     <div class="row">
-                                        <div class="property-item col-md-4 col-xs-6">
-                                            <div class="sunhouse-item"><a href="#" class="wrapper-image"><img
-                                                        src="assets/images/houses/house-1.jpg" alt=""
-                                                        class="img-responsive layout-1" /><img
-                                                        src="assets/images/houses/house-7.jpg" alt=""
-                                                        class="img-responsive layout-2" /></a>
-                                                <div class="wrapper-content">
+                                        <div *ngFor="let hostel of lstHostel" class="property-item col-md-4 col-xs-12">
+                                            <div class="sunhouse-item"><a
+                                                    routerLink="/pages/rent-hostel/hostel-detail/{{hostel.id}}"
+                                                    class="wrapper-image">
+                                                    <ng-container *ngFor="let image of hostel.images;let j = index">
+                                                        <img *ngIf="j<2"
+                                                            src="http://localhost:3000/api/files/get/{{image.imgName}}"
+                                                            alt="" class="img-responsive layout-{{j+1}}" />
+                                                    </ng-container>
+                                                </a>
+                                                <div class=" wrapper-content">
                                                     <div class="info-house grd-item">
                                                         <div class="info"><i class="icon-house_1"></i>
 
-                                                            <p>12,000 Sq Ft</p>
+                                                            <p>{{hostel.area}} Sq Ft</p>
                                                         </div>
                                                         <div class="info"><i class="icon-bed"></i>
 
-                                                            <p>3 bedroom</p>
+                                                            <p>{{hostel.bedrooms}} bedroom</p>
                                                         </div>
                                                         <div class="info"><i class="icon-bath"></i>
 
-                                                            <p>2 bathroom</p>
+                                                            <p>{{hostel.bathrooms}} bathroom</p>
                                                         </div>
                                                     </div>
-                                                    <div class="about-house"><a href="#" class="title">Trentino-Alto
-                                                            Adige</a>
+                                                    <div class="about-house"><a href="#"
+                                                            class="title">{{hostel.title}}</a>
 
                                                         <div class="lst-item nodisplay">
                                                             <div class="info-house">
@@ -220,86 +224,18 @@
                                                                 <div class="price">$ 765,300</div>
                                                             </div>
                                                         </div>
-                                                        <p class="text">Duis aute irure dolor in repre in voluptate
-                                                            velit es sint cillumor dolore eu fugiat</p>
+                                                        <p class="text" [innerHTML]="hostel.description"></p>
                                                     </div>
                                                     <div class="more-info-house grd-item">
                                                         <div class="place-house"><i class="fa fa-map-marker"></i><a
-                                                                href="#">568 E 1st Ave, New Jersey</a></div>
-                                                        <div class="price">$ 765,300</div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="property-item col-md-4 col-xs-6">
-                                            <div class="sunhouse-item"><a href="#" class="wrapper-image"><img
-                                                        src="assets/images/houses/house-2.jpg" alt=""
-                                                        class="img-responsive layout-1" /><img
-                                                        src="assets/images/houses/house-8.jpg" alt=""
-                                                        class="img-responsive layout-2" /></a>
-                                                <div class="wrapper-content">
-                                                    <div class="info-house grd-item">
-                                                        <div class="info"><i class="icon-house_1"></i>
-
-                                                            <p>12,000 Sq Ft</p>
-                                                        </div>
-                                                        <div class="info"><i class="icon-bed"></i>
-
-                                                            <p>3 bedroom</p>
-                                                        </div>
-                                                        <div class="info"><i class="icon-bath"></i>
-
-                                                            <p>2 bathroom</p>
-                                                        </div>
-                                                    </div>
-                                                    <div class="about-house"><a href="#" class="title">Trentino-Alto
-                                                            Adige</a>
-
-                                                        <div class="lst-item nodisplay">
-                                                            <div class="info-house">
-                                                                <div class="info"><i class="icon-house_1"></i>
-
-                                                                    <p>12,000 Sq Ft</p>
-                                                                </div>
-                                                                <div class="info"><i class="icon-bed"></i>
-
-                                                                    <p>3 bedroom</p>
-                                                                </div>
-                                                                <div class="info"><i class="icon-bath"></i>
-
-                                                                    <p>2 bathroom</p>
-                                                                </div>
-                                                            </div>
-                                                            <div class="more-info-house">
-                                                                <div class="place-house"><i
-                                                                        class="fa fa-map-marker"></i><a href="#">568 E
-                                                                        1st Ave, New Jersey</a></div>
-                                                                <div class="price">$ 765,300</div>
-                                                            </div>
-                                                        </div>
-                                                        <p class="text">Duis aute irure dolor in repre in voluptate
-                                                            velit es sint cillumor dolore eu fugiat</p>
-                                                    </div>
-                                                    <div class="more-info-house grd-item">
-                                                        <div class="place-house"><i class="fa fa-map-marker"></i><a
-                                                                href="search-properties.html">568 E 1st Ave, New
-                                                                Jersey</a></div>
-                                                        <div class="price">$ 980/<span>month</span></div>
+                                                                href="#">{{hostel.location}}</a></div>
+                                                        <div class="price">$ {{hostel.price}} </div>
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
                                         <div class="clearfix"></div>
-                                        <ul class="pagination col-md-12">
-                                            <li class="pagi-item disable"><a href="#"
-                                                    class="link-pagination">Previous</a></li>
-                                            <li class="pagi-item active"><a href="#" class="link-pagination">1</a></li>
-                                            <li class="pagi-item"><a href="#" class="link-pagination">2</a></li>
-                                            <li class="pagi-item"><a href="#" class="link-pagination">...</a></li>
-                                            <li class="pagi-item"><a href="#" class="link-pagination">9</a></li>
-                                            <li class="pagi-item"><a href="#" class="link-pagination">10</a></li>
-                                            <li class="pagi-item"><a href="#" class="link-pagination">Next</a></li>
-                                        </ul>
+                                        <app-pagination></app-pagination>
                                     </div>
                                 </div>
                             </div>

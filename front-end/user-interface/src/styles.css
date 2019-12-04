@@ -32,3 +32,12 @@
 .ck-editor__editable_inline {
     min-height: 300px;
 }
+.amentities-check{
+    height: 20px;
+    width: 20px;
+    margin-right: 4px;
+}
+.fa.owned{
+    color: #FFA500;
+    
+}

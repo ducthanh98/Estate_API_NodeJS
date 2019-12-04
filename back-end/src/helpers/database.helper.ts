@@ -41,10 +41,10 @@ export class DatabaseHelper<Entity, DTO> {
         );
     }
 
-    findOne(key: string, value: string | number) {
+    findOne(key: string, value: string | number, relations = []) {
         let condition = `{"${key}":"${value}"}`;
         condition = JSON.parse(condition);
-        return from(this.repository.findOne({ where: condition }));
+        return from(this.repository.findOne({ where: condition, relations }));
     }
 
     insert(data: any): Observable<Entity | Entity[]> {

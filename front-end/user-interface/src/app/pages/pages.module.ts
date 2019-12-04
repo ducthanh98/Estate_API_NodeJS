@@ -16,10 +16,6 @@ import { TokenInterceptorService } from '../auth/token-interceptor.service';
     CommonModule,
     PagesRoutingModule,
     LayoutModule
-  ], providers: [
-    {
-      provide: HTTP_INTERCEPTORS, useClass: TokenInterceptorService, multi: true
-    }
   ]
 })
 export class PagesModule { }

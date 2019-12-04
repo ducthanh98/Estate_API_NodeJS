@@ -1,4 +1,4 @@
-import { Controller, Post, UseInterceptors, UploadedFiles, Body, Res, Get, UsePipes } from '@nestjs/common';
+import { Controller, Post, UseInterceptors, UploadedFiles, Body, Res, Get, UsePipes, Param } from '@nestjs/common';
 import { FilesInterceptor } from '@nestjs/platform-express';
 import { RentHostelDTO } from './dto/rent-hostel.dto';
 import { Response } from 'express';
@@ -11,6 +11,7 @@ import { UserDTO } from '../auth/dto/user.dto';
 import { ValidationPipe } from './../../shared/pipes/validation.pipe';
 import { BodyDTO } from '../../shared/class/body.dto';
 import { Ilist } from '../..//shared/interface/IList.interface';
+import { PostRO } from './ro/post.ro';
 
 @Controller('rent-hostel')
 export class RentHostelController {
@@ -26,6 +27,30 @@ export class RentHostelController {
                         statusCode: Code.SUCCESS,
                         message: NotificationContant.SUCCESS,
                         data: hostel,
+                    };
+                    res.json(response);
+                }, (err) => {
+                    const response: IReponse<any> = {
+                        statusCode: Code.ERROR,
+                        message: err.message,
+                    };
+                    res.json(response);
+                },
+            );
+    }
+
+    @Get('getById/:id')
+    @UsePipes(new ValidationPipe())
+    getById(@Res() res: Response, @Param('id') id: number) {
+        return this.rentHostelService.getById(id)
+            .subscribe(
+                (hostel: PostEntity) => {
+                    console.log(hostel)
+                    const hostelRO: PostRO = { ...hostel, author: hostel.author.toResponseObject() };
+                    const response: IReponse<PostRO> = {
+                        statusCode: Code.SUCCESS,
+                        message: NotificationContant.SUCCESS,
+                        data: hostelRO,
                     };
                     res.json(response);
                 }, (err) => {
@@ -56,6 +81,6 @@ export class RentHostelController {
                     };
                     res.json(response);
                 },
-            )
+            );
     }
 }

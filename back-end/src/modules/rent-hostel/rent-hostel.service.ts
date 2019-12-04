@@ -6,19 +6,23 @@ import { Like } from 'typeorm';
 import { UserEntity } from 'src/database/user.entity';
 import { UserDTO } from '../auth/dto/user.dto';
 import { switchMap, mergeMap, mergeAll } from 'rxjs/operators';
-import { of, from } from 'rxjs';
+import { of, from, forkJoin } from 'rxjs';
 import { GalleryEntity } from './../../database/gallery.entity';
 import { GalleryDTO } from './dto/gallery.dto';
+import { AmentitiesEntity } from './../../database/amentities.entity';
+import { AmentitiesDTO } from './../admin/amentities/amentities.dto';
 
 @Injectable()
 export class RentHostelService {
     private databaseHelper: DatabaseHelper<PostEntity, RentHostelDTO>;
     private userHelper: DatabaseHelper<UserEntity, UserDTO>;
     private galleryHelper: DatabaseHelper<GalleryEntity, GalleryDTO>;
+    private amentitiesHelper: DatabaseHelper<AmentitiesEntity, AmentitiesDTO>;
     onModuleInit() {
         this.databaseHelper = new DatabaseHelper<PostEntity, RentHostelDTO>(PostEntity);
         this.userHelper = new DatabaseHelper<UserEntity, UserDTO>(UserEntity);
         this.galleryHelper = new DatabaseHelper<GalleryEntity, GalleryDTO>(GalleryEntity);
+        this.amentitiesHelper = new DatabaseHelper<AmentitiesEntity, AmentitiesDTO>(AmentitiesEntity);
 
     }
 
@@ -26,8 +30,13 @@ export class RentHostelService {
         const condition = [
             { title: Like(`%${keyText}%`) },
         ];
-        const relations = ['images'];
+        const relations = ['images', 'author', 'amentities'];
         return this.databaseHelper.findAllBy(pageNumber, pageSize, condition, relations);
+    }
+
+    getById(id: number) {
+        const relations = ['images', 'author', 'amentities'];
+        return this.databaseHelper.findOne('id', id, relations);
     }
 
     private createPost(rentHostel: RentHostelDTO) {
@@ -56,14 +65,22 @@ export class RentHostelService {
         return this.createPost(rentHostel)
             .pipe(
                 switchMap((post: PostEntity) => {
-                    return this.uploadFile(files, post);
-                })
+                    return forkJoin([
+                        this.uploadFile(files, post),
+                        this.insertAmentities(rentHostel.amentities, post)
+                            .pipe(
+                                switchMap((data: any) => {
+                                    post.amentities = data;
+                                    return this.databaseHelper.getRepository.save(post)
+                                }),
+                            )
+                    ]);
+                }),
             );
     }
 
-
     update(id: number, rentHostel: RentHostelDTO) {
-        return this.databaseHelper.update(id, rentHostel);
+        // return this.databaseHelper.update(id, rentHostel);
     }
 
     delete(id: number) {
@@ -76,5 +93,13 @@ export class RentHostelService {
             gallery.push({ imgName: file.filename, post });
         });
         return this.galleryHelper.insert(gallery);
+    }
+    private insertAmentities(amentities: string, post: PostEntity) {
+        const amentitiesList = [];
+        const amentitiesSplit = amentities.split(',');
+        amentitiesSplit.forEach((id) => {
+            amentitiesList.push(this.amentitiesHelper.findOne('id', id));
+        });
+        return forkJoin(amentitiesList);
     }
 }

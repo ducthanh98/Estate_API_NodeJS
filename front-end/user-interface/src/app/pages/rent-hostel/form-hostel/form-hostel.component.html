@@ -10,23 +10,25 @@
                         <h1>Form</h1>
                     </div>
                     <div class="row">
-                        <form>
+                        <form [formGroup]="hostelForm" (ngSubmit)="onSubmit()">
                             <div class="form-row col-lg-12">
                                 <div class="col-lg-6">
                                     <div class="search-form-group"><label class="title-search-form">Title</label><input
-                                            type="text" placeholder="Title" class="input-form" /></div>
+                                            type="text" formControlName="title" placeholder="Title"
+                                            class="input-form" /></div>
                                 </div>
                                 <div class="col-lg-6">
                                     <div class="search-form-group"><label
                                             class="title-search-form">Location</label><input type="text"
-                                            placeholder="Location" class="input-form" /></div>
+                                            placeholder="Location" formControlName="location" class="input-form" />
+                                    </div>
                                 </div>
                             </div>
                             <div class="form-row col-lg-12">
                                 <div class="col-lg-6">
                                     <div class="search-form-group"><label
                                             class="title-search-form">Bedrooms</label><select
-                                            class="input-form selectbox">
+                                            class="input-form selectbox" formControlName="bedrooms">
                                             <option value="1">1</option>
                                             <option value="2">2</option>
                                             <option value="3">3</option>
@@ -36,7 +38,7 @@
                                 <div class="col-lg-6">
                                     <div class="search-form-group"><label
                                             class="title-search-form">Bathrooms</label><select
-                                            class="input-form selectbox">
+                                            formControlName="bathrooms" class="input-form selectbox">
                                             <option value="1">1</option>
                                             <option value="2">2</option>
                                             <option value="3">3</option>
@@ -48,13 +50,14 @@
                             <div class="form-row col-lg-12">
                                 <div class="col-lg-6">
                                     <div class="search-form-group"><label class="title-search-form">Area</label><input
-                                            type="text" placeholder="Area" class="input-form" /></div>
+                                            type="text" formControlName="area" placeholder="Area" class="input-form" />
+                                    </div>
                                 </div>
                                 <div class="col-lg-6">
                                     <div class="search-form-group"><label class="title-search-form">Price</label><input
-                                            type="text" placeholder="Price" class="input-form" /></div>
+                                            type="text" formControlName="price" placeholder="Price"
+                                            class="input-form" /></div>
                                 </div>
-
                             </div>
                             <div class="form-row col-lg-12 mb-3">
                                 <div class="col-lg-6">
@@ -67,13 +70,28 @@
                                 </div>
                             </div>
                             <div class="form-row col-lg-12">
-                                <ckeditor [editor]="Editor" data="a"></ckeditor>
+                                <div class="col-lg-6">
+                                    <div class="search-form-group"><label class="title-search-form">Amentities</label>
+                                    </div>
+                                </div>
+                                <div class="col-lg-12">
+                                    <ng-container formArrayName="amentities"
+                                        *ngFor="let amentities of hostelForm.controls.amentities.controls; let i = index">
+                                        <div class="col-lg-2">
+                                            <input type="checkbox" class="amentities-check" [formControlName]="i">
+                                            {{amentitiesData[i].name}}
+                                        </div>
+                                    </ng-container>
+                                </div>
+
+                            </div>
+                            <div class="form-row col-lg-12 mt-3">
+                                <ckeditor [editor]="Editor" formControlName="description" data="a"></ckeditor>
                             </div>
 
                             <div class="row  mb-3">
                                 <div class="col-lg-12 text-right">
-                                    <button type="button" class="btn-ladda btn btn-success mt-3"> <i
-                                            class="fa fa-save"></i>
+                                    <button type="submit" class=" btn btn-success mt-3"> <i class="fa fa-save"></i>
                                         &nbsp;&nbsp;&nbsp;&nbsp; Save</button>
                                 </div>
                             </div>

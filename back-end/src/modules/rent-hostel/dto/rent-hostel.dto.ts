@@ -19,5 +19,7 @@ export class RentHostelDTO {
     @IsNotEmpty()
     description: string;
     gallery: any[];
-    userId: string;
+    @IsNumber()
+    userId: number;
+    amentities: any;
 }
