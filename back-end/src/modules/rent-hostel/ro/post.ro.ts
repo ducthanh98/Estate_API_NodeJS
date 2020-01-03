@@ -1,8 +1,7 @@
 import { UserRO } from './../../auth/ro/user.ro';
-import { GalleryEntity } from '../../../database/gallery.entity';
-import { CommentEntity } from '../../../database/comment.entity';
-import { PostTypeEntity } from '../../../database/postType.entity';
-import { AmentitiesEntity } from '../../../database/amentities.entity';
+import { GalleryEntity } from '../../../database/entities/gallery.entity';
+import { CommentEntity } from '../../../database/entities/comment.entity';
+import { AmentitiesEntity } from '../../../database/entities/amentities.entity';
 
 export class PostRO {
     id: number;
@@ -12,9 +11,10 @@ export class PostRO {
     bathrooms: number;
     area: number;
     price: number;
+    lat: number;
+    lng: number;
     description: string;
     author: UserRO;
-    postType: PostTypeEntity;
     comments: CommentEntity[];
     images: GalleryEntity[];
     amentities: AmentitiesEntity[];

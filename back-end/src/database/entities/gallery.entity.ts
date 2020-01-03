@@ -1,5 +1,5 @@
 import { PrimaryGeneratedColumn, Entity, Column, ManyToOne } from 'typeorm';
-import { PostEntity } from './post.entity';
+import { HouseEntity } from './house.entity';
 
 @Entity('gallery')
 export class GalleryEntity {
@@ -9,6 +9,6 @@ export class GalleryEntity {
     @Column('nvarchar', { length: 50 })
     imgName: string;
 
-    @ManyToOne(type => PostEntity, post => post.images)
-    post: PostEntity;
+    @ManyToOne(type => HouseEntity, post => post.images)
+    post: HouseEntity;
 }

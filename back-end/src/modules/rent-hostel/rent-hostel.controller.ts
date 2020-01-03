@@ -3,11 +3,10 @@ import { FilesInterceptor } from '@nestjs/platform-express';
 import { RentHostelDTO } from './dto/rent-hostel.dto';
 import { Response } from 'express';
 import { RentHostelService } from './rent-hostel.service';
-import { IReponse } from 'src/shared/interface/ireponse.interface';
-import { NotificationContant } from 'src/constants/notification.constant';
-import { Code } from 'src/constants/code.enum';
-import { PostEntity } from './../../database/post.entity';
-import { UserDTO } from '../auth/dto/user.dto';
+import { IReponse } from '../../shared/interface/ireponse.interface';
+import { NotificationContant } from '../../constants/notification.constant';
+import { Code } from '../../constants/code.enum';
+import { HouseEntity } from '../../database/entities/house.entity';
 import { ValidationPipe } from './../../shared/pipes/validation.pipe';
 import { BodyDTO } from '../../shared/class/body.dto';
 import { Ilist } from '../..//shared/interface/IList.interface';
@@ -22,8 +21,28 @@ export class RentHostelController {
     getAllBy(@Res() res: Response, @Body() data: BodyDTO) {
         return this.rentHostelService.getAllBy(data.pageNumber, data.pageSize, data.keyText)
             .subscribe(
-                (hostel: Ilist<PostEntity>) => {
-                    const response: IReponse<Ilist<PostEntity>> = {
+                (hostel: Ilist<HouseEntity>) => {
+                    const response: IReponse<Ilist<HouseEntity>> = {
+                        statusCode: Code.SUCCESS,
+                        message: NotificationContant.SUCCESS,
+                        data: hostel,
+                    };
+                    res.json(response);
+                }, (err) => {
+                    const response: IReponse<any> = {
+                        statusCode: Code.ERROR,
+                        message: err.message,
+                    };
+                    res.json(response);
+                },
+            );
+    }
+    @Get('getNewest')
+    getNewest(@Res() res: Response) {
+        return this.rentHostelService.getNewest()
+            .subscribe(
+                (hostel: HouseEntity[]) => {
+                    const response: IReponse<HouseEntity[]> = {
                         statusCode: Code.SUCCESS,
                         message: NotificationContant.SUCCESS,
                         data: hostel,
@@ -44,8 +63,7 @@ export class RentHostelController {
     getById(@Res() res: Response, @Param('id') id: number) {
         return this.rentHostelService.getById(id)
             .subscribe(
-                (hostel: PostEntity) => {
-                    console.log(hostel)
+                (hostel: HouseEntity) => {
                     const hostelRO: PostRO = { ...hostel, author: hostel.author.toResponseObject() };
                     const response: IReponse<PostRO> = {
                         statusCode: Code.SUCCESS,
@@ -69,13 +87,13 @@ export class RentHostelController {
         return this.rentHostelService.createGallery(files, data)
             .subscribe(
                 (value) => {
-                    const response: IReponse<PostEntity> = {
+                    const response: IReponse<HouseEntity> = {
                         statusCode: Code.SUCCESS,
                         message: NotificationContant.SUCCESS,
                     };
                     res.json(response);
                 }, (err) => {
-                    const response: IReponse<PostEntity> = {
+                    const response: IReponse<HouseEntity> = {
                         statusCode: Code.ERROR,
                         message: err.message,
                     };

@@ -19,21 +19,24 @@
                 $('.nav-bar').removeClass('nav-fix');
                 $('.nav-bar').css("top", "0");
             };
-            if(nav_scroll > $(".location").offset().top - $('.nav-bar').height()) {
-                $('.nav-bar').css('top', '-200px');
+            if($(".location").length) {
+                if(nav_scroll > $(".location").offset().top - $('.nav-bar').height()){
+                    $('.nav-bar').css('top', '-200px');
+                }
+                
             };
-            if(nav_scroll < $(".condition").offset().top - $('.nav-bar').height()) {
+            if($(".condition").length && (nav_scroll < $(".condition").offset().top - $('.nav-bar').height())) {
                 $('.active').removeClass('active');
                 $('.on-top-btn').addClass('active');
             } else {                
                 $('.active').removeClass('active');
                 $('.condition-btn').addClass('active');
             }
-            if(nav_scroll >= $(".description").offset().top - $('.nav-bar').height()) {
+            if($(".description").length && (nav_scroll >= $(".description").offset().top - $('.nav-bar').height())) {
                 $('.active').removeClass('active');
                 $('.description-btn').addClass('active');
             };
-            if(nav_scroll >= $(".location").offset().top - $('.nav-bar').height()) {
+            if($(".location").length  && (nav_scroll >= $(".location").offset().top - $('.nav-bar').height())) {
                 $('.active').removeClass('active');
                 $('.location-btn').addClass('active');
             };

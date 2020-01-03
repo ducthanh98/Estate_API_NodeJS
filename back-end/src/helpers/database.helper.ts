@@ -1,26 +1,30 @@
-import { getRepository, Repository, DeleteResult, UpdateResult } from 'typeorm';
+import { Repository, DeleteResult, UpdateResult, DeepPartial, getRepository } from 'typeorm';
 import { from, Observable, of, pipe } from 'rxjs';
 import { QueryDeepPartialEntity } from 'typeorm/query-builder/QueryPartialEntity';
 import { map, switchMap, skip, take } from 'rxjs/operators';
 import { NotificationContant } from './../constants/notification.constant';
 import { throwError } from 'rxjs/internal/observable/throwError';
 import { Ilist } from '../shared/interface/IList.interface';
+import { IDatabase } from './../database/dao/IDatabase.dao';
 
-export class DatabaseHelper<Entity, DTO> {
+export class DatabaseHelper<Entity, DTO> implements IDatabase<Entity, DTO> {
     private repository: Repository<Entity>;
     constructor(TCtor: new (...args: any[]) => Entity) {
         this.repository = getRepository(TCtor);
     }
-
     get getRepository() {
         return this.repository;
     }
 
-    findAll(relations = []): Observable<Entity[]> {
-        return from(this.repository.find({ relations }));
+    findAll(relations = [], takeNumber= null, orderOption?): Observable<Entity[]> {
+        return from(this.repository.find({
+            order: orderOption,
+            relations,
+            take: takeNumber,
+        }));
     }
 
-    findAllBy(pageNumber = 1, pageSize = 10, condition = {}, relations = []) {
+    findAllBy(pageNumber = 1, pageSize = 10, condition = {}, relations = []): Observable<Ilist<Entity>> {
         return from(this.repository.findAndCount(
             {
                 where: condition,
@@ -41,17 +45,18 @@ export class DatabaseHelper<Entity, DTO> {
         );
     }
 
-    findOne(key: string, value: string | number, relations = []) {
+    findOne(key: string, value: string | number, relations = []): Observable<Entity> {
         let condition = `{"${key}":"${value}"}`;
         condition = JSON.parse(condition);
         return from(this.repository.findOne({ where: condition, relations }));
     }
 
-    insert(data: any): Observable<Entity | Entity[]> {
+    insert(data: DTO): Observable<Entity>;
+    insert(data: DTO[]): Observable<Entity[]>;
+    insert(data: any): any {
         const entity: Entity | Entity[] = this.repository.create(data);
         return from(this.repository.save(entity));
     }
-
     update(id: number, data: QueryDeepPartialEntity<Entity>): Observable<string> {
         return from(this.repository.update(id, data)).pipe(
             switchMap((value: UpdateResult) => {

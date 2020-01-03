@@ -90,7 +90,7 @@
                                     </li>
                                     <li class="condition-item">
                                         <div class="info"><i class="fa fa-money"></i><span
-                                                class="price-num">{{hostelData.price}}</span></div>
+                                                class="price-num"> {{hostelData.price | currency:'USD'}}</span></div>
                                     </li>
 
                                     <li class="clearfix"></li>
@@ -118,7 +118,7 @@
                                                 src="assets/images/avatars/avatar-7.jpg" alt="" class="agent-image" />
                                         </div>
                                         <div class="media-body media-middle">
-                                            <div class="media-heading agent-name">{{hostelData.author.name}}</div>
+                                            <div class="media-heading agent-name">{{hostelData.author?.name}}</div>
                                             <span class="agent-pos">expert agent</span>
                                         </div>
                                     </div>
@@ -126,22 +126,18 @@
                                         <div class="contact-info">
                                             <div class="info">
                                                 <div class="phone"><i
-                                                        class="fa fa-mobile"></i><span>{{hostelData.author.phone}}</span>
+                                                        class="fa fa-mobile"></i><span>{{hostelData.author?.phone}}</span>
                                                 </div>
                                             </div>
                                             <div class="info">
                                                 <div class="email"><i
-                                                        class="fa fa-envelope-o"></i><span>{{hostelData.author.email}}</span>
+                                                        class="fa fa-envelope-o"></i><span>{{hostelData.author?.email}}</span>
                                                 </div>
                                             </div>
-                                            <div class="info">
-                                                <div class="skype"><i
-                                                        class="fa fa-skype"></i><span>miles.sunhouse</span></div>
-                                            </div>
                                         </div>
-                                        <div class="social-info"><a href="#" class="link"><i
-                                                    class="fa fa-facebook"></i></a><a href="#" class="link"><i
-                                                    class="fa fa-twitter"></i></a>
+                                        <div class="social-info">
+                                            <!-- <a href="#" class="link"><i class="fa fa-facebook"></i></a> -->
+                                            <!-- <a href="#" class="link"><i class="fa fa-twitter"></i></a> -->
                                         </div>
                                     </div>
                                     <div class="clearfix"></div>
@@ -149,7 +145,60 @@
                             </div>
                         </div>
                     </div>
-                    <div id="map2" class="section contact-map height-full-screen location"></div>
+                    <div id="map2" class="section contact-map height-full-screen location">
+                        <agm-map [latitude]="hostelData.lat" [longitude]="hostelData.lng" [zoom]="16">
+                            <agm-marker [latitude]="hostelData.lat" [longitude]="hostelData.lng">
+                                <agm-info-window>
+                                  <span>
+                                      {{hostelData.location}}
+                                    <!-- <span *ngIf="commonService.lang === name.langCode">{{name.name}}</span> -->
+                                  </span>
+                                </agm-info-window>
+                              </agm-marker>
+                        </agm-map>
+                    </div>
+                    <div class="container">
+                        <div class="detail-wrapper rowa">
+                            <div class="col-md-12 detail-content">
+                                <div class="col-md-12 title">Comments</div>
+                                <div class="form-row col-lg-12 mt-3">
+                                    <ckeditor [editor]="Editor" [(ngModel)]="comment"></ckeditor>
+                                    <br>
+                                    <div class="d-flex justify-content-end">
+                                        <button class="btn btn-success" (click)="submitComment()"> <i class="fa fa-paper-plane"></i> &nbsp; Send</button>
+                                    </div>
+                                    <br>
+                                </div>
+                            </div>
+                        </div>
+                        <hr>
+                        <div class="detail-wrapper row">
+                            <div class="col-md-12 detail-content">
+                                <ul class="list-unstyled">
+                                    <li class="media" *ngFor="let obj of lstComments">
+                                        <ng-container>
+                                            <img class="mr-3" width="64px" height="64px" src="assets/images/avatars/avatar-7.jpg" alt="Generic placeholder image">
+                                            <div class="media-body">
+                                              <h5 class="mt-0 mb-1">{{obj.user.name}} <span class="float-right" *ngIf="userId === obj.user.id"><i class="fa fa-edit"></i> &nbsp; <i class="fa fa-trash"></i></span> </h5> 
+                                              <div [innerHtml]="obj.comment"></div>
+                                            </div>
+                                        </ng-container>
+                                        <!-- <ng-container>
+                                            <div class="form-row col-lg-12 mt-3">
+                                                <ckeditor [editor]="Editor" [(ngModel)]="comment"></ckeditor>
+                                                <br>
+                                                <div class="d-flex justify-content-end">
+                                                    <button class="btn btn-success"> <i class="fa fa-paper-plane"></i> &nbsp; Send</button>
+                                                </div>
+                                                <br>
+                                            </div>
+                                        </ng-container> -->
+                                    </li>
+                                  </ul>
+                            </div>
+                        </div>
+                        <br>
+                    </div>
                 </div>
             </div>
         </div>

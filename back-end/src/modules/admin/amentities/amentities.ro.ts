@@ -1,4 +1,4 @@
-import { AmentitiesEntity } from '../../../database/amentities.entity';
+import { AmentitiesEntity } from '../../../database/entities/amentities.entity';
 
 export class AmentitiesRO {
     amentities: AmentitiesEntity[];

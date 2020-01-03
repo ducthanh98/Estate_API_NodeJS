@@ -1,7 +1,7 @@
 import { Injectable, OnModuleInit, HttpException, HttpStatus, Logger, UseGuards, Post } from '@nestjs/common';
 import { UserDTO } from './dto/user.dto';
 import { DatabaseHelper } from '../../helpers/database.helper';
-import { UserEntity } from './../../database/user.entity';
+import { UserEntity } from './../../database/entities/user.entity';
 import { mergeAll, switchMap, catchError, mergeMap } from 'rxjs/operators';
 import { throwError } from 'rxjs/internal/observable/throwError';
 import { v4 as uuid } from 'uuid';
