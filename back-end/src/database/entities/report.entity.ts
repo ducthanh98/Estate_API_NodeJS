@@ -1,6 +1,6 @@
 import { Entity, PrimaryGeneratedColumn, ManyToOne, CreateDateColumn, Column, OneToOne, JoinColumn } from 'typeorm';
 import { ReportTypeEntity } from './reportType.entity';
-import { PostEntity } from './post.entity';
+import { HouseEntity } from './house.entity';
 import { UserEntity } from './user.entity';
 
 @Entity('report')
@@ -18,9 +18,9 @@ export class ReportEntity {
     @JoinColumn()
     reportType: ReportTypeEntity;
 
-    @OneToOne(type => PostEntity)
+    @OneToOne(type => HouseEntity)
     @JoinColumn()
-    post: PostEntity;
+    post: HouseEntity;
 
     @OneToOne(type => UserEntity)
     @JoinColumn()

@@ -1,6 +1,7 @@
 import { IsString, IsNumber, IsNotEmpty } from 'class-validator';
+import { UserEntity } from '../../../database/entities/user.entity';
 
-export class RentHostelDTO {
+export class PostDTO {
     @IsString()
     @IsNotEmpty()
     title: string;
@@ -18,9 +19,7 @@ export class RentHostelDTO {
     @IsString()
     @IsNotEmpty()
     description: string;
-    @IsNumber()
-    userId: number;
-    amentities: any;
+    author: UserEntity;
     @IsNumber()
     lat: number;
     @IsNumber()

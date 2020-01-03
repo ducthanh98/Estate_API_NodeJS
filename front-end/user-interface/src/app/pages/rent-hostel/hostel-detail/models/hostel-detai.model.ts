@@ -10,6 +10,8 @@ export class HostelModel {
     amentities: AmentitiesModel[];
     author: User;
     images: Images[];
+    lat: number;
+    lng: number;
 }
 
 export class AmentitiesModel {

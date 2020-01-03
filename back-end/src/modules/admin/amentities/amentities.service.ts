@@ -1,5 +1,5 @@
 import { Injectable } from '@nestjs/common';
-import { AmentitiesEntity } from './../../../database/amentities.entity';
+import { AmentitiesEntity } from '../../../database/entities/amentities.entity';
 import { AmentitiesDTO } from './amentities.dto';
 import { DatabaseHelper } from '../../../helpers/database.helper';
 import { Like } from 'typeorm';

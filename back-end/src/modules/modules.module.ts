@@ -5,6 +5,7 @@ import { DatabaseEntitities } from '../database/database.module';
 import { AdminModule } from './admin/admin.module';
 import { RentHostelModule } from './rent-hostel/rent-hostel.module';
 import { FilesModule } from './files/files.module';
+import { CommentsModule } from './comments/comments.module';
 
 @Module({
     imports: [
@@ -13,6 +14,7 @@ import { FilesModule } from './files/files.module';
         AdminModule,
         RentHostelModule,
         FilesModule,
+        CommentsModule,
     ],
     exports: [AuthModule],
 })

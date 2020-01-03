@@ -1,9 +1,10 @@
 import { Entity, PrimaryGeneratedColumn, Column, BeforeInsert, OneToMany, BeforeUpdate } from 'typeorm';
 import * as bcrypt from 'bcryptjs';
-import { SALT_ROUNDS } from '../constants/variable.constant';
-import { PostEntity } from './post.entity';
-import { Role } from '../constants/role.enum';
-import { UserRO } from './../modules/auth/ro/user.ro';
+import { SALT_ROUNDS } from '../../constants/variable.constant';
+import { HouseEntity } from './house.entity';
+import { Role } from '../../constants/role.enum';
+import { UserRO } from '../../modules/auth/ro/user.ro';
+import { CommentEntity } from './comment.entity';
 @Entity('account')
 export class UserEntity {
     @PrimaryGeneratedColumn('increment')
@@ -50,8 +51,11 @@ export class UserEntity {
     @Column('varchar', { length: 50, nullable: true })
     code: string;
 
-    @OneToMany(type => PostEntity, post => post.author)
-    posts: PostEntity[];
+    @OneToMany(type => HouseEntity, post => post.author)
+    posts: HouseEntity[];
+
+    @OneToMany(type => CommentEntity, comment => comment.user)
+    comments: CommentEntity[];
 
     @BeforeInsert()
     async hashPassword() {

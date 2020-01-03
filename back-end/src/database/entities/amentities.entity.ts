@@ -1,5 +1,5 @@
 import { PrimaryGeneratedColumn, Entity, Column, ManyToMany, JoinTable } from 'typeorm';
-import { PostEntity } from './post.entity';
+import { HouseEntity } from './house.entity';
 @Entity('amentities')
 export class AmentitiesEntity {
     @PrimaryGeneratedColumn('increment')
@@ -11,6 +11,6 @@ export class AmentitiesEntity {
     @Column('nvarchar', { length: 20 })
     icon: string;
 
-    @ManyToMany(type => PostEntity, post => post.amentities)
-    posts: PostEntity[];
+    @ManyToMany(type => HouseEntity, house => house.amentities)
+    house: HouseEntity[];
 }

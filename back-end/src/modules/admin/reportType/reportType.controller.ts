@@ -2,14 +2,14 @@ import { Controller, Post, Get, Body, UsePipes, Param, Res, UseGuards } from '@n
 import { IReponse } from '../../../shared/interface/ireponse.interface';
 import { Code } from '../../../constants/code.enum';
 import { Response } from 'express';
-import { AmentitiesEntity } from './../../../database/amentities.entity';
+import { AmentitiesEntity } from '../../../database/entities/amentities.entity';
 import { NotificationContant } from './../../../constants/notification.constant';
 import { BodyDTO } from './../../../shared/class/body.dto';
 import { ValidationPipe } from '../../../shared/pipes/validation.pipe';
 import { AuthGuard } from './../../../shared/guards/auth.guard';
 import { ReportTypeService } from './reportType.service';
 import { ReportTypeDTO } from './reportType.dto';
-import { ReportTypeEntity } from './../../../database/reportType.entity';
+import { ReportTypeEntity } from '../../../database/entities/reportType.entity';
 import { Ilist } from './../../../shared/interface/IList.interface';
 
 @Controller('admin/report-type')

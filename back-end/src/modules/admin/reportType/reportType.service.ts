@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { DatabaseHelper } from '../../../helpers/database.helper';
 import { Like } from 'typeorm';
-import { ReportTypeEntity } from './../../../database/reportType.entity';
+import { ReportTypeEntity } from '../../../database/entities/reportType.entity';
 import { ReportTypeDTO } from './reportType.dto';
 
 @Injectable()

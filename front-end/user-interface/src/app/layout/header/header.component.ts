@@ -36,7 +36,7 @@ export class HeaderComponent implements OnInit {
   }
   initForm() {
     const data = this.commonService.userInfo;
-    this.email = data.email;
+    this.email = data.Email;
     this.infoUrl = `auth/updateInfo/${data.id}`;
     this.updateUrl = `auth/updatePassword/${data.id}`;
     this.userInfoForm = this.fb.group({

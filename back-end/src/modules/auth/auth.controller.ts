@@ -2,7 +2,7 @@ import { Controller, Post, Body, UsePipes, Res, Get, Param, Req } from '@nestjs/
 import { UserDTO } from './dto/user.dto';
 import { AuthService } from './auth.service';
 import { ValidationPipe } from './../../shared/pipes/validation.pipe';
-import { UserEntity } from '../../database/user.entity';
+import { UserEntity } from '../../database/entities/user.entity';
 import { IReponse } from '../../shared/interface/ireponse.interface';
 import { Response, Request } from 'express';
 import { Code } from '../../constants/code.enum';

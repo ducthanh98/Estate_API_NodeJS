@@ -4,7 +4,7 @@ import { AmentitiesDTO } from './amentities.dto';
 import { IReponse } from '../../../shared/interface/ireponse.interface';
 import { Code } from '../../../constants/code.enum';
 import { Response } from 'express';
-import { AmentitiesEntity } from './../../../database/amentities.entity';
+import { AmentitiesEntity } from '../../../database/entities/amentities.entity';
 import { NotificationContant } from './../../../constants/notification.constant';
 import { AmentitiesRO } from './amentities.ro';
 import { BodyDTO } from './../../../shared/class/body.dto';
