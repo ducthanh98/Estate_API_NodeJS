@@ -14,7 +14,6 @@ import { CommentRO } from './ro/comment.ro';
 import { UpdateCommentDTO } from './dto/UpdateComment.dto';
 
 @Controller('comments')
-@UseGuards(new AuthGuard())
 export class CommentsController {
     constructor(private commentService: CommentsService) { }
 
@@ -41,6 +40,7 @@ export class CommentsController {
     }
 
     @Post('update/:id')
+    @UseGuards(new AuthGuard())
     @UsePipes(new ValidationPipe())
     update(@Res() res: Response, @Req() req, @Param('id') id: number, @Body() data: UpdateCommentDTO) {
         return this.commentService.update(id, data, req.user)
@@ -62,6 +62,7 @@ export class CommentsController {
     }
 
     @Post('create')
+    @UseGuards(new AuthGuard())
     @UsePipes(new ValidationPipe())
     create(@Res() res: Response, @Req() req, @Body() data: CommentDTO) {
         return this.commentService.create(data, req.user.id)

@@ -11,18 +11,18 @@ export class ReportEntity {
     @CreateDateColumn()
     created: Date;
 
-    @Column('boolean')
-    status: boolean;
+    @Column('tinyint', { default: 0 })
+    status: number; // 0 chua xu li | 1 bao cao vi pham chinh xac | 2 bao cao sai
 
-    @OneToOne(type => ReportTypeEntity)
+    @ManyToOne(type => ReportTypeEntity, reportType => reportType.reports)
     @JoinColumn()
     reportType: ReportTypeEntity;
 
-    @OneToOne(type => HouseEntity)
+    @ManyToOne(house => HouseEntity, house => house.reports)
     @JoinColumn()
     post: HouseEntity;
 
-    @OneToOne(type => UserEntity)
+    @ManyToOne(type => UserEntity, user => user.reports)
     @JoinColumn()
     author: UserEntity;
 }

@@ -79,7 +79,7 @@
     </div>
 </header>
 
-<div id="user-info-modal" tabindex="-1" role="dialog" class="contact-fast modal fade">
+<div *ngIf="isLogged" id="user-info-modal" tabindex="-1" role="dialog" class="contact-fast modal fade">
     <div class="modal-dialog">
         <div class="new-letter-content modal-content">
             <div class="new-letter-left"><img src="assets/images/libs/agent-single-1.jpg" alt=""
@@ -109,7 +109,7 @@
     </div>
 </div>
 
-<div id="change-pass-modal" tabindex="-1" role="dialog" class="contact-fast modal fade">
+<div *ngIf="isLogged" id="change-pass-modal" tabindex="-1" role="dialog" class="contact-fast modal fade">
     <div class="modal-dialog">
         <div class="new-letter-content modal-content">
             <div class="new-letter-left"><img src="assets/images/libs/agent-single-1.jpg" alt=""

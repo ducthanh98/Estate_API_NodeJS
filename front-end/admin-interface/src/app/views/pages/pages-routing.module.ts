@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { AmentitiesComponent } from './amentities/amentities.component';
 import { ReportTypeComponent } from './report-type/report-type.component';
+import { ReportComponent } from './report/report.component';
 
 
 const routes: Routes = [
@@ -18,6 +19,13 @@ const routes: Routes = [
       title: 'Report Type'
     },
     component: ReportTypeComponent
+  },
+  {
+    path: 'report',
+    data: {
+      title: 'Report'
+    },
+    component: ReportComponent
   },
 
 ];

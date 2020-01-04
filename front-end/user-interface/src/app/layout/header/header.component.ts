@@ -5,6 +5,7 @@ import { IResponse } from 'src/app/shared/interfaces/Iresponse.interface';
 import { WebConstants } from 'src/app/shared/constants/constants';
 import { ToastrService } from 'ngx-toastr';
 import { Router, NavigationEnd } from '@angular/router';
+import { AuthService } from './../../auth/auth.service';
 
 @Component({
   selector: 'app-header',
@@ -17,11 +18,15 @@ export class HeaderComponent implements OnInit {
   changePassForm: FormGroup;
   email: string;
   isHome = true;
+  isLogged = false;
   constructor(
     private fb: FormBuilder,
     private commonService: CommonService,
     private toastrService: ToastrService,
-    private router: Router) { }
+    private router: Router,
+    private authService: AuthService) {
+    this.isLogged = this.authService.loggedInToken();
+  }
 
   ngOnInit() {
     this.initForm();
@@ -35,24 +40,26 @@ export class HeaderComponent implements OnInit {
     );
   }
   initForm() {
-    const data = this.commonService.userInfo;
-    this.email = data.Email;
-    this.infoUrl = `auth/updateInfo/${data.id}`;
-    this.updateUrl = `auth/updatePassword/${data.id}`;
-    this.userInfoForm = this.fb.group({
-      name: [data.name, [Validators.required]],
-      phone: [data.phone, [Validators.required]],
-      facebook: [data.facebook],
-      skype: [data.skype]
-    });
-    this.changePassForm = this.fb.group({
-      oldPass: ['', [Validators.required, Validators.minLength(8), Validators.maxLength(16)]],
-      password: ['', [Validators.required, Validators.minLength(8), Validators.maxLength(16)]],
-      re_pass: ['', [Validators.required]],
-    },
-      {
-        validators: this.comparePassword
+    if (this.isLogged) {
+      const data = this.commonService.userInfo;
+      this.email = data.Email;
+      this.infoUrl = `auth/updateInfo/${data.id}`;
+      this.updateUrl = `auth/updatePassword/${data.id}`;
+      this.userInfoForm = this.fb.group({
+        name: [data.name, [Validators.required]],
+        phone: [data.phone, [Validators.required]],
+        facebook: [data.facebook],
+        skype: [data.skype]
       });
+      this.changePassForm = this.fb.group({
+        oldPass: ['', [Validators.required, Validators.minLength(8), Validators.maxLength(16)]],
+        password: ['', [Validators.required, Validators.minLength(8), Validators.maxLength(16)]],
+        re_pass: ['', [Validators.required]],
+      },
+        {
+          validators: this.comparePassword
+        });
+    }
   }
 
   comparePassword(c: AbstractControl) {

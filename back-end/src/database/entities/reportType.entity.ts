@@ -9,4 +9,6 @@ export class ReportTypeEntity {
     @Column('nvarchar')
     reportContent: string;
 
+    @OneToMany(type => ReportEntity, report => report.reportType)
+    reports: ReportEntity[];
 }

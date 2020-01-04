@@ -5,6 +5,7 @@ import { HouseEntity } from './house.entity';
 import { Role } from '../../constants/role.enum';
 import { UserRO } from '../../modules/auth/ro/user.ro';
 import { CommentEntity } from './comment.entity';
+import { ReportEntity } from './report.entity';
 @Entity('account')
 export class UserEntity {
     @PrimaryGeneratedColumn('increment')
@@ -56,6 +57,9 @@ export class UserEntity {
 
     @OneToMany(type => CommentEntity, comment => comment.user)
     comments: CommentEntity[];
+
+    @OneToMany(type => ReportEntity, report => report.author)
+    reports: ReportEntity[];
 
     @BeforeInsert()
     async hashPassword() {

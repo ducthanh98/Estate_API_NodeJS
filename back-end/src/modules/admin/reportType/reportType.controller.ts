@@ -13,7 +13,7 @@ import { ReportTypeEntity } from '../../../database/entities/reportType.entity';
 import { Ilist } from './../../../shared/interface/IList.interface';
 
 @Controller('admin/report-type')
-@UseGuards(new AuthGuard())
+
 export class ReportTypeController {
     constructor(private reportTypeService: ReportTypeService) { }
 
@@ -41,6 +41,7 @@ export class ReportTypeController {
 
     @Post('create')
     @UsePipes(new ValidationPipe())
+    @UseGuards(new AuthGuard())
     create(@Res() res: Response, @Body() data: ReportTypeDTO) {
         return this.reportTypeService.create(data)
             .subscribe(
@@ -63,6 +64,7 @@ export class ReportTypeController {
 
     @Post('update/:id')
     @UsePipes(new ValidationPipe())
+    @UseGuards(new AuthGuard())
     update(@Res() res: Response, @Body() data: ReportTypeDTO, @Param('id') id: number) {
         return this.reportTypeService.update(id, data)
             .subscribe(
@@ -83,6 +85,7 @@ export class ReportTypeController {
     }
 
     @Get('delete/:id')
+    @UseGuards(new AuthGuard())
     delete(@Res() res: Response, @Param('id') id: number) {
         return this.reportTypeService.delete(id)
             .subscribe(
