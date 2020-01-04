@@ -13,4 +13,5 @@ export class NotificationContant {
     public static ACTIVE_EMAIL = 'Success. Please check your mail to active your account.';
     public static INVALID_USER = 'Invalid USER !!!';
     public static INVALID_POST = 'Invalid POST !!!';
+    public static ACC_BANNED = 'Your account was banned';
 }
