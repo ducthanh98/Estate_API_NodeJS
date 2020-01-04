@@ -16,8 +16,9 @@ export class DatabaseHelper<Entity, DTO> implements IDatabase<Entity, DTO> {
         return this.repository;
     }
 
-    findAll(relations = [], takeNumber = null, orderOption?): Observable<Entity[]> {
+    findAll(relations = [], takeNumber = null, orderOption?, condition = {}): Observable<Entity[]> {
         return from(this.repository.find({
+            where : condition,
             order: orderOption,
             relations,
             take: takeNumber,

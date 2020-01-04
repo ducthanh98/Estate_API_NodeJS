@@ -6,13 +6,14 @@ import { Like, Equal, Between } from 'typeorm';
 import { UserEntity } from '../../database/entities/user.entity';
 import { UserDTO } from '../auth/dto/user.dto';
 import { switchMap, mergeMap, mergeAll } from 'rxjs/operators';
-import { of, from, forkJoin } from 'rxjs';
+import { of, from, forkJoin, merge } from 'rxjs';
 import { GalleryEntity } from '../../database/entities/gallery.entity';
 import { GalleryDTO } from './dto/gallery.dto';
 import { PostDTO } from './dto/post.dto';
 import { AmentitiesEntity } from '../../database/entities/amentities.entity';
 import { AmentitiesDTO } from './../admin/amentities/amentities.dto';
 import { SearchProperties } from './dto/searchProperties.dto';
+import { NodeMailer } from 'src/helpers/nodemailer.helper';
 
 @Injectable()
 export class RentHostelService {
@@ -20,7 +21,9 @@ export class RentHostelService {
     private userHelper: DatabaseHelper<UserEntity, UserDTO>;
     private galleryHelper: DatabaseHelper<GalleryEntity, GalleryDTO>;
     private amentitiesHelper: DatabaseHelper<AmentitiesEntity, AmentitiesDTO>;
+    private nodeMailer: NodeMailer;
     onModuleInit() {
+        this.nodeMailer = new NodeMailer();
         this.databaseHelper = new DatabaseHelper<HouseEntity, PostDTO>(HouseEntity);
         this.userHelper = new DatabaseHelper<UserEntity, UserDTO>(UserEntity);
         this.galleryHelper = new DatabaseHelper<GalleryEntity, GalleryDTO>(GalleryEntity);
@@ -41,6 +44,7 @@ export class RentHostelService {
             price: Between(properties.minPrice, properties.maxPrice),
             bedrooms: properties.bedroom,
             bathrooms: properties.bathroom,
+            status: 0,
         },
         ];
         const relations = ['images', 'author', 'amentities'];
@@ -48,7 +52,7 @@ export class RentHostelService {
     }
     getNewest() {
         const relations = ['images', 'author'];
-        return this.databaseHelper.findAll(relations, 6, { created: 'DESC' });
+        return this.databaseHelper.findAll(relations, 6, { created: 'DESC' }, { status: 0 });
     }
 
     getById(id: number) {
@@ -119,5 +123,24 @@ export class RentHostelService {
             amentitiesList.push(this.amentitiesHelper.findOne('id', id));
         });
         return forkJoin(amentitiesList);
+    }
+
+    notifyNewPost(url) {
+        return this.userHelper.findAll([], null, null, { subcribe: true })
+            .pipe(
+                switchMap((value: UserEntity[]) => {
+                    const lstObserve = [];
+                    // tslint:disable-next-line:prefer-for-of
+                    for (let i = 0; i < value.length; i++) {
+                        lstObserve.push(this.sendMail(value[i].email, url));
+                    }
+                    return merge(...lstObserve);
+                }),
+            );
+    }
+
+    private sendMail(to, url) {
+        const content = this.nodeMailer.createTemplateSubcribeMail(url);
+        return this.nodeMailer.sendMail(to, content);
     }
 }

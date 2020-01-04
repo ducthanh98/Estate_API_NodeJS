@@ -51,9 +51,9 @@ export class ReportComponent implements OnInit {
         }
       );
   }
-  confirmReport(reportId, status) {
-    const body = { status };
-    this.commonService.doPost<IResponse<any>>(`${this.baseUrl}/update/${reportId}`, body)
+  confirmReport(report, status) {
+    const body = { status, postId: report.post.id };
+    this.commonService.doPost<IResponse<any>>(`${this.baseUrl}/update/${report.id}`, body)
       .subscribe(
         (res: IResponse<any>) => {
           if (res.statusCode === 0) {

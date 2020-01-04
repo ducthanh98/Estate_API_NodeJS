@@ -28,9 +28,8 @@ export class HeaderComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.initForm();
     this.isLogged = this.authService.loggedInToken();
-    console.log(this.isLogged)
+    this.initForm();
     this.isHome = this.router.url.includes('home');
     this.router.events.subscribe(
       (event) => {

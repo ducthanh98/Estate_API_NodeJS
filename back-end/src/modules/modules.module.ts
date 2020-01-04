@@ -6,6 +6,7 @@ import { AdminModule } from './admin/admin.module';
 import { RentHostelModule } from './rent-hostel/rent-hostel.module';
 import { FilesModule } from './files/files.module';
 import { CommentsModule } from './comments/comments.module';
+import { ObserveModule } from './observe/observe.module';
 
 @Module({
     imports: [
@@ -15,6 +16,7 @@ import { CommentsModule } from './comments/comments.module';
         RentHostelModule,
         FilesModule,
         CommentsModule,
+        ObserveModule,
     ],
     exports: [AuthModule],
 })

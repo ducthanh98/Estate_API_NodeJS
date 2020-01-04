@@ -6,16 +6,20 @@ import { PagesRoutingModule, pageRoutingComponent } from './pages-routing.module
 import { LayoutModule } from '../layout/layout.module';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { TokenInterceptorService } from '../auth/token-interceptor.service';
+import { ContactComponent } from './contact/contact.component';
+import { FormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
     PagesComponent,
     ...pageRoutingComponent,
+    ContactComponent,
   ],
   imports: [
-    CommonModule,
+  CommonModule,
     PagesRoutingModule,
-    LayoutModule
+    LayoutModule,
+    FormsModule
   ]
 })
 export class PagesModule { }

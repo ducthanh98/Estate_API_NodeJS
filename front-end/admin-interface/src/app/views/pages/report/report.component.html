@@ -23,11 +23,11 @@
 
                 <td>
                     <i title="Confirm this report is correct" class=" fa fa-lg mt-2 fa-check icon-action"
-                        (click)="confirmReport(report.id,1)"></i> /
+                        (click)="confirmReport(report,1)"></i> /
                     <i title="Confirm this report is incorrect" class="icon-action fa fa-lg mt-2 ml-2 fa-times"
-                        (click)="confirmReport(report.id,2)"></i> /
+                        (click)="confirmReport(report,2)"></i> /
                     <i title="Waiting for investigation" class="icon-action fa fa-lg mt-2 ml-2 fa-refresh"
-                        (click)="confirmReport(report.id,0)"></i>
+                        (click)="confirmReport(report,0)"></i>
                 </td>
             </tr>
         </tbody>
