@@ -12,10 +12,8 @@ import { NotificationContant } from './../../constants/notification.constant';
 @Injectable()
 export class ObserveService {
     private databaseHelper: DatabaseHelper<UserEntity, UserDTO>;
-    private nodeMailer: NodeMailer;
     onModuleInit() {
         this.databaseHelper = new DatabaseHelper<UserEntity, UserDTO>(UserEntity);
-        this.nodeMailer = new NodeMailer();
     }
 
     subcribeEmail(email, protocol: string, host: string) {
@@ -33,22 +31,4 @@ export class ObserveService {
         );
     }
 
-    notifyNewPost(subject, url) {
-        return this.databaseHelper.findAll([{ subcribe: true }])
-            .pipe(
-                switchMap((value: UserEntity[]) => {
-                    const lstObserve = [];
-                    // tslint:disable-next-line:prefer-for-of
-                    for (let i = 0; i < value.length; i++) {
-                        lstObserve.push(this.sendMail(value[i].email, subject, url));
-                    }
-                    return merge(...lstObserve);
-                }),
-            );
-    }
-
-    private sendMail(to, subject, url) {
-        const content = this.nodeMailer.createTemplateSubcribeMail(url);
-        return this.nodeMailer.sendMail(to, subject, content);
-    }
 }

@@ -44,6 +44,7 @@ export class RentHostelService {
             price: Between(properties.minPrice, properties.maxPrice),
             bedrooms: properties.bedroom,
             bathrooms: properties.bathroom,
+            status: 0,
         },
         ];
         const relations = ['images', 'author', 'amentities'];
@@ -51,7 +52,7 @@ export class RentHostelService {
     }
     getNewest() {
         const relations = ['images', 'author'];
-        return this.databaseHelper.findAll(relations, 6, { created: 'DESC' });
+        return this.databaseHelper.findAll(relations, 6, { created: 'DESC' }, { status: 0 });
     }
 
     getById(id: number) {
@@ -128,7 +129,6 @@ export class RentHostelService {
         return this.userHelper.findAll([], null, null, { subcribe: true })
             .pipe(
                 switchMap((value: UserEntity[]) => {
-                    console.log(value)
                     const lstObserve = [];
                     // tslint:disable-next-line:prefer-for-of
                     for (let i = 0; i < value.length; i++) {

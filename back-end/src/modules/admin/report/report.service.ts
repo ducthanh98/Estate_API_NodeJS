@@ -6,10 +6,10 @@ import { UserEntity } from './../../../database/entities/user.entity';
 import { UserDTO } from './../../auth/dto/user.dto';
 import { ReportTypeEntity } from './../../../database/entities/reportType.entity';
 import { ReportTypeDTO } from './../reportType/reportType.dto';
-import { forkJoin } from 'rxjs';
+import { forkJoin, of } from 'rxjs';
 import { HouseEntity } from './../../../database/entities/house.entity';
 import { RentHostelDTO } from './../../rent-hostel/dto/rent-hostel.dto';
-import { switchMap } from 'rxjs/operators';
+import { switchMap, catchError } from 'rxjs/operators';
 import { throwError } from 'rxjs/internal/observable/throwError';
 import { NotificationContant } from './../../../constants/notification.constant';
 import { Role } from './../../../constants/role.enum';
@@ -56,6 +56,14 @@ export class ReportService {
                     } else if (value.role > Role.SUBADMIN) {
                         return throwError(new Error(NotificationContant.NOT_PERMISSION));
                     } else {
+                        if (reportDTO.status > 1) {
+                            this.postHelper.update(reportDTO.postId, { status: false }).pipe(catchError((e => of(e))))
+                            .subscribe((msg => console.log(msg)));
+                        } else {
+                            this.postHelper.update(reportDTO.postId, { status: true }).pipe(catchError((e => of(e))))
+                            .subscribe((msg => console.log(msg)));
+                        }
+                        delete reportDTO.postId;
                         return this.databaseHelper.update(id, reportDTO);
                     }
                 }),
