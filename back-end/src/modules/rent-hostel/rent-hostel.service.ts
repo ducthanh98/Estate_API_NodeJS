@@ -2,7 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { DatabaseHelper } from '../../helpers/database.helper';
 import { HouseEntity } from '../../database/entities/house.entity';
 import { RentHostelDTO } from './dto/rent-hostel.dto';
-import { Like, Equal } from 'typeorm';
+import { Like, Equal, Between } from 'typeorm';
 import { UserEntity } from '../../database/entities/user.entity';
 import { UserDTO } from '../auth/dto/user.dto';
 import { switchMap, mergeMap, mergeAll } from 'rxjs/operators';
@@ -12,6 +12,7 @@ import { GalleryDTO } from './dto/gallery.dto';
 import { PostDTO } from './dto/post.dto';
 import { AmentitiesEntity } from '../../database/entities/amentities.entity';
 import { AmentitiesDTO } from './../admin/amentities/amentities.dto';
+import { SearchProperties } from './dto/searchProperties.dto';
 
 @Injectable()
 export class RentHostelService {
@@ -31,6 +32,19 @@ export class RentHostelService {
         const condition = [{ title: Like(`%${keyText}%`), status: Equal(0) }];
         const relations = ['images', 'author', 'amentities'];
         return this.databaseHelper.findAllBy(pageNumber, pageSize, condition, relations);
+    }
+    searchAdvanced(properties: SearchProperties) {
+        const condition = [{
+            title: Like(`%${properties.title}%`),
+            location: Like(`%${properties.location}%`),
+            area: Between(properties.minArea, properties.maxArea),
+            price: Between(properties.minPrice, properties.maxPrice),
+            bedrooms: properties.bedroom,
+            bathrooms: properties.bathroom,
+        },
+        ];
+        const relations = ['images', 'author', 'amentities'];
+        return this.databaseHelper.findAllBy(1, 99999, condition, relations);
     }
     getNewest() {
         const relations = ['images', 'author'];

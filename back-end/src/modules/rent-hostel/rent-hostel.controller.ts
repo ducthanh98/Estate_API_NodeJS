@@ -11,6 +11,7 @@ import { ValidationPipe } from './../../shared/pipes/validation.pipe';
 import { BodyDTO } from '../../shared/class/body.dto';
 import { Ilist } from '../..//shared/interface/IList.interface';
 import { PostRO } from './ro/post.ro';
+import { SearchProperties } from './dto/searchProperties.dto';
 
 @Controller('rent-hostel')
 export class RentHostelController {
@@ -56,6 +57,26 @@ export class RentHostelController {
                     res.json(response);
                 },
             );
+    }
+    @Post('searchAdvanced')
+    searchAdvanced(@Res() res: Response, @Body() data: SearchProperties) {
+        return this.rentHostelService.searchAdvanced(data)
+            .subscribe(
+                    (hostel: Ilist<HouseEntity>) => {
+                        const response: IReponse<Ilist<HouseEntity>> = {
+                            statusCode: Code.SUCCESS,
+                            message: NotificationContant.SUCCESS,
+                            data: hostel,
+                        };
+                        res.json(response);
+                    }, (err) => {
+                        const response: IReponse<any> = {
+                            statusCode: Code.ERROR,
+                            message: err.message,
+                        };
+                        res.json(response);
+                    },
+                );
     }
 
     @Get('getById/:id')
