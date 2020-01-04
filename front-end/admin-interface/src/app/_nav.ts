@@ -40,6 +40,18 @@ export const navItems: INavData[] = [
     ]
   },
   {
+    name: 'User',
+    url: '/user',
+    icon: 'icon-puzzle',
+    children: [
+      {
+        name: 'List User',
+        url: '/user',
+        icon: 'icon-list'
+      }
+    ]
+  },
+  {
     name: 'Charts',
     url: '/charts',
     icon: 'icon-pie-chart'

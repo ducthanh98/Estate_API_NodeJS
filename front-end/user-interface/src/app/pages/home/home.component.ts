@@ -32,7 +32,6 @@ export class HomeComponent implements OnInit, AfterViewInit {
       .subscribe(
         (res: IResponse<any>) => {
           if (res.statusCode === 0) {
-            console.log(res)
             this.lstHostel = res.data;
           } else {
             this.lstHostel = [];

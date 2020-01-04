@@ -1,4 +1,4 @@
-import { Controller, Post, Body, UsePipes, Res, Get, Param, Req } from '@nestjs/common';
+import { Controller, Post, Body, UsePipes, Res, Get, Param, Req, UseGuards } from '@nestjs/common';
 import { UserDTO } from './dto/user.dto';
 import { AuthService } from './auth.service';
 import { ValidationPipe } from './../../shared/pipes/validation.pipe';
@@ -11,6 +11,10 @@ import { LoginRO } from './ro/login.ro';
 import { ActiveDTO } from './dto/active.dto';
 import { NotificationContant } from './../../constants/notification.constant';
 import { PasswordDTO } from './dto/password.dto';
+import { AuthGuard } from './../../shared/guards/auth.guard';
+import { BodyDTO } from './../../shared/class/body.dto';
+import { Ilist } from './../../shared/interface/IList.interface';
+import { UpdateUserDTO } from './dto/updateUser.dto';
 
 @Controller('auth')
 export class AuthController {
@@ -51,6 +55,52 @@ export class AuthController {
                     res.json(response);
                 }, (err) => {
                     const response: IReponse<UserEntity> = {
+                        statusCode: Code.ERROR,
+                        message: err.message,
+                    };
+                    res.json(response);
+                },
+            );
+
+    }
+    @Post('/create')
+    @UsePipes(new ValidationPipe())
+    @UseGuards(new AuthGuard())
+    createUser(@Req() req: Request, @Res() res: Response, @Body() data: UserDTO) {
+
+        this.authService.createUser(data)
+            .subscribe(
+                () => {
+                    const response: IReponse<any> = {
+                        statusCode: Code.SUCCESS,
+                        message: NotificationContant.SUCCESS,
+                    };
+                    res.json(response);
+                }, (err) => {
+                    const response: IReponse<any> = {
+                        statusCode: Code.ERROR,
+                        message: err.message,
+                    };
+                    res.json(response);
+                },
+            );
+
+    }
+    @Post('/update/:id')
+    @UsePipes(new ValidationPipe())
+    @UseGuards(new AuthGuard())
+    updateUser(@Req() req: Request, @Res() res: Response, @Param('id') id: number, @Body() data: UpdateUserDTO) {
+
+        this.authService.updateUser(id, data)
+            .subscribe(
+                () => {
+                    const response: IReponse<any> = {
+                        statusCode: Code.SUCCESS,
+                        message: NotificationContant.SUCCESS,
+                    };
+                    res.json(response);
+                }, (err) => {
+                    const response: IReponse<any> = {
                         statusCode: Code.ERROR,
                         message: err.message,
                     };
@@ -143,4 +193,25 @@ export class AuthController {
             );
     }
 
+    @Post('getAllBy')
+    @UsePipes(new ValidationPipe())
+    getAllBy(@Res() res: Response, @Body() data: BodyDTO) {
+        return this.authService.getAllBy(data.pageNumber, data.pageSize)
+            .subscribe(
+                (comments: Ilist<UserEntity>) => {
+                    const response: IReponse<Ilist<UserEntity>> = {
+                        statusCode: Code.SUCCESS,
+                        message: NotificationContant.SUCCESS,
+                        data: comments,
+                    };
+                    res.json(response);
+                }, (err) => {
+                    const response: IReponse<any> = {
+                        statusCode: Code.ERROR,
+                        message: err.message,
+                    };
+                    res.json(response);
+                },
+            );
+    }
 }

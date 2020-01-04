@@ -71,13 +71,14 @@ export class AmentitiesComponent implements OnInit, AfterViewInit {
             this.toastrService.error(res.message);
           }
         }, (err) => {
-          console.log(err)
+          console.log(err);
           this.toastrService.error(err.message);
         }
       );
   }
   onSubmit() {
     if (this.amentitiesForm.invalid) {
+      this.toastrService.error('Please fill all the field');
       return false;
     }
     const body: Amentities = { ...this.amentitiesForm.value };

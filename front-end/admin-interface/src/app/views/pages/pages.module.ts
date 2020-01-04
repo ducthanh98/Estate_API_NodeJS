@@ -11,11 +11,12 @@ import { ModalModule } from 'ngx-bootstrap/modal';
 import { ReportComponent } from './report/report.component';
 import { ReportTypeComponent } from './report-type/report-type.component';
 import { TokenInterceptorService } from '../auth/token-interceptor.service';
+import { UserComponent } from './user/user.component';
 
 
 
 @NgModule({
-  declarations: [AmentitiesComponent, ReportComponent, ReportTypeComponent],
+  declarations: [AmentitiesComponent, ReportComponent, ReportTypeComponent, UserComponent],
   imports: [
     CommonModule,
     PagesRoutingModule,

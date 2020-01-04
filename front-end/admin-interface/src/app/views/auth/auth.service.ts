@@ -25,7 +25,7 @@ export class AuthService {
   }
   checkPermission(): boolean {
     const user = this.userInfo;
-    if (!user || +user.role > 1) {
+    if (!user || +user.role > 1 || +user.active !== 1) {
       return false;
     }
     return true;

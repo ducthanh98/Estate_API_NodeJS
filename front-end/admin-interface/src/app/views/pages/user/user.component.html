@@ -1,0 +1,101 @@
+<div class="animated fadeIn">
+    <button type="button" class="btn btn-primary mr-1 mb-4 float-right" data-toggle="modal" (click)="openModal(null)">
+        <i class="fa fa-plus fa-lg mt-1"></i> Add User
+    </button>
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>No</th>
+                <th>Name</th>
+                <th>Email</th>
+                <th>Phone</th>
+                <th>Role</th>
+                <th>Active</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let data of userData;let i = index">
+                <td>{{(pageNumber -1) * pageSize + i + 1}}</td>
+                <td>{{data.name}}</td>
+                <td>{{data.email}}</td>
+                <td>{{data.phone}}</td>
+                <td *ngIf="data.role === '0'"> Admin </td>
+                <td *ngIf="data.role === '1'"> Subadmin </td>
+                <td *ngIf="data.role === '2'"> Broker </td>
+                <td *ngIf="data.role === '3'"> User </td>
+                <td *ngIf="data.active === 0"> Not active </td>
+                <td *ngIf="data.active === 1"> Active </td>
+                <td *ngIf="data.active === 2"> Banned </td>
+                <td>
+                    <i class=" fa fa-lg mt-2 fa-edit icon-action" (click)="openModal(data.id)"></i> 
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <app-pagination [totalPages]="totalPages" (selectPage)="getAmentitiesData($event)"></app-pagination>
+
+    <div bsModal #userModal="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title">User</h4>
+                    <button type="button" class="close" (click)="amentitiesModal.hide()" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <form [formGroup]="userForm" (ngSubmit)="onSubmit()">
+                    <div class="modal-body">
+                        <div class="form-group">
+                            <label for="company">User Name</label>
+                            <input formControlName="name" type="text" class="form-control" placeholder="Enter Username">
+                        </div>
+
+                        <div class="form-group ">
+                            <label for="password">Password</label>
+                            <input type="password" formControlName="password" class="form-control" id="city"
+                                placeholder="Enter Password">
+                        </div>
+                        <div class="form-group ">
+                            <label for="password">Re-Password</label>
+                            <input type="password" formControlName="re_password" class="form-control" id="city"
+                                placeholder="Enter Re-Password">
+                        </div>
+                        <div class="form-group ">
+                            <label for="password">Email</label>
+                            <input type="email" formControlName="email" class="form-control" id="city"
+                                placeholder="Enter Email">
+                        </div>
+                        <div class="form-group ">
+                            <label for="phone">Phone</label>
+                            <input type="text" formControlName="phone" class="form-control" id="city"
+                                placeholder="Enter Phone Number">
+                        </div>
+                        <div class="form-group ">
+                            <label for="role">Role</label>
+                            <select class="form-control" formControlName="role" id="ccmonth">
+                                <option value="1">Subadmin</option>
+                                <option value="2">Broker</option>
+                                <option value="3">User</option>
+                            </select>
+                        </div>
+                        <div class="form-group ">
+                            <label for="phone">Active</label> &nbsp;&nbsp;&nbsp;
+                            <label class="switch switch-3d switch-primary">
+                                <input type="checkbox" class="switch-input" formControlName="active">
+                                <span class="switch-slider"></span>
+                            </label>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" (click)="amentitiesModal.hide()">Close</button>
+                        <button type="submit" class="btn btn-primary" >Save changes</button>
+                    </div>
+                </form>
+
+            </div><!-- /.modal-content -->
+        </div><!-- /.modal-dialog -->
+    </div><!-- /.modal -->
+    <app-confirm-dialog (delete)="deleteAmentities($event)"></app-confirm-dialog>
+</div>

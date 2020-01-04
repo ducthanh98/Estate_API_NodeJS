@@ -7,4 +7,5 @@ export interface UserRO {
     skype: string;
     role: number;
     avatar: string;
+    active: number;
 }

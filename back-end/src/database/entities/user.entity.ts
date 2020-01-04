@@ -43,11 +43,8 @@ export class UserEntity {
     @Column('varchar', { length: 2, default: Role.USER })
     role: number;
 
-    @Column('boolean', { default: false })
-    active: boolean;
-
-    @Column('boolean', { default: false })
-    gender: boolean;
+    @Column('tinyint', { default: 0 })
+    active: number; // 0 not active 1 active 2 block
 
     @Column('varchar', { length: 50, nullable: true })
     code: string;
@@ -71,9 +68,9 @@ export class UserEntity {
         return bcrypt.compare(attempt, this.password);
     }
     toResponseObject(): UserRO {
-        const { id, name, email, phone, facebook, skype, role, avatar } = this;
+        const { id, name, email, phone, facebook, skype, role, avatar, active } = this;
         const response: UserRO = {
-            id, name, email, phone, facebook, skype, role, avatar,
+            id, name, email, phone, facebook, skype, role, avatar, active,
         };
         return response;
     }
