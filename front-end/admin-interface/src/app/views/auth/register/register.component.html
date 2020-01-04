@@ -1,0 +1,87 @@
+<div class="app-body">
+    <main class="main d-flex align-items-center">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6 mx-auto">
+                    <div class="card mx-4">
+                        <div class="card-body p-4">
+                            <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
+                                <h1>Register</h1>
+                                <p class="text-muted">Create your account</p>
+                                <div class="input-group mb-3">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text"><i class="icon-user"></i></span>
+                                    </div>
+                                    <input formControlName="name" type="text" class="form-control"
+                                        placeholder="Username" autocomplete="username" required>
+                                </div>
+                                <div class="input-group mb-3 text-danger"
+                                    *ngIf="registerForm.get('name')?.invalid && registerForm.get('name').touched">
+                                    Username không được trống
+                                </div>
+                                <div class="input-group mb-3">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text">@</span>
+                                    </div>
+                                    <input type="text" formControlName="email" class="form-control" placeholder="Email"
+                                        autocomplete="email" required>
+                                </div>
+                                <div class="input-group mb-3 text-danger"
+                                    *ngIf="registerForm.get('email').invalid && registerForm.get('email').touched">
+                                    Email không đúng định dạng
+                                </div>
+                                <div class="input-group mb-3">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text"><i class="icon-lock"></i></span>
+                                    </div>
+                                    <input type="password" formControlName="password" class="form-control"
+                                        placeholder="Password" autocomplete="new-password" required>
+                                </div>
+                                <div class="input-group mb-3 text-danger"
+                                    *ngIf="registerForm.get('password')?.invalid && registerForm.get('password').touched">
+                                    Mật khẩu phải từ 8-16 kí tự
+                                </div>
+                                <div class="input-group mb-3">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text"><i class="icon-lock"></i></span>
+                                    </div>
+                                    <input type="password" formControlName="re_pass" class="form-control"
+                                        placeholder="Repeat password" autocomplete="new-password" required>
+                                </div>
+                                <div class="input-group mb-3 text-danger"
+                                    *ngIf="this.registerForm.errors?.passwordnotmatch && registerForm.get('re_pass').touched">
+                                    Mật khẩu chưa khớp
+                                </div>
+                                <div class="input-group mb-3">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text"><i class="icon-phone"></i></span>
+                                    </div>
+                                    <input type="text" class="form-control" formControlName="phone" placeholder="Phone"
+                                        required>
+                                </div>
+                                <div class="input-group mb-3 text-danger"
+                                    *ngIf="registerForm.get('phone')?.invalid && registerForm.get('phone').touched">
+                                    Vui lòng nhập số điện thoại
+                                </div>
+                                <button type="submit" [disabled]="registerForm.invalid"
+                                    class="btn btn-block btn-success">Create Account</button>
+                            </form>
+                        </div>
+                        <div class="card-footer p-4">
+                            <div class="row">
+                                <div class="col-6">
+                                    <button class="btn btn-block btn-facebook"
+                                        type="button"><span>facebook</span></button>
+                                </div>
+                                <div class="col-6">
+                                    <button class="btn btn-block btn-twitter"
+                                        type="button"><span>twitter</span></button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+</div>

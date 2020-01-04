@@ -6,8 +6,9 @@ import { DefaultLayoutComponent } from './containers';
 
 import { P404Component } from './views/error/404.component';
 import { P500Component } from './views/error/500.component';
-import { LoginComponent } from './views/login/login.component';
-import { RegisterComponent } from './views/register/register.component';
+import { P403Component } from './views/error/403.component';
+
+import { AuthguardtokenGuard } from './views/auth/auth.guard';
 
 export const routes: Routes = [
   {
@@ -16,36 +17,32 @@ export const routes: Routes = [
     pathMatch: 'full',
   },
   {
-    path: '404',
-    component: P404Component,
-    data: {
-      title: 'Page 404'
-    }
-  },
-  {
-    path: '500',
-    component: P500Component,
-    data: {
-      title: 'Page 500'
-    }
-  },
-  {
-    path: 'login',
-    component: LoginComponent,
-    data: {
-      title: 'Login Page'
-    }
-  },
-  {
-    path: 'register',
-    component: RegisterComponent,
-    data: {
-      title: 'Register Page'
-    }
+    path: 'auth',
+    children: [
+      {
+        path: '',
+        loadChildren: () => import('./views/auth/auth.module').then(m => m.AuthModule)
+      },
+    ]
   },
   {
     path: '',
     component: DefaultLayoutComponent,
+    canActivate: [AuthguardtokenGuard],
+    children: [
+      {
+        path: '',
+        data: {
+          title: 'Home'
+        },
+        loadChildren: () => import('./views/pages/pages.module').then(m => m.PagesModule)
+      },
+    ]
+  },
+  {
+    path: '',
+    component: DefaultLayoutComponent,
+    canActivate: [AuthguardtokenGuard],
     data: {
       title: 'Home'
     },
@@ -84,11 +81,12 @@ export const routes: Routes = [
       }
     ]
   },
+  { path: 'not-found', component: P403Component },
   { path: '**', component: P404Component }
 ];
 
 @NgModule({
-  imports: [ RouterModule.forRoot(routes) ],
-  exports: [ RouterModule ]
+  imports: [RouterModule.forRoot(routes)],
+  exports: [RouterModule]
 })
-export class AppRoutingModule {}
+export class AppRoutingModule { }

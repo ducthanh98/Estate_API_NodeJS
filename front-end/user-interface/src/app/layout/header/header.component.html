@@ -1,0 +1,147 @@
+<header>
+    <div class="bg-transparent" *ngIf="isHome">
+        <div class="header-main header-default header-no-border">
+            <div class="container">
+                <div class="header-main-wrapper">
+                    <div class="navbar-header">
+                        <div class="logo logo-black pull-left"><a routerLink="/pages/home" class="header-logo"><img
+                                    src="assets/images/logo-1.png" alt="" /></a></div>
+                        <div class="logo logo-white pull-left"><a routerLink="/pages/home" class="header-logo"><img
+                                    src="assets/images/logo-2.png" alt="" /></a></div>
+                        <button type="button" data-toggle="collapse" data-target=".navigation"
+                            class="navbar-toggle btn-navbar"><span class="icon-bar"></span><span
+                                class="icon-bar"></span><span class="icon-bar"></span></button>
+                    </div>
+                    <nav class="navigation collapse navbar-collapse pull-right">
+                        <ul class="nav-links nav navbar-nav">
+                            <li class="dropdown active"><a routerLink="/pages/home" class="main-menu">Home </a>
+                            </li>
+                            <li class="dropdown"><a routerLink="/pages/rent-hostel" class="main-menu">Rent Hostel</a>
+                            </li>
+                            <li class="dropdown"><a routerLink="/pages/contact" class="main-menu">Contact us</a></li>
+
+                            <li class="dropdown" *ngIf="isLogged" style="font-size: 20px;"><a class="main-menu" ><i
+                                        class="fa fa-cog"></i></a>
+                                <ul class="dropdown-menu dropdown-menu-1">
+                                    <li><a href="#" data-toggle="modal" data-target="#user-info-modal"
+                                            class="link-page">Profile</a></li>
+                                    <li><a href="#" data-toggle="modal" data-target="#change-pass-modal"
+                                            class="link-page">Change Password</a></li>
+                                    <li><a routerLink="/auth/login" href="/auth/login" class="link-page">Logout</a></li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </nav>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="bg-white" *ngIf="!isHome">
+        <div class="header-main header-default">
+            <div class="container">
+                <div class="header-main-wrapper">
+                    <div class="navbar-header">
+                        <div class="logo logo-black pull-left"><a routerLink="/pages/home" class="header-logo"><img
+                                    src="assets/images/logo-1.png" alt="" /></a></div>
+                        <div class="logo logo-white pull-left"><a routerLink="/pages/home" class="header-logo"><img
+                                    src="assets/images/logo-2.png" alt="" /></a></div>
+                        <button type="button" data-toggle="collapse" data-target=".navigation"
+                            class="navbar-toggle btn-navbar"><span class="icon-bar"></span><span
+                                class="icon-bar"></span><span class="icon-bar"></span></button>
+                    </div>
+                    <nav class="navigation collapse navbar-collapse pull-right">
+                        <ul class="nav-links nav navbar-nav">
+                            <li class="dropdown"><a routerLink="/pages/home" class="main-menu">Home</a>
+                            </li>
+                            <li class="dropdown"><a routerLink="/pages/rent-hostel" class="main-menu">Rent Hostel</a>
+                            </li>
+                            <li class="dropdown"><a routerLink="/pages/contact" class="main-menu">Contact us</a></li>
+                            <li class="dropdown" style="font-size: 20px;"><a class="main-menu" *ngIf="isLogged"><i
+                                        class="fa fa-cog"></i></a>
+                                <ul class="dropdown-menu dropdown-menu-1">
+                                    <li><a href="#" data-toggle="modal" data-target="#user-info-modal"
+                                            class="link-page">Profile</a></li>
+                                    <li><a href="#" data-toggle="modal" data-target="#change-pass-modal"
+                                            class="link-page">Change Password</a></li>
+                                    <li><a routerLink="/auth/login" href="/auth/login" class="link-page">Logout</a></li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </nav>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+<div *ngIf="isLogged" id="user-info-modal" tabindex="-1" role="dialog" class="contact-fast modal fade">
+    <div class="modal-dialog">
+        <div class="new-letter-content modal-content">
+            <div class="new-letter-left"><img src="assets/images/libs/agent-single-1.jpg" alt=""
+                    class="img-responsive" />
+
+            </div>
+            <div class="new-letter-right">
+                <button type="button" data-dismiss="modal" aria-label="Close" class="close"><span
+                        aria-hidden="true">&times;</span></button>
+                <h4 class="underline">{{email}}</h4>
+
+
+                <form [formGroup]="userInfoForm" (ngSubmit)="updateUserInfo()">
+                    <input formControlName="name" type="text" placeholder="Your Name" class="contact-form black" />
+                    <div class="hight-light"
+                        *ngIf="userInfoForm.get('name')?.invalid && userInfoForm.get('name').touched">
+                        Username must be not blank</div>
+                    <input formControlName="phone" type="text" placeholder="Your Phone" class="contact-form black" />
+                    <input formControlName="facebook" type="text" placeholder="Your Facebook"
+                        class="contact-form black" />
+                    <input formControlName="skype" type="text" placeholder="Your skype" class="contact-form black" />
+                    <button type="submit" (click)="updateUserInfo()" data-dismiss="modal" class="btn btn-blue"
+                        [disabled]="userInfoForm.invalid">Save</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div *ngIf="isLogged" id="change-pass-modal" tabindex="-1" role="dialog" class="contact-fast modal fade">
+    <div class="modal-dialog">
+        <div class="new-letter-content modal-content">
+            <div class="new-letter-left"><img src="assets/images/libs/agent-single-1.jpg" alt=""
+                    class="img-responsive" />
+
+            </div>
+            <div class="new-letter-right">
+                <button type="button" data-dismiss="modal" aria-label="Close" class="close"><span
+                        aria-hidden="true">&times;</span></button>
+                <h4 class="underline">{{email}}</h4>
+
+
+                <form [formGroup]="changePassForm" (ngSubmit)="updatePass()">
+                    <input formControlName="oldPass" type="password" placeholder="Old Password"
+                        class="contact-form black" />
+                    <div class="hight-light"
+                        *ngIf="changePassForm.get('oldPass')?.invalid && changePassForm.get('oldPass').touched">
+                        Password must be between 8 and 16
+                        characters</div>
+                    <input formControlName="password" type="password" placeholder="New Password"
+                        class="contact-form black" />
+                    <div class="hight-light"
+                        *ngIf="changePassForm.get('password')?.invalid && changePassForm.get('password').touched">
+                        Password must be between 8 and 16
+                        characters</div>
+                    <input formControlName="re_pass" type="password" placeholder="Re-enter your new password"
+                        class="contact-form black" />
+                    <div class="hight-light"
+                        *ngIf="changePassForm.errors?.passwordnotmatch && changePassForm.get('re_pass').touched">
+                        Confirm
+                        password does not
+                        match</div>
+                    <button type="submit" (click)="updatePass()" data-dismiss="modal" class="btn btn-blue"
+                        [disabled]="changePassForm.invalid">Save</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

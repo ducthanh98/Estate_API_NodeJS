@@ -1,0 +1,56 @@
+<div class="animated fadeIn">
+    <button type="button" class="btn btn-primary mr-1 mb-4 float-right" data-toggle="modal" (click)="openModal(null)">
+        <i class="fa fa-plus fa-lg mt-1"></i> Add Amentities
+    </button>
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>No</th>
+                <th>Report Type</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let report of reportData;let i = index">
+                <td>{{(pageNumber -1) * pageSize + i + 1}}</td>
+                <td>{{report.reportContent}}</td>
+                <td>
+                    <i class=" fa fa-lg mt-2 fa-edit icon-action" (click)="openModal(report.id)"></i> /
+                    <i class="icon-action fa fa-lg mt-2 ml-2 fa-trash" (click)="openConfirm(report.id)"></i>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <app-pagination [totalPages]="totalPages" (selectPage)="getAmentitiesData($event)"></app-pagination>
+
+    <div bsModal #modal="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title">Amentities</h4>
+                    <button type="button" class="close" (click)="modal.hide()" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <form [formGroup]="form" (ngSubmit)="onSubmit()">
+                    <div class="modal-body">
+                        <div class="form-group">
+                            <label for="company">Report Content</label>
+                            <input formControlName="reportContent" type="text" class="form-control"
+                                placeholder="Enter report content">
+                        </div>
+
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" [disabled]="form.invalid"
+                            (click)="modal.hide()">Close</button>
+                        <button type="submit" class="btn btn-primary">Save changes</button>
+                    </div>
+                </form>
+
+            </div><!-- /.modal-content -->
+        </div><!-- /.modal-dialog -->
+    </div><!-- /.modal -->
+    <app-confirm-dialog (delete)="delete($event)"></app-confirm-dialog>
+</div>

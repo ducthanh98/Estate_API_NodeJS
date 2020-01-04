@@ -1,0 +1,238 @@
+<div id="wrapper-content">
+    <!-- PAGE WRAPPER-->
+    <div id="page-wrapper">
+        <!-- MAIN CONTENT-->
+        <div class="main-content">
+            <!-- CONTENT-->
+            <div class="content">
+                <div class="section background-opacity page-title property-detail bg-overlay">
+                    <div class="container">
+                        <div class="page-title-wrapper">
+                            <!--.page-title-content-->
+                            <h2 class="captions">{{hostelData.title}}</h2>
+                            <ol class="breadcrumb">
+                                <li><a href="index.html">{{hostelData.location}}</a></li>
+                            </ol>
+                        </div>
+                    </div>
+                </div>
+                <div class="section nav-bar">
+                    <div class="nav-bar-wrapper">
+                        <div class="container">
+                            <div class="row">
+                                <div class="col-md-8">
+                                    <ul class="detail-nav list-unstyled">
+                                        <li class="nav-item on-top-btn active">
+                                            <figure><i class="icon-house_1 icon"></i>
+                                                <figcaption>On Top</figcaption>
+                                            </figure>
+                                        </li>
+                                        <li class="nav-item condition-btn">
+                                            <figure><i class="fa fa-file-text-o icon"></i>
+                                                <figcaption>Condition</figcaption>
+                                            </figure>
+                                        </li>
+                                        <li class="nav-item description-btn">
+                                            <figure><i class="fa fa-comment-o icon"></i>
+                                                <figcaption>Description</figcaption>
+                                            </figure>
+                                        </li>
+                                        <li class="nav-item location-btn">
+                                            <figure><i class="fa fa-map-marker icon"></i>
+                                                <figcaption>Location</figcaption>
+                                            </figure>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="section property-detail">
+                    <div class="container">
+                        <div class="detail-wrapper row">
+                            <div class="col-md-8 detail-content">
+                                <div class="col-md-12 title">image gallery</div>
+                                <div class="row gallery">
+                                    <div class="col-md-12 gallery-item">
+                                        <div class="gallery-slider">
+                                            <div class="slider-item" *ngFor="let image of hostelData.images"><img
+                                                    src="http://localhost:3000/api/files/get/{{image.imgName}}"
+                                                    alt="" /></div>
+                                        </div>
+                                        <div class="slider-nav">
+                                            <div class="slider-nav-wrapper">
+                                                <div class="slider-nav-item" *ngFor="let image of hostelData.images">
+                                                    <img src="http://localhost:3000/api/files/get/{{image.imgName}}"
+                                                        alt="" /></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-12 title">condition</div>
+                                <ul id="condition" class="list-unstyled list-inline condition">
+                                    <li class="condition-item">
+                                        <div class="info"><i class="icon-bed"></i><span>{{hostelData.bedrooms}}
+                                                bedrooms</span></div>
+                                    </li>
+                                    <li class="condition-item">
+                                        <div class="info"><i class="icon-bath"></i><span>{{hostelData.bathrooms}}
+                                                bathrooms</span></div>
+                                    </li>
+                                    <li class="condition-item">
+                                        <div class="info"><i
+                                                class="fa fa-map-marker icon"></i><span>{{hostelData.location}}</span>
+                                        </div>
+                                    </li>
+                                    <li class="condition-item">
+                                        <div class="info"><i class="fa fa-arrows-alt"></i><span>{{hostelData.area}}
+                                                sq</span></div>
+                                    </li>
+                                    <li class="condition-item">
+                                        <div class="info"><i class="fa fa-money"></i><span
+                                                class="price-num"> {{hostelData.price | currency:'USD'}}</span></div>
+                                    </li>
+
+                                    <li class="clearfix"></li>
+                                </ul>
+                                <div class="col-md-12 title">amenities</div>
+                                <ul class="list-unstyled list-inline amenities">
+                                    <li class="amenities-item" *ngFor="let amentities of hostelData.amentities"><i
+                                            style="font-size: 20px;"
+                                            class="fa  {{amentities.icon}} {{existAmentities.includes(amentities.id) ? 'owned' : ''}}"></i><span>{{amentities.name}}
+                                        </span></li>
+
+                                </ul>
+                                <div class="col-md-12 title">description</div>
+                                <div id="description" class="row description">
+                                    <div [innerHtml]="hostelData.description" class="col-md-12 des-text">
+
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-4 sidebar margin-top-2">
+                                <div class="contact-agent-widget">
+                                    <div class="title">contact agent</div>
+                                    <div class="media contact-agent-content">
+                                        <div class="media-left media-middle"><img
+                                                src="assets/images/avatars/avatar-7.jpg" alt="" class="agent-image" />
+                                        </div>
+                                        <div class="media-body media-middle">
+                                            <div class="media-heading agent-name">&nbsp; {{hostelData.author?.name}}</div>
+                                            <span class="agent-pos"> &nbsp;&nbsp;&nbsp;Agent</span>
+                                        </div>
+                                    </div>
+                                    <div class="agent-info">
+                                        <div class="contact-info">
+                                            <div class="info">
+                                                <div class="phone"><i
+                                                        class="fa fa-mobile"></i><span>{{hostelData.author?.phone}}</span>
+                                                </div>
+                                            </div>
+                                            <div class="info">
+                                                <div class="email"><i
+                                                        class="fa fa-envelope-o"></i><span>{{hostelData.author?.email}}</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="social-info">
+                                            <!-- <a href="#" class="link"><i class="fa fa-facebook"></i></a> -->
+                                            <!-- <a href="#" class="link"><i class="fa fa-twitter"></i></a> -->
+                                        </div>
+                                    </div>
+                                    <hr>
+                                    <div class="agent-info">
+                                        <div class="contact-info" style="padding-left: 10%;">
+                                            <div class="info">
+                                                <button class="btn"  data-toggle="modal" data-target="#report-modal" style="color: black;background: white;;"><i class="fa fa-exclamation-triangle text-danger"></i> Report violations</button>
+                                            </div>
+                                            <div class="info text-center">
+                                                If you have feedback with this post , please notify us.
+                                            </div>
+                                        </div>
+                                    <div class="clearfix"></div>
+                                </div>
+                                
+                            </div>
+                        </div>
+                    </div>
+                    <div id="map2" class="section contact-map height-full-screen location">
+                        <agm-map [latitude]="hostelData.lat" [longitude]="hostelData.lng" [zoom]="16">
+                            <agm-marker [latitude]="hostelData.lat" [longitude]="hostelData.lng">
+                                <agm-info-window>
+                                  <span>
+                                      {{hostelData.location}}
+                                    <!-- <span *ngIf="commonService.lang === name.langCode">{{name.name}}</span> -->
+                                  </span>
+                                </agm-info-window>
+                              </agm-marker>
+                        </agm-map>
+                    </div>
+                    <div class="container">
+                        <div class="detail-wrapper rowa">
+                            <div class="col-md-12 detail-content">
+                                <div class="col-md-12 title">Comments</div>
+                                <div class="form-row col-lg-12 mt-3">
+                                    <ckeditor [editor]="Editor" [(ngModel)]="comment"></ckeditor>
+                                    <br>
+                                    <div class="d-flex justify-content-end">
+                                        <p style="font-size: 24px;" *ngIf="!isLogged">Please <span style="text-decoration: underline;color:blue;cursor: pointer;" [routerLink]="['/auth/login']">Login</span> to comment</p>
+                                        <button *ngIf="isLogged" class="btn btn-success" (click)="submitComment()"> <i class="fa fa-paper-plane"></i> &nbsp; Send</button>
+                                    </div>
+                                    <br>
+                                </div>
+                            </div>
+                        </div>
+                        <hr>
+                        <div class="detail-wrapper row">
+                            <div class="col-md-12 detail-content">
+                                <ul class="list-unstyled">
+                                    <li class="media" *ngFor="let obj of lstComments">
+                                        <ng-container>
+                                            <img class="mr-3" width="64px" height="64px" src="assets/images/avatars/avatar-7.jpg" alt="Generic placeholder image">
+                                            <div class="media-body">
+                                              <h5 class="mt-0 mb-1">{{obj.user.name}} <span class="float-right" *ngIf="userId === obj.user.id"><i class="fa fa-edit"></i> &nbsp; <i class="fa fa-trash"></i></span> </h5> 
+                                              <div [innerHtml]="obj.comment"></div>
+                                            </div>
+                                        </ng-container>
+                                        <!-- <ng-container>
+                                            <div class="form-row col-lg-12 mt-3">
+                                                <ckeditor [editor]="Editor" [(ngModel)]="comment"></ckeditor>
+                                                <br>
+                                                <div class="d-flex justify-content-end">
+                                                    <button class="btn btn-success"> <i class="fa fa-paper-plane"></i> &nbsp; Send</button>
+                                                </div>
+                                                <br>
+                                            </div>
+                                        </ng-container> -->
+                                    </li>
+                                  </ul>
+                            </div>
+                        </div>
+                        <br>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- BUTTON BACK TO TOP-->
+        <div id="back-top"><a href="#top"><i class="fa fa-angle-double-up"></i></a></div>
+    </div>
+    <!-- FOOTER-->
+    <div id="report-modal" tabindex="-1" role="dialog" class="contact-fast modal fade">
+        <div class="modal-dialog">
+            <div class="new-letter-content modal-content">
+                <div class="new-letter-left"><img src="https://cdn3.iconfinder.com/data/icons/basicolor-signs-warnings/24/182_warning_notice_error-512.png" alt=""
+                        class="img-responsive" />
+    
+                </div>
+                <div class="new-letter-right">
+                    <button type="button" data-dismiss="modal" aria-label="Close" class="close"><span
+                            aria-hidden="true">&times;</span></button>
+                        
+                    <ul class="list-group" style="cursor: pointer;">
+                        <li class="list-group-item" data-dismiss="modal" *ngFor="let report of lstReportType" (click)="reportPost(report.id)">{{report.reportContent}}</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>

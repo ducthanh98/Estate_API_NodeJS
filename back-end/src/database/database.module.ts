@@ -1,19 +1,16 @@
-import { Module } from '@nestjs/common';
-import { UserEntity } from './user.entity';
-import { AmentitiesEntity } from './amentities.entity';
-import { CommentEntity } from './comment.entity';
-import { GalleryEntity } from './gallery.entity';
-import { PostEntity } from './post.entity';
-import { PostTypeEntity } from './postType.entity';
-import { ReportEntity } from './report.entity';
-import { ReportTypeEntity } from './reportType.entity';
+import { UserEntity } from './entities/user.entity';
+import { AmentitiesEntity } from './entities/amentities.entity';
+import { CommentEntity } from './entities/comment.entity';
+import { GalleryEntity } from './entities/gallery.entity';
+import { HouseEntity } from './entities/house.entity';
+import { ReportEntity } from './entities/report.entity';
+import { ReportTypeEntity } from './entities/reportType.entity';
 
 export const DatabaseEntitities = [
     UserEntity,
     AmentitiesEntity,
     CommentEntity,
     GalleryEntity,
-    PostEntity,
-    PostTypeEntity,
+    HouseEntity,
     ReportEntity,
     ReportTypeEntity];

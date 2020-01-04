@@ -1,0 +1,69 @@
+<div class="animated fadeIn">
+    <button type="button" class="btn btn-primary mr-1 mb-4 float-right" data-toggle="modal" (click)="openModal(null)">
+        <i class="fa fa-plus fa-lg mt-1"></i> Add Amentities
+    </button>
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>No</th>
+                <th>Name</th>
+                <th>Icon</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let amentities of amentitiesData;let i = index">
+                <td>{{(pageNumber -1) * pageSize + i + 1}}</td>
+                <td>{{amentities.name}}</td>
+                <td> <i class=" fa fa-lg mt-2 ml-2 d-block {{amentities.icon}}"></i></td>
+                <td>
+                    <i class=" fa fa-lg mt-2 fa-edit icon-action" (click)="openModal(amentities.id)"></i> /
+                    <i class="icon-action fa fa-lg mt-2 ml-2 fa-trash" (click)="openConfirm(amentities.id)"></i>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <app-pagination [totalPages]="totalPages" (selectPage)="getAmentitiesData($event)"></app-pagination>
+
+    <div bsModal #amentitiesModal="bs-modal" class="modal fade" tabindex="-1" role="dialog"
+        aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title">Amentities</h4>
+                    <button type="button" class="close" (click)="amentitiesModal.hide()" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <form [formGroup]="amentitiesForm" (ngSubmit)="onSubmit()">
+                    <div class="modal-body">
+                        <div class="form-group">
+                            <label for="company">Amentities Name</label>
+                            <input formControlName="name" type="text" class="form-control"
+                                placeholder="Enter amentities name">
+                        </div>
+
+                        <div class="row">
+                            <div class="form-group col-sm-8">
+                                <label for="city">Icon</label>
+                                <input type="text" formControlName="icon" class="form-control" id="city"
+                                    placeholder="Enter icon name">
+                            </div>
+                            <div class="form-group col-sm-4">
+                                <label for="postal-code">Display</label>
+                                <i class=" fa fa-lg mt-2 ml-2 d-block {{amentitiesForm.get('icon').value}}"></i>
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" (click)="amentitiesModal.hide()">Close</button>
+                        <button type="submit" class="btn btn-primary">Save changes</button>
+                    </div>
+                </form>
+
+            </div><!-- /.modal-content -->
+        </div><!-- /.modal-dialog -->
+    </div><!-- /.modal -->
+    <app-confirm-dialog (delete)="deleteAmentities($event)"></app-confirm-dialog>
+</div>

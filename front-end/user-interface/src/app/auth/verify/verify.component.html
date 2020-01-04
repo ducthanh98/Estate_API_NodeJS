@@ -1,0 +1,16 @@
+<div *ngIf="isActive === true"
+    class="d-flex align-items-center flex-column position-absolute w-100 h-100 justify-content-center">
+    <div class="d-block">
+        <i class="fa fa-check-circle fa-lg mt-4 text-success"></i>
+    </div>
+    <br>
+    <div class="d-block message">Active Successfully</div>
+</div>
+<div *ngIf="isActive === false"
+    class="d-flex align-items-center flex-column position-absolute w-100 h-100 justify-content-center">
+    <div class="d-block">
+        <i class="fa fa-times-circle fa-lg mt-4 text-danger"></i>
+    </div>
+    <br>
+    <div class="d-block message">Active Failed.Please try again</div>
+</div>

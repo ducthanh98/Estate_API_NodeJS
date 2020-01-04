@@ -1,0 +1,76 @@
+<header>
+    <!-- not include-->
+</header>
+<!-- WRAPPER-->
+<div id="wrapper-content">
+    <!-- PAGE WRAPPER-->
+    <div id="page-wrapper">
+        <!-- MAIN CONTENT-->
+        <div class="main-content">
+            <!-- CONTENT-->
+            <div class="content">
+                <div class="page-register signup-register">
+                    <div class="container">
+                        <div class="register-wrapper signup-register-wrapper">
+                            <div class="register-table signup-register-table"><a href="index.html"
+                                    class="logo-signup"><img src="assets/images/logo-3.png" alt="" class="logo" /></a>
+
+                                <div class="title">create your account and join with us!</div>
+                                <form class="form-register" [formGroup]="registerForm" (ngSubmit)="onSubmit()">
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <div class="col-md-6">
+                                                <label>Name<span class="hight-light">*</span></label>
+                                                <input formControlName="name" class="form-control" />
+                                                <label
+                                                    *ngIf="registerForm.get('name')?.invalid && registerForm.get('name').touched"><span
+                                                        class="hight-light">Username must not be blank</span></label>
+
+                                            </div>
+                                            <div class="col-md-6"><label>Email<span
+                                                        class="hight-light">*</span></label><input input
+                                                    formControlName="email" class="form-control" />
+                                                <label
+                                                    *ngIf="registerForm.get('email')?.invalid && registerForm.get('email').touched"><span
+                                                        class="hight-light">Invalid email</span></label>
+
+                                            </div>
+                                        </div>
+                                        <div class="col-md-12">
+                                            <div class="col-md-6"><label>Password<span
+                                                        class="hight-light">*</span></label><input input
+                                                    formControlName="password" class="form-control" />
+                                                <label
+                                                    *ngIf="registerForm.get('password')?.invalid && registerForm.get('password').touched"><span
+                                                        class="hight-light">Password must be between 8 and 16
+                                                        characters</span></label>
+
+                                            </div>
+                                            <div class="col-md-6"><label>Confirm Password<span
+                                                        class="hight-light">*</span></label><input input
+                                                    formControlName="re_pass" class="form-control" />
+                                                <label
+                                                    *ngIf="this.registerForm.errors?.passwordnotmatch && registerForm.get('re_pass').touched"><span
+                                                        class="hight-light">Confirm password does not
+                                                        match</span></label>
+
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <button type="submit" class="btn btn-blue" [disabled]="registerForm.invalid">create
+                                        account</button>
+
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- BUTTON BACK TO TOP-->
+    <div id="back-top"><a href="#top"><i class="fa fa-angle-double-up"></i></a></div>
+</div>
+<!-- FOOTER-->
+<footer></footer>

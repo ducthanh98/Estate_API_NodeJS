@@ -1,0 +1,209 @@
+<div id="wrapper-content"><!-- PAGE WRAPPER-->
+    <div id="page-wrapper"><!-- MAIN CONTENT-->
+        <div class="main-content"><!-- CONTENT-->
+            <div class="content">
+                <div class="section">
+                    <div class="banner-01 banner-full-screen-2"></div>
+                </div>
+                <div class="section">
+                    <div class="about-house-section padding-top padding-bottom">
+                        <div class="container">
+                            <div class="about-house-wrapper">
+                                <div class="about-house-banner">
+                                    <div class="about-house-banner-wrapper"><a href="#" class="title" >Welcome to the hostel rental service</a>
+                                        <a [routerLink]="['/auth/login']" class="btn btn-transparent white" *ngIf="!isLogin">Sign In</a></div>
+                                </div>
+                               
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="section">
+                    <div class="find-best-house bg-overlay padding-bottom padding-top">
+                        <div class="container">
+                            <div class="find-best-house-wrapper"><p class="sub-title">We provide sevice</p>
+  
+                                <h2 class="title">Find Your Best House For Life</h2>
+  
+                                <p class="content">Perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore.</p><a href="search-properties.html" class="btn btn-blue">view more</a></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="section">
+                    <div class="newest-properties padding-top padding-bottom">
+                        <div class="container">
+                            <div class="newest-properties-wrapper">
+                                <div class="sunhouse-title">
+                                    <div class="icon-image"><img src="assets/images/logo-title-1.png" alt="" class="img-responsive"/><!--.icon-title--><!--    i.icon-church--></div>
+                                    <h2 class="main-title">Newest Properties</h2>
+  
+                                    <p class="sub-title">Haven't you heard about the recession: Topten reasons why you should properties</p></div>
+                                <div class="row">
+                                    <div class="newest-properties-content">
+                                        <div class="col-md-4 col-xs-6" *ngFor="let hostelData of lstHostel">
+                                            <div class="sunhouse-item"><a href="property-detail.html" class="wrapper-image"><img src="assets/images/houses/house-1.jpg" alt="" class="img-responsive layout-1"/><img src="assets/images/houses/house-9.jpg" alt="" class="img-responsive layout-2"/></a>
+  
+                                                <div class="note for-sale"><p class="text">for rent</p></div>
+                                                <div class="wrapper-content">
+                                                    <div class="info-house">
+                                                        <div class="info"><i class="icon-house_1"></i>
+  
+                                                            <p>{{hostelData.area}} Sq Ft</p></div>
+                                                        <div class="info"><i class="icon-bed"></i>
+  
+                                                            <p>{{hostelData.bedrooms}} bedroom</p></div>
+                                                        <div class="info"><i class="icon-bath"></i>
+  
+                                                            <p>{{hostelData.bathrooms}} bathroom</p></div>
+                                                    </div>
+                                                    <div class="about-house"><a href="search-properties.html" class="title">{{hostelData.title}}</a>
+  
+                                                    <div class="more-info-house">
+                                                        <div class="place-house"><i class="fa fa-map-marker"></i><a href="#">{{hostelData.location}}</a></div>
+                                                        <div class="price">{{hostelData.price | currency:'USD'}}</div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="section">
+                    <div class="our-service padding-top padding-bottom">
+                        <div class="container">
+                            <div class="our-service-wrapper">
+                                <div class="sunhouse-title">
+                                    <div class="icon-image"><img src="assets/images/logo-title-1.png" alt="" class="img-responsive"/><!--.icon-title--><!--   i.icon-mail_box--></div>
+                                    <h2 class="main-title">our service</h2>
+  
+                                    <p class="sub-title">Psum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt</p></div>
+                                <div class="row">
+                                    <div class="our-service-content">
+                                        <div class="col-md-3">
+                                            <div data-wow-delay="0.2s" data-wow-duration="1s" class="our-service-items wow fadeInUp">
+                                                <div class="icon-wrapper"><i class="icon-our-service icon-house_sell"></i></div>
+                                                <p class="name">Sale Service</p>
+  
+                                                <p class="text">Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit</p><a href="service.html" class="btn-readmore">read more</a></div>
+                                        </div>
+                                        <div class="col-md-3">
+                                            <div data-wow-delay="0.45s" data-wow-duration="1s" class="our-service-items wow fadeInUp">
+                                                <div class="icon-wrapper"><i class="icon-our-service icon-rent"></i></div>
+                                                <p class="name">Renting Service</p>
+  
+                                                <p class="text">Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit</p><a href="service.html" class="btn-readmore">read more</a></div>
+                                        </div>
+                                        <div class="col-md-3">
+                                            <div data-wow-delay="0.7s" data-wow-duration="1s" class="our-service-items wow fadeInUp">
+                                                <div class="icon-wrapper"><i class="icon-our-service icon-house_2"></i></div>
+                                                <p class="name">Property Management</p>
+  
+                                                <p class="text">Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit</p><a href="service.html" class="btn-readmore">read more</a></div>
+                                        </div>
+                                        <div class="col-md-3">
+                                            <div data-wow-delay="0.95s" data-wow-duration="1s" class="our-service-items wow fadeInUp">
+                                                <div class="icon-wrapper"><i class="icon-our-service icon-brush"></i></div>
+                                                <p class="name">Free Market Analysis</p>
+  
+                                                <p class="text">Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit</p><a href="service.html" class="btn-readmore">read more</a></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="section">
+                    <div class="our-agents padding-bottom padding-top">
+                        <div class="container">
+                            <div class="our-agents-wrapper">
+                                <div class="sunhouse-title">
+                                    <div class="icon-image"><img src="assets/images/logo-title-1.png" alt="" class="img-responsive"/><!--.icon-title--><!--   i.icon-house_window--></div>
+                                    <h2 class="main-title">Our Agents</h2>
+  
+                                    <p class="sub-title">One day however a small line of blind text by the name of Lorem Ipsum decided to</p></div>
+                                <div class="our-agents-content">
+                                    <div class="our-agent-item">
+                                        <div class="item-wrapper">
+                                            <div class="our-agent-avatar"><img src="assets/images/avatars/avatar-3.png" alt="" class="img-responsive"/></div>
+                                            <div class="our-agent-socials"><a href="#" class="link facebook"><i class="fa fa-facebook"></i></a><a href="#" class="link twitter"><i class="fa fa-twitter"></i></a><a href="#" class="link google"><i class="fa fa-google-plus"></i></a><a href="#" class="link instagram"><i class="fa fa-instagram"></i></a></div>
+                                        </div>
+                                        <div class="our-agent-info"><a href="agent-single.html" class="name">John Anderson</a>
+  
+                                            <p class="job">Director</p></div>
+                                    </div>
+                                    <div class="our-agent-item">
+                                        <div class="item-wrapper">
+                                            <div class="our-agent-avatar"><img src="assets/images/avatars/avatar-4.png" alt="" class="img-responsive"/></div>
+                                            <div class="our-agent-socials"><a href="#" class="link facebook"><i class="fa fa-facebook"></i></a><a href="#" class="link twitter"><i class="fa fa-twitter"></i></a><a href="#" class="link google"><i class="fa fa-google-plus"></i></a><a href="#" class="link instagram"><i class="fa fa-instagram"></i></a></div>
+                                        </div>
+                                        <div class="our-agent-info"><a href="agent-single.html" class="name">Robert Lee</a>
+  
+                                            <p class="job">Expert Agent</p></div>
+                                    </div>
+                                    <div class="our-agent-item">
+                                        <div class="item-wrapper">
+                                            <div class="our-agent-avatar"><img src="assets/images/avatars/avatar-5.png" alt="" class="img-responsive"/></div>
+                                            <div class="our-agent-socials"><a href="#" class="link facebook"><i class="fa fa-facebook"></i></a><a href="#" class="link twitter"><i class="fa fa-twitter"></i></a><a href="#" class="link google"><i class="fa fa-google-plus"></i></a><a href="#" class="link instagram"><i class="fa fa-instagram"></i></a></div>
+                                        </div>
+                                        <div class="our-agent-info"><a href="agent-single.html" class="name">Adam Smith</a>
+  
+                                            <p class="job">Expert Agent</p></div>
+                                    </div>
+                                    <div class="our-agent-item">
+                                        <div class="item-wrapper">
+                                            <div class="our-agent-avatar"><img src="assets/images/avatars/avatar-6.png" alt="" class="img-responsive"/></div>
+                                            <div class="our-agent-socials"><a href="#" class="link facebook"><i class="fa fa-facebook"></i></a><a href="#" class="link twitter"><i class="fa fa-twitter"></i></a><a href="#" class="link google"><i class="fa fa-google-plus"></i></a><a href="#" class="link instagram"><i class="fa fa-instagram"></i></a></div>
+                                        </div>
+                                        <div class="our-agent-info"><a href="agent-single.html" class="name">Leonard Gonzalez</a>
+  
+                                            <p class="job">Expert Agent</p></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="section">
+                    <div class="our-clients-said padding-top padding-bottom">
+                        <div class="container">
+                            <div class="our-clients-said-wrapper">
+                                <div class="sunhouse-title">
+                                    <div class="icon-image"><img src="assets/images/logo-title-1.png" alt="" class="img-responsive"/><!--.icon-title--><!--   i.icon-warehouse--></div>
+                                    <h2 class="main-title">our clients said</h2>
+  
+                                    <p class="sub-title">One day however a small line of blind text by the name of Lorem Ipsum decided</p></div>
+                                <div class="our-clients-said-content">
+                                    <div class="items"><p class="saying">It is a long established fact that a reader will be distracted by the readable con tent of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters.</p>
+  
+                                        <div class="info-client">
+                                            <div class="avatar"><img src="assets/images/avatars/avatar-1.jpg" alt="" class="img-responsive"/></div>
+                                            <div class="more-info"><p class="name">Howard K. Stern</p>
+  
+                                                <p class="job"> Director</p></div>
+                                        </div>
+                                    </div>
+                                    <div class="items"><p class="saying">Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old. The point of using Lorem Ipsum is that distribution of letters.</p>
+  
+                                        <div class="info-client">
+                                            <div class="avatar"><img src="assets/images/avatars/avatar-2.jpg" alt="" class="img-responsive"/></div>
+                                            <div class="more-info"><p class="name">Thomas More</p>
+  
+                                                <p class="job"> Manager</p></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- BUTTON BACK TO TOP-->
+    <div id="back-top"><a href="#top"><i class="fa fa-angle-double-up"></i></a></div>
+  </div>

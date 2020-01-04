@@ -1,0 +1,37 @@
+<div class="animated fadeIn">
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>No</th>
+                <th>Content</th>
+                <th>Report Type</th>
+                <th>Date</th>
+                <th>Status</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let report of reportData;let i = index"
+                [class]="report.status === 1 ? 'text-danger': report.status === 0 ? 'text-primary' : 'text-dark' ">
+                <td>{{(pageNumber -1) * pageSize + i + 1}}</td>
+                <td> <a  [class]="report.status === 1 ? 'text-danger': report.status === 0 ? 'text-primary' : 'text-dark' " [href]="'http://localhost:4200/pages/rent-hostel/hostel-detail/' + report.post.id">  {{report.post.title}} </a></td> 
+                <td>{{report.reportType.reportContent}}</td>
+                <td>{{report.created | date: 'dd/MM/yyyy'}}</td>
+                <td *ngIf="report.status === 0">Waiting</td>
+                <td *ngIf="report.status === 1">Accurate report</td>
+                <td *ngIf="report.status === 2">Report incorrect</td>
+
+                <td>
+                    <i title="Confirm this report is correct" class=" fa fa-lg mt-2 fa-check icon-action"
+                        (click)="confirmReport(report,1)"></i> /
+                    <i title="Confirm this report is incorrect" class="icon-action fa fa-lg mt-2 ml-2 fa-times"
+                        (click)="confirmReport(report,2)"></i> /
+                    <i title="Waiting for investigation" class="icon-action fa fa-lg mt-2 ml-2 fa-refresh"
+                        (click)="confirmReport(report,0)"></i>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <app-pagination [totalPages]="totalPages" (selectPage)="getData($event)"></app-pagination>
+
+</div>
