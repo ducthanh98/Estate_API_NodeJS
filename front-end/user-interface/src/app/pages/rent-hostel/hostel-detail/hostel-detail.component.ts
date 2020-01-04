@@ -47,7 +47,7 @@ export class HostelDetailComponent implements OnInit, AfterViewInit {
   ngAfterViewInit(): void {
     setTimeout(() => {
       this.commonService.generateScript();
-    }, 200);
+    }, 800);
   }
   getHostelDetail() {
     this.commonService.doGet<IResponse<any>>(`rent-hostel/getById/${this.id}`)

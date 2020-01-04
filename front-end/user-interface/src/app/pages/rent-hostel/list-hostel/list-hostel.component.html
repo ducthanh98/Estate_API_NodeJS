@@ -22,66 +22,49 @@
                             <div class="title-search-property">Search For Properties</div>
                             <div class="search-properties-content">
                                 <form class="search-form row">
-                                    <div class="col-md-3 col-sm-4 col-xs-6">
+                                    <div class="col-md-4 col-sm-4 col-xs-6">
                                         <div class="search-form-group"><label
-                                                class="title-search-form">keyword</label><input type="text"
+                                                class="title-search-form">keyword</label><input type="text" id="title"
                                                 placeholder="enter your keyword" class="input-form" /></div>
                                     </div>
-                                    <div class="col-md-3 col-sm-4 col-xs-6">
-                                        <div class="search-form-group"><label class="title-search-form">property
-                                                type</label><select class="input-form selectbox">
-                                                <option value="all type">all type</option>
-                                                <option value="type one">type one</option>
-                                                <option value="type two">type one</option>
-                                            </select></div>
-                                    </div>
-                                    <div class="col-md-3 col-sm-4 col-xs-6">
-                                        <div class="search-form-group"><label
-                                                class="title-search-form">status</label><select
-                                                class="input-form selectbox">
-                                                <option value="all status">all status</option>
-                                                <option value="status one">status one</option>
-                                                <option value="status two">status two</option>
-                                            </select></div>
-                                    </div>
-                                    <div class="col-md-3 col-sm-4 col-xs-6">
+                                    <div class="col-md-4 col-sm-4 col-xs-6">
                                         <div class="search-form-group"><label
                                                 class="title-search-form">location</label><input type="text"
-                                                placeholder="enter location" class="input-form" /></div>
+                                                id="location" placeholder="enter location" class="input-form" /></div>
                                     </div>
-                                    <div class="col-md-3 col-sm-4 col-xs-6">
+                                    <div class="col-md-4 col-sm-4 col-xs-6">
                                         <div class="search-form-group"><label
                                                 class="title-search-form">bedroom</label><select
-                                                class="input-form selectbox">
+                                                class="input-form selectbox" id="bedroom">
                                                 <option value="1">1</option>
                                                 <option value="2">2</option>
                                                 <option value="3">3</option>
                                             </select></div>
                                     </div>
-                                    <div class="col-md-3 col-sm-4 col-xs-6">
+                                    <div class="col-md-4 col-sm-4 col-xs-6">
                                         <div class="search-form-group"><label
                                                 class="title-search-form">bathroom</label><select
-                                                class="input-form selectbox">
+                                                class="input-form selectbox" id="bathroom">
                                                 <option value="1">1</option>
                                                 <option value="2">2</option>
                                                 <option value="3">3</option>
                                             </select></div>
                                     </div>
-                                    <div class="col-md-3 col-sm-4 col-xs-6">
+                                    <div class="col-md-4 col-sm-4 col-xs-6">
                                         <div class="search-form-group"><label class="title-search-form">area
                                                 (sq)</label>
 
                                             <div data-range_min="10" data-range_max="900" data-cur_min="10"
                                                 data-cur_max="900" class="nstSlider">
                                                 <div class="bar"></div>
-                                                <div class="leftGrip"></div>
-                                                <div class="rightGrip"></div>
+                                                <div class="leftGrip" ></div>
+                                                <div class="rightGrip" ></div>
                                             </div>
-                                            <div class="leftLabel"></div>
-                                            <div class="rightLabel"></div>
+                                            <div class="leftLabel" id="minArea"></div>
+                                            <div class="rightLabel" id="maxArea"></div>
                                         </div>
                                     </div>
-                                    <div class="col-md-3 col-sm-4 col-xs-6">
+                                    <div class="col-md-4 col-sm-4 col-xs-6">
                                         <div class="search-form-group"><label class="title-search-form">price (.000
                                                 $)</label>
 
@@ -91,13 +74,14 @@
                                                 <div class="leftGrip"></div>
                                                 <div class="rightGrip"></div>
                                             </div>
-                                            <div class="leftLabel"></div>
-                                            <div class="rightLabel"></div>
+                                            <div class="leftLabel" id="minPrice"></div>
+                                            <div class="rightLabel" id="maxPrice"></div>
                                         </div>
                                     </div>
                                     <div class="group-button-search">
-                                        <div class="btn-search mt-3"><a href="search-properties.html"
-                                                class="btn btn-transparent blue">search properties</a></div>
+                                        <div class="btn-search mt-3" (click)="searchAdvanced()"><span
+                                                class="btn btn-transparent blue">search
+                                                properties</span></div>
                                     </div>
                                 </form>
 
@@ -166,7 +150,7 @@
                 <div class="section property-view">
 
                     <div class="container">
-                        <a routerLink="/pages/rent-hostel/form-hostel" class="btn btn-primary float-right"> <i
+                        <a *ngIf="userInfo && userInfo.role < 3" routerLink="/pages/rent-hostel/form-hostel" class="btn btn-primary float-right"> <i
                                 class="fa fa-plus"></i> &nbsp;&nbsp;&nbsp; Add
                             Post </a>
 

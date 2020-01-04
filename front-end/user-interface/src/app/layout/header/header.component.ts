@@ -25,11 +25,12 @@ export class HeaderComponent implements OnInit {
     private toastrService: ToastrService,
     private router: Router,
     private authService: AuthService) {
-    this.isLogged = this.authService.loggedInToken();
   }
 
   ngOnInit() {
     this.initForm();
+    this.isLogged = this.authService.loggedInToken();
+    console.log(this.isLogged)
     this.isHome = this.router.url.includes('home');
     this.router.events.subscribe(
       (event) => {
