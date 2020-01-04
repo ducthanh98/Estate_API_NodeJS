@@ -48,3 +48,6 @@ agm-map {
 .list-unstyled .media{
     margin-bottom: 25px;
 }
+.report-modal-content{
+    width:400px;
+}

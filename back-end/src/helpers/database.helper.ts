@@ -16,7 +16,7 @@ export class DatabaseHelper<Entity, DTO> implements IDatabase<Entity, DTO> {
         return this.repository;
     }
 
-    findAll(relations = [], takeNumber= null, orderOption?): Observable<Entity[]> {
+    findAll(relations = [], takeNumber = null, orderOption?): Observable<Entity[]> {
         return from(this.repository.find({
             order: orderOption,
             relations,
@@ -24,13 +24,14 @@ export class DatabaseHelper<Entity, DTO> implements IDatabase<Entity, DTO> {
         }));
     }
 
-    findAllBy(pageNumber = 1, pageSize = 10, condition = {}, relations = []): Observable<Ilist<Entity>> {
+    findAllBy(pageNumber = 1, pageSize = 10, condition = {}, relations = [], orderOption = {}): Observable<Ilist<Entity>> {
         return from(this.repository.findAndCount(
             {
                 where: condition,
                 skip: (pageNumber - 1) * 10,
                 take: pageSize,
                 relations,
+                order: orderOption,
             },
         )).pipe(
             map(

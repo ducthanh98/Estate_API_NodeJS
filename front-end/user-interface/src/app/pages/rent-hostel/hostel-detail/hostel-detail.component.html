@@ -118,8 +118,8 @@
                                                 src="assets/images/avatars/avatar-7.jpg" alt="" class="agent-image" />
                                         </div>
                                         <div class="media-body media-middle">
-                                            <div class="media-heading agent-name">{{hostelData.author?.name}}</div>
-                                            <span class="agent-pos">expert agent</span>
+                                            <div class="media-heading agent-name">&nbsp; {{hostelData.author?.name}}</div>
+                                            <span class="agent-pos"> &nbsp;&nbsp;&nbsp;Agent</span>
                                         </div>
                                     </div>
                                     <div class="agent-info">
@@ -140,8 +140,19 @@
                                             <!-- <a href="#" class="link"><i class="fa fa-twitter"></i></a> -->
                                         </div>
                                     </div>
+                                    <hr>
+                                    <div class="agent-info">
+                                        <div class="contact-info" style="padding-left: 10%;">
+                                            <div class="info">
+                                                <button class="btn"  data-toggle="modal" data-target="#report-modal" style="color: black;background: white;;"><i class="fa fa-exclamation-triangle text-danger"></i> Report violations</button>
+                                            </div>
+                                            <div class="info text-center">
+                                                If you have feedback with this post , please notify us.
+                                            </div>
+                                        </div>
                                     <div class="clearfix"></div>
                                 </div>
+                                
                             </div>
                         </div>
                     </div>
@@ -165,7 +176,8 @@
                                     <ckeditor [editor]="Editor" [(ngModel)]="comment"></ckeditor>
                                     <br>
                                     <div class="d-flex justify-content-end">
-                                        <button class="btn btn-success" (click)="submitComment()"> <i class="fa fa-paper-plane"></i> &nbsp; Send</button>
+                                        <p style="font-size: 24px;" *ngIf="!isLogged">Please <span style="text-decoration: underline;color:blue;cursor: pointer;" [routerLink]="['/auth/login']">Login</span> to comment</p>
+                                        <button *ngIf="isLogged" class="btn btn-success" (click)="submitComment()"> <i class="fa fa-paper-plane"></i> &nbsp; Send</button>
                                     </div>
                                     <br>
                                 </div>
@@ -206,3 +218,21 @@
         <div id="back-top"><a href="#top"><i class="fa fa-angle-double-up"></i></a></div>
     </div>
     <!-- FOOTER-->
+    <div id="report-modal" tabindex="-1" role="dialog" class="contact-fast modal fade">
+        <div class="modal-dialog">
+            <div class="new-letter-content modal-content">
+                <div class="new-letter-left"><img src="https://cdn3.iconfinder.com/data/icons/basicolor-signs-warnings/24/182_warning_notice_error-512.png" alt=""
+                        class="img-responsive" />
+    
+                </div>
+                <div class="new-letter-right">
+                    <button type="button" data-dismiss="modal" aria-label="Close" class="close"><span
+                            aria-hidden="true">&times;</span></button>
+                        
+                    <ul class="list-group" style="cursor: pointer;">
+                        <li class="list-group-item" data-dismiss="modal" *ngFor="let report of lstReportType" (click)="reportPost(report.id)">{{report.reportContent}}</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>

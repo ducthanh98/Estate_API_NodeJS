@@ -3,6 +3,7 @@ import { UserEntity } from './user.entity';
 import { CommentEntity } from './comment.entity';
 import { GalleryEntity } from './gallery.entity';
 import { AmentitiesEntity } from './amentities.entity';
+import { ReportEntity } from './report.entity';
 
 @Entity('house')
 export class HouseEntity {
@@ -27,6 +28,9 @@ export class HouseEntity {
     @Column('tinyint')
     bathrooms: number;
 
+    @Column('boolean', { default: false })
+    status: boolean;
+
     @Column('int')
     area: number;
 
@@ -46,6 +50,9 @@ export class HouseEntity {
 
     @OneToMany(type => GalleryEntity, gallery => gallery.post)
     images: GalleryEntity[];
+
+    @OneToMany(type => ReportEntity, report => report.post)
+    reports: ReportEntity[];
 
     @ManyToMany(type => AmentitiesEntity, amentities => amentities.house)
     @JoinTable()

@@ -13,7 +13,6 @@ import { AuthGuard } from './../../../shared/guards/auth.guard';
 import { Ilist } from './../../../shared/interface/IList.interface';
 
 @Controller('admin/amentities')
-@UseGuards(new AuthGuard())
 export class AmentitiesController {
     constructor(private amentitiesService: AmentitiesService) { }
     @Get('/getAll')
@@ -59,6 +58,7 @@ export class AmentitiesController {
     }
 
     @Post('create')
+    @UseGuards(new AuthGuard())
     @UsePipes(new ValidationPipe())
     create(@Res() res: Response, @Body() data: AmentitiesDTO) {
         return this.amentitiesService.create(data)
@@ -81,6 +81,7 @@ export class AmentitiesController {
     }
 
     @Post('update/:id')
+    @UseGuards(new AuthGuard())
     @UsePipes(new ValidationPipe())
     update(@Res() res: Response, @Body() data: AmentitiesDTO, @Param('id') id: number) {
         return this.amentitiesService.update(id, data)
@@ -102,6 +103,7 @@ export class AmentitiesController {
     }
 
     @Get('delete/:id')
+    @UseGuards(new AuthGuard())
     delete(@Res() res: Response, @Param('id') id: number) {
         return this.amentitiesService.delete(id)
             .subscribe(

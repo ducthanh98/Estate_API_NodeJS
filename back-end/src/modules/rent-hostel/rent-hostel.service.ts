@@ -2,7 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { DatabaseHelper } from '../../helpers/database.helper';
 import { HouseEntity } from '../../database/entities/house.entity';
 import { RentHostelDTO } from './dto/rent-hostel.dto';
-import { Like } from 'typeorm';
+import { Like, Equal } from 'typeorm';
 import { UserEntity } from '../../database/entities/user.entity';
 import { UserDTO } from '../auth/dto/user.dto';
 import { switchMap, mergeMap, mergeAll } from 'rxjs/operators';
@@ -28,15 +28,13 @@ export class RentHostelService {
     }
 
     getAllBy(pageNumber = 1, pageSize = 10, keyText = '') {
-        const condition = [
-            { title: Like(`%${keyText}%`) },
-        ];
+        const condition = [{ title: Like(`%${keyText}%`), status: Equal(0) }];
         const relations = ['images', 'author', 'amentities'];
         return this.databaseHelper.findAllBy(pageNumber, pageSize, condition, relations);
     }
     getNewest() {
         const relations = ['images', 'author'];
-        return this.databaseHelper.findAll(relations, 6, { created: 'DESC'});
+        return this.databaseHelper.findAll(relations, 6, { created: 'DESC' });
     }
 
     getById(id: number) {
