@@ -11,7 +11,7 @@
                             <div class="about-house-wrapper">
                                 <div class="about-house-banner">
                                     <div class="about-house-banner-wrapper"><a href="#" class="title" >Welcome to the hostel rental service</a>
-                                        <a href="#" class="btn btn-transparent white" *ngIf="!isLogin">Sign In</a></div>
+                                        <a [routerLink]="['/auth/login']" class="btn btn-transparent white" *ngIf="!isLogin">Sign In</a></div>
                                 </div>
                                
                             </div>

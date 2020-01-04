@@ -33,18 +33,24 @@ export class NodeMailer {
         });
     }
 
-    sendMail(to, subject, content): Observable<any> {
+    sendMail(to, content, subject = MailTemplate.SUBJECT): Observable<any> {
         const options: SendMailOptions = {
             from: process.env.MAIL_USER,
             to,
             subject,
-            html: this.createTemplate(content),
+            html: content,
         };
         return from(this.transporter.sendMail(options));
     }
 
     createTemplate(content): string {
         return `${MailTemplate.EMAIL_CONFIRM_MSG_HEADER}<br/>
+            <h3><a href=${content} target="blank">${content}<a/></h3>
+            ${MailTemplate.EMAIL_CONFIRM_MSG_FOOTER}
+        `;
+    }
+    createTemplateSubcribeMail(content): string {
+        return `${MailTemplate.EMAIL_SUBCRIBE_MSG_HEADER}<br/>
             <h3><a href=${content} target="blank">${content}<a/></h3>
             ${MailTemplate.EMAIL_CONFIRM_MSG_FOOTER}
         `;

@@ -1,4 +1,4 @@
-import { Controller, Post, UseInterceptors, UploadedFiles, Body, Res, Get, UsePipes, Param } from '@nestjs/common';
+import { Controller, Post, UseInterceptors, UploadedFiles, Body, Res, Get, UsePipes, Param, Req } from '@nestjs/common';
 import { FilesInterceptor } from '@nestjs/platform-express';
 import { RentHostelDTO } from './dto/rent-hostel.dto';
 import { Response } from 'express';
@@ -12,6 +12,8 @@ import { BodyDTO } from '../../shared/class/body.dto';
 import { Ilist } from '../..//shared/interface/IList.interface';
 import { PostRO } from './ro/post.ro';
 import { SearchProperties } from './dto/searchProperties.dto';
+import { catchError } from 'rxjs/operators';
+import { of } from 'rxjs';
 
 @Controller('rent-hostel')
 export class RentHostelController {
@@ -62,21 +64,21 @@ export class RentHostelController {
     searchAdvanced(@Res() res: Response, @Body() data: SearchProperties) {
         return this.rentHostelService.searchAdvanced(data)
             .subscribe(
-                    (hostel: Ilist<HouseEntity>) => {
-                        const response: IReponse<Ilist<HouseEntity>> = {
-                            statusCode: Code.SUCCESS,
-                            message: NotificationContant.SUCCESS,
-                            data: hostel,
-                        };
-                        res.json(response);
-                    }, (err) => {
-                        const response: IReponse<any> = {
-                            statusCode: Code.ERROR,
-                            message: err.message,
-                        };
-                        res.json(response);
-                    },
-                );
+                (hostel: Ilist<HouseEntity>) => {
+                    const response: IReponse<Ilist<HouseEntity>> = {
+                        statusCode: Code.SUCCESS,
+                        message: NotificationContant.SUCCESS,
+                        data: hostel,
+                    };
+                    res.json(response);
+                }, (err) => {
+                    const response: IReponse<any> = {
+                        statusCode: Code.ERROR,
+                        message: err.message,
+                    };
+                    res.json(response);
+                },
+            );
     }
 
     @Get('getById/:id')
@@ -104,10 +106,13 @@ export class RentHostelController {
 
     @Post('create')
     @UseInterceptors(FilesInterceptor('files'))
-    uploadFile(@UploadedFiles() files, @Body() data: RentHostelDTO, @Res() res: Response) {
+    uploadFile(@UploadedFiles() files, @Body() data: RentHostelDTO, @Res() res: Response, @Req() req) {
         return this.rentHostelService.createGallery(files, data)
             .subscribe(
                 (value) => {
+                    const url = `${req.protocol}://localhost:4200/pages/rent-hostel/hostel-detail/${value[1].id}`;
+                    this.rentHostelService.notifyNewPost(url).pipe(catchError((e => of(e))))
+                        .subscribe((msg => console.log(msg)));
                     const response: IReponse<HouseEntity> = {
                         statusCode: Code.SUCCESS,
                         message: NotificationContant.SUCCESS,

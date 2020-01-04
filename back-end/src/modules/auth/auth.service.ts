@@ -156,12 +156,12 @@ export class AuthService implements OnModuleInit {
                     return throwError(new Error(NotificationContant.EMAIL_NOT_EXIST));
                 }
             }),
-            mergeAll()
+            mergeAll(),
         );
     }
 
     getAllBy(pageNumber = 1, pageSize = 10) {
-        return this.databaseHelper.findAllBy(pageNumber, pageSize,{role : MoreThanOrEqual(1)});
+        return this.databaseHelper.findAllBy(pageNumber, pageSize, {role : MoreThanOrEqual(1)});
     }
 
 }

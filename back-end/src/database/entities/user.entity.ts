@@ -46,6 +46,9 @@ export class UserEntity {
     @Column('tinyint', { default: 0 })
     active: number; // 0 not active 1 active 2 block
 
+    @Column('boolean', { default: false })
+    subcribe: boolean;
+
     @Column('varchar', { length: 50, nullable: true })
     code: string;
 
